@@ -4,9 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Seasons of My Street</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Iosevka:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Delius&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div id="background-falling" class="background-falling" aria-hidden="true"></div>
+
   <header class="site-header">
     <h1>Seasons of My Street</h1>
     <p class="subtitle">An interactive neighborhood memory through seasons, pixels, and sound.</p>
@@ -20,15 +29,35 @@
           A familiar street near my home feels soft, bright, and newly awake in spring.
         </p>
 
-        <div id="season-selector" class="season-buttons">
-          <button class="season-btn active" data-season="spring">Enter Spring</button>
-          <button class="season-btn" data-season="summer">Enter Summer</button>
-          <button class="season-btn" data-season="fall">Enter Fall</button>
-          <button class="season-btn" data-season="winter">Enter Winter</button>
+        <div class="season-buttons">
+          <button class="season-btn active" data-season="spring">Enter Spring🌸</button>
+          <button class="season-btn" data-season="summer">Enter Summer🍃</button>
+          <button class="season-btn" data-season="fall">Enter Fall🍂</button>
+          <button class="season-btn" data-season="winter">Enter Winter❄️</button>
         </div>
+
+        <div class="image-controls">
+          <button id="prev-image" class="arrow-btn" aria-label="Previous image">←</button>
+          <div id="image-counter" class="image-counter">1 / 1</div>
+          <button id="next-image" class="arrow-btn" aria-label="Next image">→</button>
+        </div>
+
+        <div class="audio-controls">
+          <span class="audio-icon">🎵</span>
+          <button id="toggle-audio" class="audio-toggle off" aria-label="Toggle sound">
+            <span class="toggle-knob"></span>
+          </button>
+        </div>
+
+        <audio id="season-audio" preload="auto"></audio>
+        <audio id="intro-audio" preload="auto" src="assets/audio/intro.mp3"></audio>
       </div>
 
-      <div id="falling-container" class="falling-container" aria-hidden="true"></div>
+      <div class="image-stage">
+        <div class="image-frame">
+          <img id="season-image" src="" alt="Season image" />
+        </div>
+      </div>
     </section>
 
     <section id="interactive-display" class="info-section">
@@ -51,7 +80,7 @@
         </div>
         <div class="process-card">
           <h4>Final Web Adaptation</h4>
-          <p>This website will combine image, motion, and audio into one place-based story.</p>
+          <p>This website combines image, motion, and sound into one place-based story.</p>
         </div>
       </div>
     </section>
