@@ -1,7 +1,75 @@
-<header></header>
-<section id="hero"></section>
-<section id="season-selector"></section>
-<section id="interactive-display"></section>
-<section id="process"></section>
-<section id="reflection"></section>
-<footer></footer>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seasons of My Street</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>Seasons of My Street</h1>
+    <p class="subtitle">An interactive neighborhood memory through seasons, pixels, and sound.</p>
+  </header>
+
+  <main>
+    <section id="hero" class="hero">
+      <div class="hero-overlay">
+        <h2 id="season-title">Spring</h2>
+        <p id="season-description">
+          A familiar street near my home feels soft, bright, and newly awake in spring.
+        </p>
+
+        <div id="season-selector" class="season-buttons">
+          <button class="season-btn active" data-season="spring">Enter Spring</button>
+          <button class="season-btn" data-season="summer">Enter Summer</button>
+          <button class="season-btn" data-season="fall">Enter Fall</button>
+          <button class="season-btn" data-season="winter">Enter Winter</button>
+        </div>
+      </div>
+
+      <div id="falling-container" class="falling-container" aria-hidden="true"></div>
+    </section>
+
+    <section id="interactive-display" class="info-section">
+      <h3>About This View</h3>
+      <p id="season-note">
+        This same street changes with the season, but it always remains part of my everyday life.
+      </p>
+    </section>
+
+    <section id="process" class="process-section">
+      <h3>Process</h3>
+      <div class="process-grid">
+        <div class="process-card">
+          <h4>Original Photo</h4>
+          <p>Add your real neighborhood photo here later.</p>
+        </div>
+        <div class="process-card">
+          <h4>AI Pixel Art Version</h4>
+          <p>Add your transformed pixel-art version here later.</p>
+        </div>
+        <div class="process-card">
+          <h4>Final Web Adaptation</h4>
+          <p>This website will combine image, motion, and audio into one place-based story.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="reflection" class="reflection-section">
+      <h3>Reflection</h3>
+      <p>
+        I chose a street near my home because ordinary places can hold deep personal meaning.
+        Through seasonal change, I want to show how one familiar location can carry different moods,
+        memories, and energy throughout the year.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Scholarship Project Draft</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
