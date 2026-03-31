@@ -161,25 +161,25 @@ footer {
 .hero.spring {
   background-image:
     linear-gradient(rgba(255, 230, 235, 0.25), rgba(255, 230, 235, 0.25)),
-    url("https://images.unsplash.com/photo-1522383225653-ed111181a951?auto=format&fit=crop&w=1400&q=80");
+    url("assets/images/spring-photo.jpeg");
 }
 
 .hero.summer {
   background-image:
     linear-gradient(rgba(215, 245, 220, 0.22), rgba(215, 245, 220, 0.22)),
-    url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=80");
+    url("assets/images/summer-photo.png");
 }
 
 .hero.fall {
   background-image:
     linear-gradient(rgba(245, 221, 190, 0.22), rgba(245, 221, 190, 0.22)),
-    url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80");
+    url("assets/images/fall-photo.jpeg");
 }
 
 .hero.winter {
   background-image:
     linear-gradient(rgba(225, 235, 245, 0.25), rgba(225, 235, 245, 0.25)),
-    url("https://images.unsplash.com/photo-1482192596544-9eb780fc7f66?auto=format&fit=crop&w=1400&q=80");
+    url("assets/images/winter-photo.jpeg");
 }
 
 @media (max-width: 900px) {
