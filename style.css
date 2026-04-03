@@ -231,6 +231,23 @@ footer {
   will-change: transform;
 }
 
+.summer-bubble {
+  opacity: 0.9;
+}
+
+.summer-bubble.from-right .falling-image {
+  transform: scaleX(-1);
+}
+
+.summer-bubble .falling-image {
+  filter:
+    brightness(1.12)
+    contrast(1.18)
+    saturate(1.08)
+    drop-shadow(0 0 10px rgba(255, 255, 255, 0.7))
+    drop-shadow(0 0 18px rgba(170, 230, 255, 0.42));
+}
+
 .audio-controls {
   display: flex;
   align-items: center;

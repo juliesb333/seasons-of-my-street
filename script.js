@@ -8,10 +8,12 @@ const seasonData = {
     bgColor: "#fde4de",
     audio: "assets/audio/spring.mp3",
     images: [
-      "assets/images/spring1.png",
-      "assets/images/spring2.png",
-      "assets/images/spring3.png",
-      "assets/images/spring4.png"
+      "assets/images/spring1.jpeg",
+      "assets/images/spring2.jpeg",
+      "assets/images/spring3.JPG",
+      "assets/images/spring4.jpeg",
+      "assets/images/spring5.jpeg",
+      "assets/images/spring6.jpeg"
     ]
 },
   summer: {
@@ -23,9 +25,10 @@ const seasonData = {
     bgColor: "#c7e3a4",
     audio: "assets/audio/summer.mp3",
     images: [
-      "assets/images/summer1.png",
-      "assets/images/summer2.png",
-      "assets/images/summer3.png"
+      "assets/images/summer1.jpeg",
+      "assets/images/summer2.jpeg",
+      "assets/images/summer3.jpeg",
+      "assets/images/summer4.jpeg"
     ]
 },
   fall: {
@@ -36,10 +39,13 @@ const seasonData = {
     bgColor: "#dd9239",
     audio: "assets/audio/fall.mp3",
     images: [
-      "assets/images/fall1.png",
-      "assets/images/fall2.png",
-      "assets/images/fall3.png",
-      "assets/images/fall4.png"
+      "assets/images/fall1.jpeg",
+      "assets/images/fall2.jpeg",
+      "assets/images/fall3.jpeg",
+      "assets/images/fall4.jpeg",
+      "assets/images/fall5.jpeg"
+
+
     ]
   },
   winter: {
@@ -50,9 +56,12 @@ const seasonData = {
     bgColor: "#79c0d7",
     audio: "assets/audio/winter.mp3",
     images: [
-      "assets/images/winter1.png",
-      "assets/images/winter2.png",
-      "assets/images/winter3.png"
+      "assets/images/winter1.jpeg",
+      "assets/images/winter2.jpeg",
+      "assets/images/winter3.jpeg",
+      "assets/images/winter4.jpeg",
+      "assets/images/winter5.jpeg"
+
     ]
   }
 };
@@ -76,19 +85,191 @@ let currentSeason = "spring";
 let currentImageIndex = 0;
 let isAudioPlaying = false;
 let introPlayed = false;
+let summerBubbleAnimationId = null;
+let summerBubbleState = [];
+
+function stopSummerBubbleAnimation() {
+  if (summerBubbleAnimationId !== null) {
+    cancelAnimationFrame(summerBubbleAnimationId);
+    summerBubbleAnimationId = null;
+  }
+
+  summerBubbleState = [];
+}
+
+function renderSummerBubble(bubble) {
+  const driftX = Math.cos(bubble.floatPhase) * bubble.floatAmplitude;
+  const driftY = Math.sin(bubble.floatPhase * 0.85) * bubble.floatAmplitude * 0.7;
+  bubble.element.style.transform = `translate3d(${bubble.x + driftX}px, ${bubble.y + driftY}px, 0)`;
+}
+
+function createSummerBubble() {
+  const item = document.createElement("div");
+  const size = 28 + Math.random() * 18;
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  const direction = Math.random() > 0.5 ? 1 : -1;
+  const speed = 0.18 + Math.random() * 0.2;
+  const driftAngle = (Math.random() - 0.5) * 0.7;
+  const startX = direction === 1
+    ? -size - Math.random() * 80
+    : width + Math.random() * 80;
+  const startY = 24 + Math.random() * Math.max(height - 120, 120);
+
+  item.classList.add("falling-item", "summer-bubble");
+  item.classList.add(direction === 1 ? "from-left" : "from-right");
+  item.style.left = "0";
+  item.style.top = "0";
+  item.style.opacity = `${0.62 + Math.random() * 0.22}`;
+
+  const img = document.createElement("img");
+  img.src = seasonData.summer.fallingImage;
+  img.alt = "";
+  img.classList.add("falling-image");
+  img.style.width = `${size}px`;
+  item.appendChild(img);
+
+  const bubble = {
+    element: item,
+    size,
+    x: startX,
+    y: startY,
+    vx: Math.cos(driftAngle) * speed * direction,
+    vy: Math.sin(driftAngle) * speed,
+    driftPhase: Math.random() * Math.PI * 2,
+    driftSpeed: 0.0015 + Math.random() * 0.002,
+    wander: 0.003 + Math.random() * 0.004,
+    baseOpacity: 0.62 + Math.random() * 0.22,
+    floatPhase: Math.random() * Math.PI * 2,
+    floatSpeed: 0.012 + Math.random() * 0.01,
+    floatAmplitude: 4 + Math.random() * 8
+  };
+
+  renderSummerBubble(bubble);
+  return bubble;
+}
+
+function updateSummerBubbles(timestamp) {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  summerBubbleState.forEach((bubble, index) => {
+    bubble.driftPhase += bubble.driftSpeed * 16;
+    bubble.floatPhase += bubble.floatSpeed;
+
+    bubble.vx += Math.cos(bubble.driftPhase + index) * bubble.wander * 0.012;
+    bubble.vy += Math.sin(bubble.driftPhase * 0.85 + index) * bubble.wander * 0.012;
+
+    bubble.vx *= 0.998;
+    bubble.vy *= 0.998;
+
+    const speed = Math.hypot(bubble.vx, bubble.vy);
+    const maxSpeed = 0.4;
+
+    if (speed > maxSpeed) {
+      bubble.vx = (bubble.vx / speed) * maxSpeed;
+      bubble.vy = (bubble.vy / speed) * maxSpeed;
+    }
+
+    bubble.x += bubble.vx * 16;
+    bubble.y += bubble.vy * 16;
+
+    const radius = bubble.size / 2;
+    const maxX = width - radius;
+    const minX = -radius;
+    const maxY = height - radius;
+    const minY = 8;
+
+    if (bubble.x < minX) {
+      bubble.x = minX;
+      bubble.vx = Math.abs(bubble.vx) * 0.92;
+    } else if (bubble.x > maxX) {
+      bubble.x = maxX;
+      bubble.vx = -Math.abs(bubble.vx) * 0.92;
+    }
+
+    if (bubble.y < minY) {
+      bubble.y = minY;
+      bubble.vy = Math.abs(bubble.vy) * 0.9;
+    } else if (bubble.y > maxY) {
+      bubble.y = maxY;
+      bubble.vy = -Math.abs(bubble.vy) * 0.9;
+    }
+  });
+
+  for (let i = 0; i < summerBubbleState.length; i++) {
+    for (let j = i + 1; j < summerBubbleState.length; j++) {
+      const a = summerBubbleState[i];
+      const b = summerBubbleState[j];
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      const distance = Math.hypot(dx, dy);
+      const minDistance = (a.size + b.size) / 2;
+
+      if (!distance || distance >= minDistance) {
+        continue;
+      }
+
+      const overlap = (minDistance - distance) / 2;
+      const nx = dx / distance;
+      const ny = dy / distance;
+
+      a.x -= nx * overlap;
+      a.y -= ny * overlap;
+      b.x += nx * overlap;
+      b.y += ny * overlap;
+
+      const push = 0.018;
+      a.vx -= nx * push;
+      a.vy -= ny * push;
+      b.vx += nx * push;
+      b.vy += ny * push;
+    }
+  }
+
+  summerBubbleState.forEach((bubble) => {
+    const shimmer = 0.5 + Math.sin(bubble.driftPhase) * 0.08;
+    bubble.element.style.opacity = `${Math.max(0.34, bubble.baseOpacity * shimmer)}`;
+    renderSummerBubble(bubble);
+  });
+
+  if (currentSeason === "summer") {
+    summerBubbleAnimationId = requestAnimationFrame(updateSummerBubbles);
+  }
+}
+
+function startSummerBubbleAnimation(count) {
+  stopSummerBubbleAnimation();
+
+  for (let i = 0; i < count; i++) {
+    const bubble = createSummerBubble();
+    summerBubbleState.push(bubble);
+    fallingContainer.appendChild(bubble.element);
+  }
+
+  summerBubbleAnimationId = requestAnimationFrame(updateSummerBubbles);
+}
 
 
 function createFallingItems(symbol) {
+  stopSummerBubbleAnimation();
   fallingContainer.innerHTML = "";
 
-  const count = currentSeason === "summer" ? 12 : 14;
+  const count = currentSeason === "summer" ? 40 : 14;
   const data = seasonData[currentSeason];
+
+  if (currentSeason === "summer") {
+    startSummerBubbleAnimation(count);
+    return;
+  }
 
   for (let i = 0; i < count; i++) {
     const item = document.createElement("div");
     item.classList.add("falling-item");
     item.style.left = `${Math.random() * 100}%`;
-    item.style.animationDuration = `${4 + Math.random() * 2}s`;
+    item.style.animationDuration = currentSeason === "spring"
+      ? `${6.2 + Math.random() * 2.4}s`
+      : `${4 + Math.random() * 2}s`;
     item.style.animationDelay = `${Math.random() * 1.5}s`;
 
     if (data.fallingImage) {
@@ -207,5 +388,10 @@ buttons.forEach((button) => {
 nextImageBtn.addEventListener("click", showNextImage);
 prevImageBtn.addEventListener("click", showPrevImage);
 
-setSeason("spring");
+window.addEventListener("resize", () => {
+  if (currentSeason === "summer") {
+    createFallingItems(seasonData.summer.effect);
+  }
+});
 
+setSeason("spring");
