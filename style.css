@@ -204,6 +204,13 @@ footer {
   z-index: 1;
 }
 
+.falling-image {
+  display: block;
+  width: 40px;
+  height: auto;
+  image-rendering: pixelated;
+}
+
 .background-falling {
   position: fixed;
   inset: 0;
@@ -273,17 +280,21 @@ footer {
 
 @keyframes fall {
   0% {
-    transform: translate3d(0, -10%, 0);
-    opacity: 0;
-  }
-
-  10% {
+    transform: translateY(-10vh) translateX(0) rotate(0deg);
     opacity: 0.9;
   }
-
+  25% {
+    transform: translateY(25vh) translateX(10px) rotate(90deg);
+  }
+  50% {
+    transform: translateY(50vh) translateX(-12px) rotate(180deg);
+  }
+  75% {
+    transform: translateY(75vh) translateX(8px) rotate(270deg);
+  }
   100% {
-    transform: translate3d(20px, 110vh, 0);
-    opacity: 0.9;
+    transform: translateY(110vh) translateX(-6px) rotate(360deg);
+    opacity: 0.95;
   }
 }
 

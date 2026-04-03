@@ -4,12 +4,14 @@ const seasonData = {
     description: "A familiar street near my home feels soft, bright, and newly awake in spring.",
     note: "Spring turns the street into a gentler place, full of light movement and quiet energy.",
     effect: "🌸",
+    fallingImage: "assets/images/blossom.png",
     bgColor: "#fde4de",
     audio: "assets/audio/spring.mp3",
     images: [
       "assets/images/spring1.png",
       "assets/images/spring2.png",
-      "assets/images/spring3.png"
+      "assets/images/spring3.png",
+      "assets/images/spring4.png"
     ]
 },
   summer: {
@@ -17,6 +19,7 @@ const seasonData = {
     description: "In summer, the street feels greener, warmer, and more alive with movement.",
     note: "Summer gives the neighborhood a full, active feeling, as if everything is breathing more loudly.",
     effect: "🍃",
+    fallingImage: "assets/images/bubble.png",
     bgColor: "#c7e3a4",
     audio: "assets/audio/summer.mp3",
     images: [
@@ -35,7 +38,8 @@ const seasonData = {
     images: [
       "assets/images/fall1.png",
       "assets/images/fall2.png",
-      "assets/images/fall3.png"
+      "assets/images/fall3.png",
+      "assets/images/fall4.png"
     ]
   },
   winter: {
@@ -78,15 +82,27 @@ function createFallingItems(symbol) {
   fallingContainer.innerHTML = "";
 
   const count = currentSeason === "summer" ? 12 : 14;
+  const data = seasonData[currentSeason];
 
   for (let i = 0; i < count; i++) {
     const item = document.createElement("div");
     item.classList.add("falling-item");
-    item.textContent = symbol;
     item.style.left = `${Math.random() * 100}%`;
     item.style.animationDuration = `${4 + Math.random() * 2}s`;
     item.style.animationDelay = `${Math.random() * 1.5}s`;
-    item.style.fontSize = `${22 + Math.random() * 8}px`;
+
+    if (data.fallingImage) {
+      const img = document.createElement("img");
+      img.src = data.fallingImage;
+      img.alt = "";
+      img.classList.add("falling-image");
+      img.style.width = `${28 + Math.random() * 18}px`;
+      item.appendChild(img);
+    } else {
+      item.textContent = symbol;
+      item.style.fontSize = `${22 + Math.random() * 8}px`;
+    }
+
     fallingContainer.appendChild(item);
   }
 }
