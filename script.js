@@ -1,92 +1,574 @@
 const seasonData = {
   spring: {
+    index: "01",
     title: "Spring",
-    description: "A familiar street near my home feels soft, bright, and newly awake in spring.",
-    note: "Spring turns the street into a gentler place, full of light movement and quiet energy.",
-    effect: "🌸",
+    kicker: "Tender light, first bloom",
+    mood: "In spring, familiar corners of Jamsil begin to feel softer before I even fully notice why.",
+    description: "Places near my home feel bright, open, and newly awake once blossom and clearer light return.",
+    note: "Spring brings a gentler rhythm to these memories, making ordinary places feel newly intimate.",
+    chapterText: "Blossom, pale light, and small walks with Sulgi make spring feel like the season of first noticing.",
+    chapterQuote: "Spring arrives here as softness: lighter air, longer pauses, and places that feel briefly tender.",
+    effect: "petals",
     fallingImage: "assets/images/blossom.png",
-    bgColor: "#fde4de",
     audio: "assets/audio/spring.mp3",
     images: [
-      "assets/images/spring1.jpeg",
-      "assets/images/spring2.jpeg",
-      "assets/images/spring3.JPG",
-      "assets/images/spring4.jpeg",
-      "assets/images/spring5.jpeg",
-      "assets/images/spring6.jpeg"
+      {
+        src: "assets/images/spring1.jpeg",
+        alt: "Cherry blossoms and benches on the street in spring",
+        caption: "Benches sit under blossom as if the whole street has started speaking more quietly.",
+        hotspots: [
+          { x: 32, y: 58, title: "Waiting bench", text: "This is the kind of place where spring makes waiting feel softer instead of longer." },
+          { x: 62, y: 24, title: "First bloom", text: "I notice the season changing here before I notice it anywhere else." }
+        ]
+      },
+      {
+        src: "assets/images/spring2.jpeg",
+        alt: "A spring street view with fresh trees",
+        caption: "The street feels like it has been reopened by air and light.",
+        hotspots: [
+          { x: 55, y: 64, title: "Fresh shade", text: "The new leaves are thin enough to let the brightness pass through." },
+          { x: 78, y: 38, title: "Quiet corner", text: "Even concrete edges feel lighter when the trees wake up." }
+        ]
+      },
+      {
+        src: "assets/images/spring3.JPG",
+        alt: "Spring neighborhood scene",
+        caption: "Spring does not erase the ordinary; it makes the ordinary shimmer.",
+        hotspots: [
+          { x: 24, y: 50, title: "Passing line", text: "People move through this path quickly, but spring slows my eyes down." },
+          { x: 69, y: 30, title: "Light through branches", text: "The branches hold more brightness than shade at this time of year." }
+        ]
+      },
+      {
+        src: "assets/images/spring4.jpeg",
+        alt: "Spring view of the familiar street",
+        caption: "The neighborhood starts looking less practical and more intimate.",
+        hotspots: [
+          { x: 44, y: 40, title: "Bloom canopy", text: "It feels like the road is briefly sheltered by blossom." },
+          { x: 71, y: 70, title: "Ground detail", text: "Fallen petals make the pavement feel touched instead of plain." }
+        ]
+      },
+      {
+        src: "assets/images/spring5.jpeg",
+        alt: "Another spring memory from the neighborhood street",
+        caption: "The place becomes softer without changing its shape.",
+        hotspots: [
+          { x: 38, y: 55, title: "Return path", text: "I keep returning to places like this, and spring changes how near they feel." },
+          { x: 66, y: 26, title: "Sky opening", text: "This part of the street always catches the season in a gentler light." }
+        ]
+      },
+      {
+        src: "assets/images/spring6.jpeg",
+        alt: "Springtime street photo with blossom",
+        caption: "A familiar place becomes almost ceremonial once blossom begins to fall.",
+        hotspots: [
+          { x: 25, y: 62, title: "Ground rhythm", text: "The petals make even the path feel delicate for a few short days." },
+          { x: 59, y: 28, title: "Skyline softened", text: "Buildings stay the same, but they stop feeling hard-edged." }
+        ]
+      }
     ]
-},
+  },
   summer: {
+    index: "02",
     title: "Summer",
-    description: "In summer, the street feels greener, warmer, and more alive with movement.",
-    note: "Summer gives the neighborhood a full, active feeling, as if everything is breathing more loudly.",
-    effect: "🍃",
+    kicker: "Heat, brightness, breath",
+    mood: "Summer settles over Jamsil like heat held in concrete, trees, and late evening air.",
+    description: "In summer, places near home feel greener, louder, warmer, and full of movement.",
+    note: "Summer makes these memories feel active and crowded, as if the whole neighborhood is breathing more loudly.",
+    chapterText: "Summer stretches the city outward through heavy green shade, bright night color, and walks that feel full of energy.",
+    chapterQuote: "Heat, light, and movement make summer feel expansive, restless, and vividly alive.",
+    effect: "bubbles",
     fallingImage: "assets/images/bubble.png",
-    bgColor: "#c7e3a4",
-    audio: "assets/audio/summer.mp3",
+    audio: "assets/audio/Summer.mp3",
     images: [
-      "assets/images/summer1.jpeg",
-      "assets/images/summer2.jpeg",
-      "assets/images/summer3.jpeg",
-      "assets/images/summer4.jpeg"
+      {
+        src: "assets/images/summer1.jpeg",
+        alt: "Summer neighborhood street under bright sunlight",
+        caption: "Summer makes the road feel taller, brighter, and denser with heat.",
+        hotspots: [
+          { x: 27, y: 58, title: "Deep shade", text: "This patch of shadow feels like relief in the middle of a bright afternoon." },
+          { x: 77, y: 26, title: "Sunline", text: "The white surfaces keep reflecting light long after it becomes too strong." }
+        ]
+      },
+      {
+        src: "assets/images/summer2.jpeg",
+        alt: "Green summer street with bright sky",
+        caption: "A familiar route becomes more crowded with leaves, sunlight, and motion.",
+        hotspots: [
+          { x: 51, y: 70, title: "Breathing trees", text: "In summer the trees feel less decorative and more like shelter." },
+          { x: 70, y: 40, title: "Heat shimmer", text: "The bright air itself feels like part of the landscape." }
+        ]
+      },
+      {
+        src: "assets/images/summer3.jpeg",
+        alt: "Summer street view with strong light and greenery",
+        caption: "Everything feels pushed closer to the surface by heat and brightness.",
+        hotspots: [
+          { x: 30, y: 45, title: "Green density", text: "By summer, the foliage starts to feel louder than the buildings." },
+          { x: 68, y: 62, title: "Midday path", text: "The road asks to be crossed quickly when the sun is highest." }
+        ]
+      },
+      {
+        src: "assets/images/summer4.jpeg",
+        alt: "Summer memory from Jamsil near home",
+        caption: "The season turns the familiar into something almost overexposed with life.",
+        hotspots: [
+          { x: 42, y: 54, title: "Warm pause", text: "This is where summer feels least still and most full of breath." },
+          { x: 78, y: 33, title: "High light", text: "The sky looks largest in summer, but the air feels heaviest." }
+        ]
+      }
     ]
-},
+  },
   fall: {
+    index: "03",
     title: "Fall",
-    description: "In fall, the same road becomes quieter, calmer, and touched by change.",
-    note: "Falling leaves make the street feel reflective, as if the place is remembering something.",
-    effect: "🍂",
-    bgColor: "#dd9239",
+    kicker: "Amber quiet, slowing light",
+    mood: "Fall makes these places feel quieter first, and nostalgic only a moment later.",
+    description: "In fall, the parts of Jamsil I return to feel calmer, more reflective, and gently changed.",
+    note: "Autumn turns routine walks into slower, more inward memories.",
+    chapterText: "As color deepens and light shortens, familiar places begin to feel thoughtful rather than bright.",
+    chapterQuote: "Autumn softens noise, slows attention, and leaves more room for memory.",
+    effect: "leaves",
     audio: "assets/audio/fall.mp3",
     images: [
-      "assets/images/fall1.jpeg",
-      "assets/images/fall2.jpeg",
-      "assets/images/fall3.jpeg",
-      "assets/images/fall4.jpeg",
-      "assets/images/fall5.jpeg"
-
-
+      {
+        src: "assets/images/fall1.jpeg",
+        alt: "Autumn neighborhood street with warm tones",
+        caption: "The road starts holding color more quietly in autumn.",
+        hotspots: [
+          { x: 34, y: 60, title: "Leaf edge", text: "The ground becomes the first place where the season gathers." },
+          { x: 67, y: 30, title: "Late light", text: "The afternoon light starts to feel shorter even before the day does." }
+        ]
+      },
+      {
+        src: "assets/images/fall2.jpeg",
+        alt: "Fall photo from a familiar part of Jamsil",
+        caption: "Even movement seems more careful once the weather starts to turn.",
+        hotspots: [
+          { x: 48, y: 54, title: "Cooler path", text: "I start noticing the space between trees and buildings again." },
+          { x: 72, y: 39, title: "Change line", text: "This is where the street feels most clearly between one season and the next." }
+        ]
+      },
+      {
+        src: "assets/images/fall3.jpeg",
+        alt: "Autumn street scene with changing trees",
+        caption: "Autumn feels like the street speaking in a lower register.",
+        hotspots: [
+          { x: 29, y: 42, title: "Fading canopy", text: "The leaves stop forming a roof and become fragments instead." },
+          { x: 63, y: 68, title: "Dusty gold", text: "The color here feels less bright than deep." }
+        ]
+      },
+      {
+        src: "assets/images/fall4.jpeg",
+        alt: "Another fall memory from the neighborhood",
+        caption: "The place turns inward without becoming empty.",
+        hotspots: [
+          { x: 40, y: 58, title: "Slower route", text: "Autumn always changes my walking pace on this road." },
+          { x: 79, y: 31, title: "Evening warmth", text: "This corner seems to keep warm light longer than it should." }
+        ]
+      },
+      {
+        src: "assets/images/fall5.jpeg",
+        alt: "Fall image from a familiar place near home",
+        caption: "The neighborhood becomes more reflective than bright.",
+        hotspots: [
+          { x: 24, y: 61, title: "Leaf memory", text: "It feels like the season is collecting itself along the curb." },
+          { x: 61, y: 37, title: "Quiet façade", text: "Even the buildings look more contemplative in autumn light." }
+        ]
+      }
     ]
   },
   winter: {
+    index: "04",
     title: "Winter",
-    description: "In winter, the neighborhood feels still, pale, and quietly intimate.",
-    note: "Winter makes familiar places feel slower and more fragile, but also more honest.",
-    effect: "❄️",
-    bgColor: "#79c0d7",
+    kicker: "Pale air, honest stillness",
+    mood: "Winter feels clear and cold at first, but then suddenly bright with Christmas lights, markets, and glowing night color.",
+    description: "In winter, neighborhoods near home feel quieter in the air but brighter in memory because of tree lights, decorations, and the Christmas market.",
+    note: "Winter holds both stillness and celebration, where pale streets open into warm light and festive brightness.",
+    chapterText: "What stands out most in winter is not only silence, but illumination: Christmas trees, market lights, and glowing decorations that make night feel full again.",
+    chapterQuote: "Winter sharpens the air, then fills it with light.",
+    effect: "snow",
     audio: "assets/audio/winter.mp3",
     images: [
-      "assets/images/winter1.jpeg",
-      "assets/images/winter2.jpeg",
-      "assets/images/winter3.jpeg",
-      "assets/images/winter4.jpeg",
-      "assets/images/winter5.jpeg"
-
+      {
+        src: "assets/images/winter1.jpeg",
+        alt: "Winter neighborhood street scene",
+        caption: "Winter air feels cold and open, but the season is brightened by lights that gather after dark.",
+        hotspots: [
+          { x: 35, y: 63, title: "Clear path", text: "Without lush foliage, the street opens into a more exposed geometry." },
+          { x: 70, y: 28, title: "Cold sky", text: "Winter makes the sky feel both farther away and closer at the same time." }
+        ]
+      },
+      {
+        src: "assets/images/winter2.jpeg",
+        alt: "Winter image from a familiar road near home",
+        caption: "The familiar becomes fragile in the cold, but also more direct.",
+        hotspots: [
+          { x: 52, y: 57, title: "Still center", text: "This is where winter feels most like a pause rather than a scene." },
+          { x: 76, y: 36, title: "Pale light", text: "The light is softer, but also less forgiving." }
+        ]
+      },
+      {
+        src: "assets/images/winter3.jpeg",
+        alt: "Winter memory from the neighborhood street",
+        caption: "The street looks quieter, but every small sound carries farther.",
+        hotspots: [
+          { x: 31, y: 46, title: "Bare edge", text: "Without leaves, the outlines of the place become more visible and more lonely." },
+          { x: 65, y: 68, title: "Echo point", text: "Winter makes distance feel sharper on this path." }
+        ]
+      },
+      {
+        src: "assets/images/winter4.jpeg",
+        alt: "Winter photo with soft cold atmosphere",
+        caption: "The Christmas market turns winter night into something warm, bright, and inviting.",
+        hotspots: [
+          { x: 42, y: 51, title: "Held breath", text: "This view always feels like it is waiting for the next thaw." },
+          { x: 73, y: 26, title: "Silver edge", text: "Cold air and bright market lights make the whole scene feel festive instead of empty." }
+        ]
+      },
+      {
+        src: "assets/images/winter5.jpeg",
+        alt: "Final winter image from the street archive",
+        caption: "Christmas lights make winter feel radiant rather than only quiet.",
+        hotspots: [
+          { x: 26, y: 58, title: "Last quiet", text: "Even in the coldest season, light keeps the place from feeling distant." },
+          { x: 67, y: 33, title: "Clear structure", text: "The Christmas tree and market brightness give winter a celebratory outline." }
+        ]
+      }
     ]
   }
 };
 
 const seasonTitle = document.getElementById("season-title");
+const seasonKicker = document.getElementById("season-kicker");
+const seasonIndex = document.getElementById("season-index");
+const seasonMood = document.getElementById("season-mood");
 const seasonDescription = document.getElementById("season-description");
 const seasonNote = document.getElementById("season-note");
-const buttons = document.querySelectorAll(".season-btn");
-const fallingContainer = document.getElementById("background-falling");
+const seasonImage = document.getElementById("season-image");
+const seasonCaption = document.getElementById("season-caption");
+const imageCounter = document.getElementById("image-counter");
+const seasonAudio = document.getElementById("season-audio");
+const introAudio = document.getElementById("intro-audio");
+const toggleAudioBtn = document.getElementById("toggle-audio");
 const prevImageBtn = document.getElementById("prev-image");
 const nextImageBtn = document.getElementById("next-image");
-const imageCounter = document.getElementById("image-counter");
-const seasonImage = document.getElementById("season-image");
-const seasonAudio = document.getElementById("season-audio");
-const toggleAudioBtn = document.getElementById("toggle-audio");
-const introAudio = document.getElementById("intro-audio");
-
-
+const framePrevBtn = document.getElementById("frame-prev");
+const frameNextBtn = document.getElementById("frame-next");
+const scrollStoryBtn = document.getElementById("scroll-story");
+const storyIntro = document.getElementById("story");
+const seasonStory = document.getElementById("season-story");
+const backgroundFalling = document.getElementById("background-falling");
+const openLightboxBtn = document.getElementById("open-lightbox");
+const lightbox = document.getElementById("lightbox");
+const closeLightboxBtn = document.getElementById("close-lightbox");
+const lightboxImage = document.getElementById("lightbox-image");
+const lightboxSeason = document.getElementById("lightbox-season");
+const lightboxCaption = document.getElementById("lightbox-caption");
+const seasonCat = document.getElementById("season-cat");
+const seasonButtons = [...document.querySelectorAll(".season-btn")];
+const spotlight = document.getElementById("spotlight");
 
 let currentSeason = "spring";
+let currentAmbientSeason = "spring";
 let currentImageIndex = 0;
 let isAudioPlaying = false;
-let introPlayed = false;
+let currentAudioSeason = null;
 let summerBubbleAnimationId = null;
 let summerBubbleState = [];
+let sectionObserver;
+let revealObserver;
+let upperThemeTicking = false;
+let catAnimationInterval = null;
+let catFrameIndex = 0;
+let hasSelectedSeason = false;
+const seasonImageIndices = Object.fromEntries(Object.keys(seasonData).map((season) => [season, 0]));
+
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const catAnimations = {
+  default: [
+    "assets/images/cat1.png",
+    "assets/images/cat2.png"
+  ],
+  spring: [
+    "assets/images/cat_spring1.png",
+    "assets/images/cat_spring2.png"
+  ],
+  summer: [
+    "assets/images/cat_summer1.png",
+    "assets/images/cat_summer2.png"
+  ],
+  fall: [
+    "assets/images/cat_fall1.png",
+    "assets/images/cat_fall2.png"
+  ],
+  winter: [
+    "assets/images/cat_winter1.png",
+    "assets/images/cat_winter2.png"
+  ]
+};
+
+function getCatAnimationKey() {
+  if (!hasSelectedSeason) {
+    return "default";
+  }
+
+  return catAnimations[currentSeason] ? currentSeason : "default";
+}
+
+function renderCatFrame() {
+  if (!seasonCat) {
+    return;
+  }
+
+  const frames = catAnimations[getCatAnimationKey()];
+  seasonCat.src = frames[catFrameIndex % frames.length];
+}
+
+function stopCatAnimation() {
+  if (catAnimationInterval !== null) {
+    window.clearInterval(catAnimationInterval);
+    catAnimationInterval = null;
+  }
+}
+
+function startCatAnimation() {
+  if (!seasonCat) {
+    return;
+  }
+
+  stopCatAnimation();
+  catFrameIndex = 0;
+  renderCatFrame();
+
+  if (prefersReducedMotion) {
+    return;
+  }
+
+  catAnimationInterval = window.setInterval(() => {
+    catFrameIndex += 1;
+    renderCatFrame();
+  }, 420);
+}
+
+function syncCatAnimation() {
+  startCatAnimation();
+}
+
+function renderSeasonPanels() {
+  seasonStory.innerHTML = Object.entries(seasonData).map(([season, data]) => `
+    <article class="season-panel reveal" data-season="${season}" tabindex="0">
+      <div class="panel-visual">
+        <img
+          class="panel-image"
+          data-panel-image="${season}"
+          src="${data.images[seasonImageIndices[season]].src}"
+          alt="${data.images[seasonImageIndices[season]].alt}"
+        />
+        <div class="panel-veil" aria-hidden="true"></div>
+        <div class="panel-gallery-controls">
+          <button class="panel-gallery-btn" data-panel-nav="${season}" data-direction="-1" type="button" aria-label="Previous ${data.title} photo">←</button>
+          <span class="panel-gallery-count" data-panel-count="${season}">${seasonImageIndices[season] + 1} / ${data.images.length}</span>
+          <button class="panel-gallery-btn" data-panel-nav="${season}" data-direction="1" type="button" aria-label="Next ${data.title} photo">→</button>
+        </div>
+      </div>
+      <div class="panel-copy">
+        <p class="season-index">${data.index}</p>
+        <p class="eyebrow">${data.kicker}</p>
+        <h3>${data.title}</h3>
+        <p>${data.chapterText}</p>
+        <p class="panel-quote">${data.chapterQuote}</p>
+        <button class="panel-open" data-season="${season}" type="button">Bring ${data.title} forward</button>
+      </div>
+    </article>
+  `).join("");
+}
+
+function updatePanelImage(season) {
+  const imageIndex = seasonImageIndices[season];
+  const image = seasonData[season].images[imageIndex];
+  const panelImage = document.querySelector(`[data-panel-image="${season}"]`);
+  const panelCount = document.querySelector(`[data-panel-count="${season}"]`);
+
+  if (panelImage) {
+    panelImage.src = image.src;
+    panelImage.alt = image.alt;
+  }
+
+  if (panelCount) {
+    panelCount.textContent = `${imageIndex + 1} / ${seasonData[season].images.length}`;
+  }
+}
+
+function setThemeClasses(season) {
+  document.body.classList.remove("season-spring", "season-summer", "season-fall", "season-winter");
+  document.body.classList.add(`season-${season}`);
+}
+
+function getMostVisibleSeasonPanel() {
+  const panels = [...document.querySelectorAll(".season-panel")];
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+  let bestMatch = null;
+
+  panels.forEach((panel) => {
+    const rect = panel.getBoundingClientRect();
+    const visibleHeight = Math.max(0, Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0));
+
+    if (!bestMatch || visibleHeight > bestMatch.visibleHeight) {
+      bestMatch = {
+        season: panel.dataset.season,
+        visibleHeight
+      };
+    }
+  });
+
+  return bestMatch && bestMatch.visibleHeight > viewportHeight * 0.12 ? bestMatch.season : null;
+}
+
+function syncAmbientSeasonToUpperPage() {
+  const visiblePanelSeason = getMostVisibleSeasonPanel();
+  setAmbientSeason(visiblePanelSeason || currentSeason);
+}
+
+function syncAmbientSeasonOnScroll() {
+  if (!storyIntro) {
+    return;
+  }
+
+  const storyTop = storyIntro.getBoundingClientRect().top;
+
+  if (storyTop > window.innerHeight * 0.22) {
+    setAmbientSeason(currentSeason);
+    return;
+  }
+
+  syncAmbientSeasonToUpperPage();
+}
+
+function setAmbientSeason(season) {
+  if (!seasonData[season] || currentAmbientSeason === season) {
+    return;
+  }
+
+  currentAmbientSeason = season;
+  setThemeClasses(season);
+
+  document.querySelectorAll(".season-panel").forEach((panel) => {
+    panel.classList.toggle("active", panel.dataset.season === season);
+  });
+
+  createAmbientItems();
+}
+
+function updateImage() {
+  const season = seasonData[currentSeason];
+  seasonImageIndices[currentSeason] = currentImageIndex;
+  const image = season.images[currentImageIndex];
+
+  seasonImage.src = image.src;
+  seasonImage.alt = image.alt;
+  seasonCaption.textContent = image.caption;
+  imageCounter.textContent = `${currentImageIndex + 1} / ${season.images.length}`;
+
+  lightboxImage.src = image.src;
+  lightboxImage.alt = image.alt;
+  lightboxSeason.textContent = season.title;
+  lightboxCaption.textContent = image.caption;
+  updatePanelImage(currentSeason);
+}
+
+function updateAudio() {
+  const season = seasonData[currentSeason];
+  if (!isAudioPlaying) {
+    seasonAudio.src = season.audio || "";
+    currentAudioSeason = null;
+    toggleAudioBtn.classList.remove("on");
+    toggleAudioBtn.classList.add("off");
+    return;
+  }
+
+  toggleAudioBtn.classList.remove("off");
+  toggleAudioBtn.classList.add("on");
+}
+
+function stopAudio() {
+  seasonAudio.pause();
+  seasonAudio.currentTime = 0;
+  isAudioPlaying = false;
+  currentAudioSeason = null;
+  toggleAudioBtn.classList.remove("on");
+  toggleAudioBtn.classList.add("off");
+}
+
+function setSeason(season, options = {}) {
+  if (!seasonData[season]) {
+    return;
+  }
+
+  const preserveImage = options.preserveImage === true;
+  currentSeason = season;
+
+  if (!preserveImage) {
+    currentImageIndex = seasonImageIndices[season] ?? 0;
+  }
+
+  const data = seasonData[season];
+  currentAmbientSeason = season;
+  setThemeClasses(season);
+
+  seasonIndex.textContent = data.index;
+  seasonKicker.textContent = data.kicker;
+  seasonTitle.textContent = data.title;
+  seasonMood.textContent = data.mood;
+  seasonDescription.textContent = data.description;
+  seasonNote.textContent = data.note;
+
+  seasonButtons.forEach((button) => {
+    button.classList.toggle("active", button.dataset.season === season);
+  });
+
+  document.querySelectorAll(".season-panel").forEach((panel) => {
+    panel.classList.toggle("active", panel.dataset.season === season);
+  });
+
+  updateImage();
+  updateAudio();
+  createAmbientItems();
+
+  if (options.scrollPanel) {
+    document.querySelector(`.season-panel[data-season="${season}"]`)?.scrollIntoView({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+      block: "center"
+    });
+  }
+}
+
+function showNextImage() {
+  const totalImages = seasonData[currentSeason].images.length;
+  currentImageIndex = (currentImageIndex + 1) % totalImages;
+  updateImage();
+}
+
+function showPrevImage() {
+  const totalImages = seasonData[currentSeason].images.length;
+  currentImageIndex = (currentImageIndex - 1 + totalImages) % totalImages;
+  updateImage();
+}
+
+function changePanelImage(season, direction) {
+  const totalImages = seasonData[season].images.length;
+  seasonImageIndices[season] = (seasonImageIndices[season] + direction + totalImages) % totalImages;
+  updatePanelImage(season);
+
+  if (season === currentSeason) {
+    currentImageIndex = seasonImageIndices[season];
+    updateImage();
+  }
+}
+
+function playIntroOnce() {
+  return;
+}
 
 function stopSummerBubbleAnimation() {
   if (summerBubbleAnimationId !== null) {
@@ -97,59 +579,62 @@ function stopSummerBubbleAnimation() {
   summerBubbleState = [];
 }
 
+function clearAmbientContainer(container) {
+  if (!container) {
+    return;
+  }
+
+  container.innerHTML = "";
+}
+
 function renderSummerBubble(bubble) {
   const driftX = Math.cos(bubble.floatPhase) * bubble.floatAmplitude;
-  const driftY = Math.sin(bubble.floatPhase * 0.85) * bubble.floatAmplitude * 0.7;
+  const driftY = Math.sin(bubble.floatPhase * 0.85) * bubble.floatAmplitude * 0.68;
   bubble.element.style.transform = `translate3d(${bubble.x + driftX}px, ${bubble.y + driftY}px, 0)`;
 }
 
 function createSummerBubble() {
-  const item = document.createElement("div");
-  const size = 28 + Math.random() * 18;
+  const element = document.createElement("div");
   const width = window.innerWidth;
   const height = window.innerHeight;
+  const size = 22 + Math.random() * 18;
   const direction = Math.random() > 0.5 ? 1 : -1;
-  const speed = 0.18 + Math.random() * 0.2;
-  const driftAngle = (Math.random() - 0.5) * 0.7;
-  const startX = direction === 1
-    ? -size - Math.random() * 80
-    : width + Math.random() * 80;
-  const startY = 24 + Math.random() * Math.max(height - 120, 120);
+  const startX = direction === 1 ? -size - Math.random() * 120 : width + Math.random() * 120;
+  const startY = 40 + Math.random() * Math.max(height - 160, 120);
 
-  item.classList.add("falling-item", "summer-bubble");
-  item.classList.add(direction === 1 ? "from-left" : "from-right");
-  item.style.left = "0";
-  item.style.top = "0";
-  item.style.opacity = `${0.62 + Math.random() * 0.22}`;
+  element.classList.add("falling-item", "summer-bubble");
+  element.classList.add(direction === 1 ? "from-left" : "from-right");
+  element.style.left = "0";
+  element.style.top = "0";
 
-  const img = document.createElement("img");
-  img.src = seasonData.summer.fallingImage;
-  img.alt = "";
-  img.classList.add("falling-image");
-  img.style.width = `${size}px`;
-  item.appendChild(img);
+  const image = document.createElement("img");
+  image.src = seasonData.summer.fallingImage;
+  image.alt = "";
+  image.className = "falling-image";
+  image.style.width = `${size}px`;
+  element.appendChild(image);
 
   const bubble = {
-    element: item,
+    element,
     size,
     x: startX,
     y: startY,
-    vx: Math.cos(driftAngle) * speed * direction,
-    vy: Math.sin(driftAngle) * speed,
+    vx: direction * (0.16 + Math.random() * 0.18),
+    vy: (Math.random() - 0.5) * 0.06,
     driftPhase: Math.random() * Math.PI * 2,
-    driftSpeed: 0.0015 + Math.random() * 0.002,
-    wander: 0.003 + Math.random() * 0.004,
-    baseOpacity: 0.62 + Math.random() * 0.22,
+    driftSpeed: 0.0012 + Math.random() * 0.0015,
+    wander: 0.0025 + Math.random() * 0.0032,
+    baseOpacity: 0.76 + Math.random() * 0.16,
     floatPhase: Math.random() * Math.PI * 2,
-    floatSpeed: 0.012 + Math.random() * 0.01,
-    floatAmplitude: 4 + Math.random() * 8
+    floatSpeed: 0.012 + Math.random() * 0.012,
+    floatAmplitude: 3 + Math.random() * 7
   };
 
   renderSummerBubble(bubble);
   return bubble;
 }
 
-function updateSummerBubbles(timestamp) {
+function updateSummerBubbles() {
   const width = window.innerWidth;
   const height = window.innerHeight;
 
@@ -158,13 +643,13 @@ function updateSummerBubbles(timestamp) {
     bubble.floatPhase += bubble.floatSpeed;
 
     bubble.vx += Math.cos(bubble.driftPhase + index) * bubble.wander * 0.012;
-    bubble.vy += Math.sin(bubble.driftPhase * 0.85 + index) * bubble.wander * 0.012;
+    bubble.vy += Math.sin(bubble.driftPhase * 0.8 + index) * bubble.wander * 0.012;
 
-    bubble.vx *= 0.998;
-    bubble.vy *= 0.998;
+    bubble.vx *= 0.9985;
+    bubble.vy *= 0.9985;
 
     const speed = Math.hypot(bubble.vx, bubble.vy);
-    const maxSpeed = 0.4;
+    const maxSpeed = 0.34;
 
     if (speed > maxSpeed) {
       bubble.vx = (bubble.vx / speed) * maxSpeed;
@@ -175,24 +660,20 @@ function updateSummerBubbles(timestamp) {
     bubble.y += bubble.vy * 16;
 
     const radius = bubble.size / 2;
-    const maxX = width - radius;
-    const minX = -radius;
-    const maxY = height - radius;
-    const minY = 8;
 
-    if (bubble.x < minX) {
-      bubble.x = minX;
-      bubble.vx = Math.abs(bubble.vx) * 0.92;
-    } else if (bubble.x > maxX) {
-      bubble.x = maxX;
-      bubble.vx = -Math.abs(bubble.vx) * 0.92;
+    if (bubble.x < -radius) {
+      bubble.x = -radius;
+      bubble.vx = Math.abs(bubble.vx) * 0.93;
+    } else if (bubble.x > width - radius) {
+      bubble.x = width - radius;
+      bubble.vx = -Math.abs(bubble.vx) * 0.93;
     }
 
-    if (bubble.y < minY) {
-      bubble.y = minY;
+    if (bubble.y < 12) {
+      bubble.y = 12;
       bubble.vy = Math.abs(bubble.vy) * 0.9;
-    } else if (bubble.y > maxY) {
-      bubble.y = maxY;
+    } else if (bubble.y > height - radius) {
+      bubble.y = height - radius;
       bubble.vy = -Math.abs(bubble.vy) * 0.9;
     }
   });
@@ -219,7 +700,7 @@ function updateSummerBubbles(timestamp) {
       b.x += nx * overlap;
       b.y += ny * overlap;
 
-      const push = 0.018;
+      const push = 0.015;
       a.vx -= nx * push;
       a.vy -= ny * push;
       b.vx += nx * push;
@@ -228,12 +709,12 @@ function updateSummerBubbles(timestamp) {
   }
 
   summerBubbleState.forEach((bubble) => {
-    const shimmer = 0.5 + Math.sin(bubble.driftPhase) * 0.08;
-    bubble.element.style.opacity = `${Math.max(0.34, bubble.baseOpacity * shimmer)}`;
+    const shimmer = 0.86 + Math.sin(bubble.driftPhase) * 0.1;
+    bubble.element.style.opacity = `${Math.max(0.54, bubble.baseOpacity * shimmer)}`;
     renderSummerBubble(bubble);
   });
 
-  if (currentSeason === "summer") {
+  if (currentAmbientSeason === "summer" && !prefersReducedMotion) {
     summerBubbleAnimationId = requestAnimationFrame(updateSummerBubbles);
   }
 }
@@ -244,154 +725,293 @@ function startSummerBubbleAnimation(count) {
   for (let i = 0; i < count; i++) {
     const bubble = createSummerBubble();
     summerBubbleState.push(bubble);
-    fallingContainer.appendChild(bubble.element);
+    backgroundFalling.appendChild(bubble.element);
   }
 
-  summerBubbleAnimationId = requestAnimationFrame(updateSummerBubbles);
+  if (!prefersReducedMotion) {
+    summerBubbleAnimationId = requestAnimationFrame(updateSummerBubbles);
+  }
 }
 
-
-function createFallingItems(symbol) {
-  stopSummerBubbleAnimation();
-  fallingContainer.innerHTML = "";
-
-  const count = currentSeason === "summer" ? 40 : 14;
-  const data = seasonData[currentSeason];
-
-  if (currentSeason === "summer") {
-    startSummerBubbleAnimation(count);
+function buildAmbientItems(container, season, options = {}) {
+  if (!container || prefersReducedMotion) {
+    clearAmbientContainer(container);
     return;
   }
 
-  for (let i = 0; i < count; i++) {
+  const isLocalTheme = options.local === true;
+
+  if (!isLocalTheme) {
+    stopSummerBubbleAnimation();
+  }
+
+  clearAmbientContainer(container);
+
+  if (season === "summer" && !isLocalTheme) {
+    startSummerBubbleAnimation(34);
+    return;
+  }
+
+  const config = {
+    spring: { count: isLocalTheme ? 16 : 20, symbol: "", image: seasonData.spring.fallingImage, duration: [8, 12], size: [18, 34] },
+    summer: { count: 18, symbol: "", image: seasonData.summer.fallingImage, duration: [10, 14], size: [18, 30] },
+    fall: {
+      count: isLocalTheme ? 22 : 18,
+      symbol: "",
+      imageSet: [
+        "assets/images/leaf1.png",
+        "assets/images/leaf2.png",
+        "assets/images/leaf3.png"
+      ],
+      duration: [7, 10],
+      size: [20, 34]
+    },
+    winter: { count: isLocalTheme ? 26 : 22, symbol: "", image: "assets/images/snowflake.png", duration: [10, 14], size: [14, 22] }
+  }[season];
+
+  if (!config) {
+    return;
+  }
+
+  for (let i = 0; i < config.count; i++) {
     const item = document.createElement("div");
     item.classList.add("falling-item");
     item.style.left = `${Math.random() * 100}%`;
-    item.style.animationDuration = currentSeason === "spring"
-      ? `${6.2 + Math.random() * 2.4}s`
-      : `${4 + Math.random() * 2}s`;
-    item.style.animationDelay = `${Math.random() * 1.5}s`;
+    item.style.animationDuration = `${config.duration[0] + Math.random() * (config.duration[1] - config.duration[0])}s`;
+    item.style.animationDelay = `${Math.random() * 3.5}s`;
+    item.style.opacity = `${0.22 + Math.random() * 0.48}`;
 
-    if (data.fallingImage) {
-      const img = document.createElement("img");
-      img.src = data.fallingImage;
-      img.alt = "";
-      img.classList.add("falling-image");
-      img.style.width = `${28 + Math.random() * 18}px`;
-      item.appendChild(img);
+    if (config.image || config.imageSet) {
+      const image = document.createElement("img");
+      image.src = config.imageSet
+        ? config.imageSet[Math.floor(Math.random() * config.imageSet.length)]
+        : config.image;
+      image.alt = "";
+      image.className = "falling-image";
+      image.style.width = `${config.size[0] + Math.random() * (config.size[1] - config.size[0])}px`;
+      if (season === "fall") {
+        item.classList.add("fall-leaf");
+        image.style.transform = `rotate(${Math.random() * 360}deg)`;
+      } else if (season === "winter") {
+        item.classList.add("winter-snowflake");
+      }
+      item.appendChild(image);
     } else {
-      item.textContent = symbol;
-      item.style.fontSize = `${22 + Math.random() * 8}px`;
+      item.textContent = config.symbol;
+      item.style.fontSize = `${config.size[0] + Math.random() * (config.size[1] - config.size[0])}px`;
+      item.style.color = season === "fall" ? "rgba(138, 85, 45, 0.55)" : "rgba(255, 255, 255, 0.72)";
     }
 
-    fallingContainer.appendChild(item);
+    container.appendChild(item);
   }
 }
 
-function playIntroOnce() {
-  if (introPlayed) return;
+function createAmbientItems() {
+  buildAmbientItems(backgroundFalling, currentAmbientSeason);
+}
 
-  introAudio.play().catch((error) => {
-    console.error("Intro playback failed:", error);
+function openLightbox() {
+  lightbox.hidden = false;
+  document.body.style.overflow = "hidden";
+}
+
+function closeLightbox() {
+  lightbox.hidden = true;
+  document.body.style.overflow = "";
+}
+
+function setupRevealObserver() {
+  const reveals = [...document.querySelectorAll(".reveal")];
+
+  if (prefersReducedMotion) {
+    reveals.forEach((element) => element.classList.add("is-visible"));
+    return;
+  }
+
+  revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+      }
+    });
+  }, { threshold: 0.16 });
+
+  reveals.forEach((element) => revealObserver.observe(element));
+}
+
+function setupSectionObserver() {
+  const panels = [...document.querySelectorAll(".season-panel")];
+
+  sectionObserver = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter((entry) => entry.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+    if (visible) {
+      setAmbientSeason(visible.target.dataset.season);
+    }
+  }, {
+    rootMargin: "-24% 0px -24% 0px",
+    threshold: [0.24, 0.38, 0.52, 0.68]
   });
 
-  introPlayed = true;
+  panels.forEach((panel) => sectionObserver.observe(panel));
 }
 
-function updateAudio() {
-  const data = seasonData[currentSeason];
-  seasonAudio.src = data.audio || "";
-  seasonAudio.pause();
-  seasonAudio.currentTime = 0;
-  isAudioPlaying = false;
-  toggleAudioBtn.classList.remove("on");
-  toggleAudioBtn.classList.add("off");
+function setupPointerMotion() {
+  if (prefersReducedMotion) {
+    return;
+  }
+
+  spotlight.addEventListener("pointermove", (event) => {
+    const rect = spotlight.getBoundingClientRect();
+    const offsetX = (event.clientX - rect.left) / rect.width - 0.5;
+    const offsetY = (event.clientY - rect.top) / rect.height - 0.5;
+    openLightboxBtn.style.transform = `translate3d(${offsetX * 12}px, ${offsetY * 12}px, 0)`;
+  });
+
+  spotlight.addEventListener("pointerleave", () => {
+    openLightboxBtn.style.transform = "";
+  });
 }
+
+function setupUpperThemeSync() {
+  const requestSync = () => {
+    if (upperThemeTicking) {
+      return;
+    }
+
+    upperThemeTicking = true;
+    window.requestAnimationFrame(() => {
+      upperThemeTicking = false;
+      syncAmbientSeasonOnScroll();
+    });
+  };
+
+  window.addEventListener("scroll", requestSync, { passive: true });
+  window.addEventListener("resize", requestSync);
+  requestSync();
+}
+
+seasonButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    playIntroOnce();
+    stopAudio();
+    hasSelectedSeason = true;
+    setSeason(button.dataset.season);
+    syncCatAnimation();
+  });
+});
+
+seasonStory.addEventListener("click", (event) => {
+  const navButton = event.target.closest("[data-panel-nav]");
+  if (navButton) {
+    event.stopPropagation();
+    const season = navButton.dataset.panelNav;
+    const direction = Number(navButton.dataset.direction);
+    changePanelImage(season, direction);
+    return;
+  }
+
+  const button = event.target.closest(".panel-open");
+  if (!button) {
+    return;
+  }
+
+  playIntroOnce();
+  stopAudio();
+  hasSelectedSeason = true;
+  setSeason(button.dataset.season);
+  syncCatAnimation();
+  document.getElementById("spotlight").scrollIntoView({
+    behavior: prefersReducedMotion ? "auto" : "smooth",
+    block: "start"
+  });
+});
+
+scrollStoryBtn.addEventListener("click", () => {
+  document.getElementById("story").scrollIntoView({
+    behavior: prefersReducedMotion ? "auto" : "smooth",
+    block: "start"
+  });
+});
+
+prevImageBtn.addEventListener("click", showPrevImage);
+nextImageBtn.addEventListener("click", showNextImage);
+framePrevBtn.addEventListener("click", (event) => {
+  event.stopPropagation();
+  showPrevImage();
+});
+frameNextBtn.addEventListener("click", (event) => {
+  event.stopPropagation();
+  showNextImage();
+});
 
 toggleAudioBtn.addEventListener("click", async () => {
-  if (!seasonAudio.src) return;
+  const season = seasonData[currentSeason];
+  const targetSrc = season.audio || "";
 
-  if (isAudioPlaying) {
+  if (!targetSrc) {
+    return;
+  }
+
+  if (isAudioPlaying && currentAudioSeason === currentSeason) {
     seasonAudio.pause();
+    seasonAudio.currentTime = 0;
     isAudioPlaying = false;
+    currentAudioSeason = null;
     toggleAudioBtn.classList.remove("on");
     toggleAudioBtn.classList.add("off");
-  } else {
-    try {
-      await seasonAudio.play();
-      isAudioPlaying = true;
-      toggleAudioBtn.classList.remove("off");
-      toggleAudioBtn.classList.add("on");
-    } catch (error) {
-      console.error("Audio playback failed:", error);
+    return;
+  }
+
+  try {
+    if (seasonAudio.src !== new URL(targetSrc, window.location.href).href) {
+      seasonAudio.src = targetSrc;
     }
+
+    await seasonAudio.play();
+    isAudioPlaying = true;
+    currentAudioSeason = currentSeason;
+    toggleAudioBtn.classList.remove("off");
+    toggleAudioBtn.classList.add("on");
+  } catch (error) {
+    console.error("Audio playback failed:", error);
   }
 });
 
 seasonAudio.addEventListener("ended", () => {
   isAudioPlaying = false;
+  currentAudioSeason = null;
   toggleAudioBtn.classList.remove("on");
   toggleAudioBtn.classList.add("off");
 });
 
+openLightboxBtn.addEventListener("click", openLightbox);
+closeLightboxBtn.addEventListener("click", closeLightbox);
 
-function updateImage() {
-  const data = seasonData[currentSeason];
-  const imagePath = data.images[currentImageIndex];
-
-  seasonImage.src = imagePath;
-  seasonImage.alt = `${data.title} image ${currentImageIndex + 1}`;
-  imageCounter.textContent = `${currentImageIndex + 1} / ${data.images.length}`;
-}
-
-function setSeason(season) {
-  currentSeason = season;
-  currentImageIndex = 0;
-
-  const data = seasonData[season];
-
-  seasonTitle.textContent = data.title;
-  seasonDescription.textContent = data.description;
-  seasonNote.textContent = data.note;
-
-  document.body.style.backgroundColor = data.bgColor;
-
-
-  buttons.forEach((button) => {
-    button.classList.toggle("active", button.dataset.season === season);
-  });
-
-  createFallingItems(data.effect);
-  updateImage();
-  updateAudio();
-}
-
-function showNextImage() {
-  const totalImages = seasonData[currentSeason].images.length;
-  currentImageIndex = (currentImageIndex + 1) % totalImages;
-  updateImage();
-}
-
-function showPrevImage() {
-  const totalImages = seasonData[currentSeason].images.length;
-  currentImageIndex = (currentImageIndex - 1 + totalImages) % totalImages;
-  updateImage();
-}
-
-buttons.forEach((button) => {
-  button.addEventListener("click", () => {
-    playIntroOnce();
-    setSeason(button.dataset.season);
-  });
-});
-
-nextImageBtn.addEventListener("click", showNextImage);
-prevImageBtn.addEventListener("click", showPrevImage);
-
-window.addEventListener("resize", () => {
-  if (currentSeason === "summer") {
-    createFallingItems(seasonData.summer.effect);
+lightbox.addEventListener("click", (event) => {
+  if (event.target === lightbox) {
+    closeLightbox();
   }
 });
 
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !lightbox.hidden) {
+    closeLightbox();
+  }
+});
+
+window.addEventListener("resize", () => {
+  if (currentSeason === "summer") {
+    createAmbientItems();
+  }
+});
+
+renderSeasonPanels();
+setupRevealObserver();
+setupSectionObserver();
+setupUpperThemeSync();
+setupPointerMotion();
 setSeason("spring");
+startCatAnimation();

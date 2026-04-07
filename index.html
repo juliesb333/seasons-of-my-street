@@ -7,97 +7,168 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Iosevka:wght@400;500;600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Delius&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="season-spring">
+  <div class="page-sky" aria-hidden="true">
+    <div class="sky-glow glow-one"></div>
+    <div class="sky-glow glow-two"></div>
+    <div class="sky-glow glow-three"></div>
+  </div>
+  <div class="page-grain" aria-hidden="true"></div>
   <div id="background-falling" class="background-falling" aria-hidden="true"></div>
 
-  <header class="site-header">
+  <header class="intro reveal">
+    <p class="eyebrow">Memory archive of place</p>
     <h1>Seasons of My Street</h1>
-    <p class="subtitle">An interactive neighborhood memory through seasons, pixels, and sound.</p>
+    <p class="intro-text">
+      These photographs move across Jamsil in Songpa-gu, near my home. They are not all the same street,
+      but each place holds a personal season, a memory, and often a moment shared with my dog Sulgi.
+    </p>
+
+    <div class="intro-actions">
+      <button id="scroll-story" class="ghost-btn" type="button">Scroll through the year</button>
+    </div>
   </header>
 
   <main>
-    <section id="hero" class="hero">
-      <div class="hero-overlay">
+    <section class="spotlight reveal" id="spotlight">
+      <div class="cat-stage" aria-hidden="true">
+        <img id="season-cat" class="season-cat" src="assets/images/cat1.png" alt="" />
+      </div>
+      <div class="spotlight-copy">
+        <p class="season-index" id="season-index">01</p>
+        <p class="spotlight-kicker" id="season-kicker">Tender light, first bloom</p>
         <h2 id="season-title">Spring</h2>
-        <p id="season-description">
+        <p class="season-mood" id="season-mood">
+          The road softens first in the air, and only then in memory.
+        </p>
+        <p class="season-description" id="season-description">
           A familiar street near my home feels soft, bright, and newly awake in spring.
+        </p>
+        <p class="season-note" id="season-note">
+          Spring turns the street into a gentler place, full of light movement and quiet energy.
         </p>
 
         <div class="season-buttons">
-          <button class="season-btn active" data-season="spring">Enter Spring 🌸</button>
-          <button class="season-btn" data-season="summer">Enter Summer 🍃</button>
-          <button class="season-btn" data-season="fall">Enter Fall 🍂</button>
-          <button class="season-btn" data-season="winter">Enter Winter ❄️</button>
+          <button class="season-btn active" data-season="spring" type="button">Enter Spring</button>
+          <button class="season-btn" data-season="summer" type="button">Enter Summer</button>
+          <button class="season-btn" data-season="fall" type="button">Enter Fall</button>
+          <button class="season-btn" data-season="winter" type="button">Enter Winter</button>
         </div>
 
-        <div class="image-controls">
-          <button id="prev-image" class="arrow-btn" aria-label="Previous image">←</button>
-          <div id="image-counter" class="image-counter">1 / 1</div>
-          <button id="next-image" class="arrow-btn" aria-label="Next image">→</button>
-        </div>
+        <div class="spotlight-meta">
+          <div class="image-controls">
+            <button id="prev-image" class="arrow-btn" aria-label="Previous image" type="button">Previous</button>
+            <div id="image-counter" class="image-counter">1 / 1</div>
+            <button id="next-image" class="arrow-btn" aria-label="Next image" type="button">Next</button>
+          </div>
 
-        <div class="audio-controls">
-          <span class="audio-icon">🎵</span>
-          <button id="toggle-audio" class="audio-toggle off" aria-label="Toggle sound">
-            <span class="toggle-knob"></span>
-          </button>
+          <div class="audio-controls">
+            <span class="audio-label">Sound</span>
+            <button id="toggle-audio" class="audio-toggle off" aria-label="Toggle sound" type="button">
+              <span class="toggle-knob"></span>
+            </button>
+            <span class="sound-bars" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </div>
         </div>
-
-        <audio id="season-audio" preload="auto"></audio>
-        <audio id="intro-audio" preload="auto" src="assets/audio/intro.mp3"></audio>
       </div>
 
-      <div class="image-stage">
-        <div class="image-frame">
+      <div class="spotlight-stage">
+        <div class="frame-nav">
+          <button id="frame-prev" class="frame-arrow" type="button" aria-label="Show previous photo">←</button>
+          <button id="frame-next" class="frame-arrow" type="button" aria-label="Show next photo">→</button>
+        </div>
+        <button id="open-lightbox" class="image-frame" type="button" aria-label="Open immersive image view">
           <img id="season-image" src="" alt="Season image" />
+          <div class="frame-wash" aria-hidden="true"></div>
+        </button>
+
+        <div class="field-note-box">
+          <p class="frame-caption-label">Field note</p>
+          <p id="season-caption">A small spring memory from Jamsil.</p>
         </div>
       </div>
     </section>
 
-    <section id="interactive-display" class="info-section">
-      <h3>About This View</h3>
-      <p id="season-note">
-        This same street changes with the season, but it always remains part of my everyday life.
-      </p>
-    </section>
-
-    <section id="process" class="process-section">
-      <h3>Process</h3>
-      <div class="process-grid">
-        <div class="process-card">
-          <h4>Original Photo</h4>
-          <p>Add your real neighborhood photo here later.</p>
-        </div>
-        <div class="process-card">
-          <h4>AI Pixel Art Version</h4>
-          <p>Add your transformed pixel-art version here later.</p>
-        </div>
-        <div class="process-card">
-          <h4>Final Web Adaptation</h4>
-          <p>This website combines image, motion, and sound into one place-based story.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="reflection" class="reflection-section">
-      <h3>Reflection</h3>
+    <section class="story-intro reveal" id="story">
+      <p class="eyebrow">Seasonal chapters</p>
+      <h2>Jamsil, remembered through four seasons.</h2>
       <p>
-        I chose a street near my home because ordinary places can hold deep personal meaning.
-        Through seasonal change, I want to show how one familiar location can carry different moods,
-        memories, and energy throughout the year.
+        Scroll through the year and watch the spotlight shift with it. Each chapter gathers a different
+        corner of Jamsil near my home, shaped by weather, memory, and time spent there with Sulgi and me.
       </p>
+    </section>
+
+    <section id="season-story" class="season-story"></section>
+
+    <section class="theme-zone">
+      <section class="process-section reveal">
+        <p class="eyebrow">Making of the archive</p>
+        <h2>How the place becomes the piece</h2>
+        <div class="process-grid">
+          <article class="process-card">
+            <span class="process-step">01</span>
+            <h3>Collect places close to home</h3>
+            <p>
+              I photograph places around Jamsil and Songpa-gu that I return to often. Some are quiet walks,
+              some are brighter public moments, and each one stays with me for a different reason.
+            </p>
+          </article>
+          <article class="process-card">
+            <span class="process-step">02</span>
+            <h3>Keep memory inside the frame</h3>
+            <p>
+              Many of these photographs include Sulgi and me, so the archive is not only about scenery.
+              It is about companionship, routine, and the emotional texture of being there together.
+            </p>
+          </article>
+          <article class="process-card">
+            <span class="process-step">03</span>
+            <h3>Shape each season as feeling</h3>
+            <p>
+              Color, sound, motion, and writing turn the photos into a seasonal memory map. The goal is not
+              to document one exact street, but to show how nearby places can become personally meaningful.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="reflection-section reveal">
+        <p class="eyebrow">Closing reflection</p>
+        <blockquote>
+          Places near home become intimate through repetition. Jamsil changes with the seasons, but it also
+          changes through memory, companionship, and the way Sulgi and I move through it together.
+        </blockquote>
+        <p class="reflection-credit">A seasonal memory archive shaped by place, weather, companionship, and return.</p>
+      </section>
+
+      <footer>
+        <p>Seasons of My Street</p>
+        <p class="footer-note">An interactive memory study of one familiar neighborhood road.</p>
+      </footer>
     </section>
   </main>
 
-  <footer>
-    <p>Scholarship Project Draft</p>
-  </footer>
+  <div id="lightbox" class="lightbox" hidden>
+    <button id="close-lightbox" class="lightbox-close" type="button" aria-label="Close immersive image view">Close</button>
+    <div class="lightbox-inner">
+      <img id="lightbox-image" src="" alt="Expanded season image" />
+      <div class="lightbox-copy">
+        <p id="lightbox-season" class="lightbox-season">Spring</p>
+        <p id="lightbox-caption" class="lightbox-caption">A small spring memory from the street.</p>
+      </div>
+    </div>
+  </div>
+
+  <audio id="season-audio" preload="auto"></audio>
+  <audio id="intro-audio" preload="auto" src="assets/audio/intro.mp3"></audio>
 
   <script src="script.js"></script>
 </body>
