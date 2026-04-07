@@ -1,0 +1,122 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - paragraph [ref=e3]: Memory archive of place
+    - heading "Seasons of My Street" [level=1] [ref=e4]
+    - paragraph [ref=e5]: These photographs move across Jamsil in Songpa-gu, near my home. They are not all the same street, but each place holds a personal season, a memory, and often a moment shared with my dog Sulgi.
+    - button "Scroll through the year" [ref=e7] [cursor=pointer]
+  - main [ref=e8]:
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - paragraph [ref=e11]: "01"
+        - paragraph [ref=e12]: Tender light, first bloom
+        - heading "Spring" [level=2] [ref=e13]
+        - paragraph [ref=e14]: In spring, familiar corners of Jamsil begin to feel softer before I even fully notice why.
+        - paragraph [ref=e15]: Places near my home feel bright, open, and newly awake once blossom and clearer light return.
+        - paragraph [ref=e16]: Spring brings a gentler rhythm to these memories, making ordinary places feel newly intimate.
+        - generic [ref=e17]:
+          - button "Enter Spring" [ref=e18] [cursor=pointer]
+          - button "Enter Summer" [ref=e19] [cursor=pointer]
+          - button "Enter Fall" [ref=e20] [cursor=pointer]
+          - button "Enter Winter" [ref=e21] [cursor=pointer]
+        - generic [ref=e22]:
+          - generic [ref=e23]:
+            - button "Previous image" [ref=e24] [cursor=pointer]: Previous
+            - generic [ref=e25]: 1 / 6
+            - button "Next image" [ref=e26] [cursor=pointer]: Next
+          - generic [ref=e27]:
+            - generic [ref=e28]: Sound
+            - button "Toggle sound" [ref=e29] [cursor=pointer]
+      - generic [ref=e35]:
+        - generic [ref=e36]:
+          - button "Show previous photo" [ref=e37] [cursor=pointer]: ←
+          - button "Show next photo" [ref=e38] [cursor=pointer]: →
+        - button "Open immersive image view" [ref=e39]:
+          - img "Cherry blossoms and benches on the street in spring" [ref=e40]
+        - generic [ref=e42]:
+          - paragraph [ref=e43]: Field note
+          - paragraph [ref=e44]: Benches sit under blossom as if the whole street has started speaking more quietly.
+    - generic [ref=e45]:
+      - paragraph [ref=e46]: Seasonal chapters
+      - heading "Jamsil, remembered through four seasons." [level=2] [ref=e47]
+      - paragraph [ref=e48]: Scroll through the year and watch the spotlight shift with it. Each chapter gathers a different corner of Jamsil near my home, shaped by weather, memory, and time spent there with Sulgi and me.
+    - generic [ref=e49]:
+      - article [ref=e50]:
+        - generic [ref=e51]:
+          - img "Cherry blossoms and benches on the street in spring" [ref=e52]
+          - generic [ref=e54]:
+            - button "Previous Spring photo" [ref=e55] [cursor=pointer]: ←
+            - generic [ref=e56]: 1 / 6
+            - button "Next Spring photo" [ref=e57] [cursor=pointer]: →
+        - generic [ref=e58]:
+          - paragraph [ref=e59]: "01"
+          - paragraph [ref=e60]: Tender light, first bloom
+          - heading "Spring" [level=3] [ref=e61]
+          - paragraph [ref=e62]: Blossom, pale light, and small walks with Sulgi make spring feel like the season of first noticing.
+          - paragraph [ref=e63]: "Spring arrives here as softness: lighter air, longer pauses, and places that feel briefly tender."
+          - button "Bring Spring forward" [ref=e64] [cursor=pointer]
+      - article [ref=e65]:
+        - generic [ref=e66]:
+          - img "Summer neighborhood street under bright sunlight" [ref=e67]
+          - generic [ref=e69]:
+            - button "Previous Summer photo" [ref=e70] [cursor=pointer]: ←
+            - generic [ref=e71]: 1 / 4
+            - button "Next Summer photo" [ref=e72] [cursor=pointer]: →
+        - generic [ref=e73]:
+          - paragraph [ref=e74]: "02"
+          - paragraph [ref=e75]: Heat, brightness, breath
+          - heading "Summer" [level=3] [ref=e76]
+          - paragraph [ref=e77]: Summer stretches the city outward through heavy green shade, bright night color, and walks that feel full of energy.
+          - paragraph [ref=e78]: Heat, light, and movement make summer feel expansive, restless, and vividly alive.
+          - button "Bring Summer forward" [ref=e79] [cursor=pointer]
+      - article [ref=e80]:
+        - generic [ref=e81]:
+          - img "Autumn neighborhood street with warm tones" [ref=e82]
+          - generic [ref=e84]:
+            - button "Previous Fall photo" [ref=e85] [cursor=pointer]: ←
+            - generic [ref=e86]: 1 / 5
+            - button "Next Fall photo" [ref=e87] [cursor=pointer]: →
+        - generic [ref=e88]:
+          - paragraph [ref=e89]: "03"
+          - paragraph [ref=e90]: Amber quiet, slowing light
+          - heading "Fall" [level=3] [ref=e91]
+          - paragraph [ref=e92]: As color deepens and light shortens, familiar places begin to feel thoughtful rather than bright.
+          - paragraph [ref=e93]: Autumn softens noise, slows attention, and leaves more room for memory.
+          - button "Bring Fall forward" [ref=e94] [cursor=pointer]
+      - article [ref=e95]:
+        - generic [ref=e96]:
+          - img "Winter neighborhood street scene" [ref=e97]
+          - generic [ref=e99]:
+            - button "Previous Winter photo" [ref=e100] [cursor=pointer]: ←
+            - generic [ref=e101]: 1 / 5
+            - button "Next Winter photo" [ref=e102] [cursor=pointer]: →
+        - generic [ref=e103]:
+          - paragraph [ref=e104]: "04"
+          - paragraph [ref=e105]: Pale air, honest stillness
+          - heading "Winter" [level=3] [ref=e106]
+          - paragraph [ref=e107]: "What stands out most in winter is not only silence, but illumination: Christmas trees, market lights, and glowing decorations that make night feel full again."
+          - paragraph [ref=e108]: Winter sharpens the air, then fills it with light.
+          - button "Bring Winter forward" [ref=e109] [cursor=pointer]
+    - generic [ref=e110]:
+      - generic [ref=e111]:
+        - paragraph [ref=e112]: Making of the archive
+        - heading "How the place becomes the piece" [level=2] [ref=e113]
+        - generic [ref=e114]:
+          - article [ref=e115]:
+            - generic [ref=e116]: "01"
+            - heading "Collect places close to home" [level=3] [ref=e117]
+            - paragraph [ref=e118]: I photograph places around Jamsil and Songpa-gu that I return to often. Some are quiet walks, some are brighter public moments, and each one stays with me for a different reason.
+          - article [ref=e119]:
+            - generic [ref=e120]: "02"
+            - heading "Keep memory inside the frame" [level=3] [ref=e121]
+            - paragraph [ref=e122]: Many of these photographs include Sulgi and me, so the archive is not only about scenery. It is about companionship, routine, and the emotional texture of being there together.
+          - article [ref=e123]:
+            - generic [ref=e124]: "03"
+            - heading "Shape each season as feeling" [level=3] [ref=e125]
+            - paragraph [ref=e126]: Color, sound, motion, and writing turn the photos into a seasonal memory map. The goal is not to document one exact street, but to show how nearby places can become personally meaningful.
+      - generic [ref=e127]:
+        - paragraph [ref=e128]: Closing reflection
+        - blockquote [ref=e129]: Places near home become intimate through repetition. Jamsil changes with the seasons, but it also changes through memory, companionship, and the way Sulgi and I move through it together.
+        - paragraph [ref=e130]: A seasonal memory archive shaped by place, weather, companionship, and return.
+      - generic [ref=e131]:
+        - paragraph [ref=e132]: Seasons of My Street
+        - paragraph [ref=e133]: An interactive memory study of one familiar neighborhood road.

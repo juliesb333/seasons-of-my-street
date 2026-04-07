@@ -19,25 +19,44 @@
   </div>
   <div class="page-grain" aria-hidden="true"></div>
   <div id="background-falling" class="background-falling" aria-hidden="true"></div>
+  <div class="sound-dock">
+    <button id="toggle-audio" class="audio-toggle off" aria-label="Toggle sound" type="button">
+      <span class="audio-icon" aria-hidden="true">
+        <span class="music-note note-main">
+          <span class="note-stem"></span>
+          <span class="note-head"></span>
+          <span class="note-flag"></span>
+        </span>
+        <span class="music-note note-accent">
+          <span class="note-stem"></span>
+          <span class="note-head"></span>
+        </span>
+        <span class="sound-glow"></span>
+      </span>
+      <span class="audio-text">Sound</span>
+    </button>
+  </div>
+  <nav class="season-buttons" aria-label="Choose a season">
+    <button class="season-btn active" data-season="spring" type="button">Spring</button>
+    <button class="season-btn" data-season="summer" type="button">Summer</button>
+    <button class="season-btn" data-season="fall" type="button">Fall</button>
+    <button class="season-btn" data-season="winter" type="button">Winter</button>
+  </nav>
 
   <header class="intro reveal">
     <p class="eyebrow">Memory archive of place</p>
     <h1>Seasons of My Street</h1>
+    <div class="cat-stage" aria-hidden="true">
+      <img id="season-cat" class="season-cat" src="assets/images/cat1.png" alt="" />
+    </div>
     <p class="intro-text">
       These photographs move across Jamsil in Songpa-gu, near my home. They are not all the same street,
       but each place holds a personal season, a memory, and often a moment shared with my dog Sulgi.
     </p>
-
-    <div class="intro-actions">
-      <button id="scroll-story" class="ghost-btn" type="button">Scroll through the year</button>
-    </div>
   </header>
 
   <main>
     <section class="spotlight reveal" id="spotlight">
-      <div class="cat-stage" aria-hidden="true">
-        <img id="season-cat" class="season-cat" src="assets/images/cat1.png" alt="" />
-      </div>
       <div class="spotlight-copy">
         <p class="season-index" id="season-index">01</p>
         <p class="spotlight-kicker" id="season-kicker">Tender light, first bloom</p>
@@ -52,38 +71,17 @@
           Spring turns the street into a gentler place, full of light movement and quiet energy.
         </p>
 
-        <div class="season-buttons">
-          <button class="season-btn active" data-season="spring" type="button">Enter Spring</button>
-          <button class="season-btn" data-season="summer" type="button">Enter Summer</button>
-          <button class="season-btn" data-season="fall" type="button">Enter Fall</button>
-          <button class="season-btn" data-season="winter" type="button">Enter Winter</button>
-        </div>
-
         <div class="spotlight-meta">
           <div class="image-controls">
-            <button id="prev-image" class="arrow-btn" aria-label="Previous image" type="button">Previous</button>
             <div id="image-counter" class="image-counter">1 / 1</div>
-            <button id="next-image" class="arrow-btn" aria-label="Next image" type="button">Next</button>
-          </div>
-
-          <div class="audio-controls">
-            <span class="audio-label">Sound</span>
-            <button id="toggle-audio" class="audio-toggle off" aria-label="Toggle sound" type="button">
-              <span class="toggle-knob"></span>
-            </button>
-            <span class="sound-bars" aria-hidden="true">
-              <span></span>
-              <span></span>
-              <span></span>
-            </span>
           </div>
         </div>
       </div>
 
       <div class="spotlight-stage">
         <div class="frame-nav">
-          <button id="frame-prev" class="frame-arrow" type="button" aria-label="Show previous photo">←</button>
-          <button id="frame-next" class="frame-arrow" type="button" aria-label="Show next photo">→</button>
+          <button id="frame-prev" class="frame-arrow" type="button" aria-label="Show previous photo">&lt;</button>
+          <button id="frame-next" class="frame-arrow" type="button" aria-label="Show next photo">&gt;</button>
         </div>
         <button id="open-lightbox" class="image-frame" type="button" aria-label="Open immersive image view">
           <img id="season-image" src="" alt="Season image" />
@@ -137,6 +135,16 @@
               to document one exact street, but to show how nearby places can become personally meaningful.
             </p>
           </article>
+        </div>
+
+        <div class="music-source-card">
+          <p class="eyebrow">Seasonal sound sources</p>
+          <div class="music-source-grid">
+            <p><strong>Spring</strong> Temple of Time (MapleStory BGM)</p>
+            <p><strong>Summer</strong> Wonderful Moments In Narin (MapleStory BGM)</p>
+            <p><strong>Fall</strong> Alone 2 - iwamizu</p>
+            <p><strong>Winter</strong> Snowy (UNDERTALE soundtrack)</p>
+          </div>
         </div>
       </section>
 

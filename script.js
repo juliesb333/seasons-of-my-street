@@ -15,7 +15,7 @@ const seasonData = {
       {
         src: "assets/images/spring1.jpeg",
         alt: "Cherry blossoms and benches on the street in spring",
-        caption: "Benches sit under blossom as if the whole street has started speaking more quietly.",
+        caption: "Walking with Sulgi near the benches by Lotte World Tower, where the cherry blossoms were in full bloom. 2025 Spring",
         hotspots: [
           { x: 32, y: 58, title: "Waiting bench", text: "This is the kind of place where spring makes waiting feel softer instead of longer." },
           { x: 62, y: 24, title: "First bloom", text: "I notice the season changing here before I notice it anywhere else." }
@@ -24,7 +24,7 @@ const seasonData = {
       {
         src: "assets/images/spring2.jpeg",
         alt: "A spring street view with fresh trees",
-        caption: "The street feels like it has been reopened by air and light.",
+        caption: "A photo I took as the wind softly carried the cherry blossom petals away. 2026 Spring",
         hotspots: [
           { x: 55, y: 64, title: "Fresh shade", text: "The new leaves are thin enough to let the brightness pass through." },
           { x: 78, y: 38, title: "Quiet corner", text: "Even concrete edges feel lighter when the trees wake up." }
@@ -33,7 +33,7 @@ const seasonData = {
       {
         src: "assets/images/spring3.JPG",
         alt: "Spring neighborhood scene",
-        caption: "Spring does not erase the ordinary; it makes the ordinary shimmer.",
+        caption: "Me with my fruit juice at Seokchon Lake Park on a spring day. 2025 Spring",
         hotspots: [
           { x: 24, y: 50, title: "Passing line", text: "People move through this path quickly, but spring slows my eyes down." },
           { x: 69, y: 30, title: "Light through branches", text: "The branches hold more brightness than shade at this time of year." }
@@ -41,26 +41,17 @@ const seasonData = {
       },
       {
         src: "assets/images/spring4.jpeg",
-        alt: "Spring view of the familiar street",
-        caption: "The neighborhood starts looking less practical and more intimate.",
-        hotspots: [
-          { x: 44, y: 40, title: "Bloom canopy", text: "It feels like the road is briefly sheltered by blossom." },
-          { x: 71, y: 70, title: "Ground detail", text: "Fallen petals make the pavement feel touched instead of plain." }
-        ]
-      },
-      {
-        src: "assets/images/spring5.jpeg",
         alt: "Another spring memory from the neighborhood street",
-        caption: "The place becomes softer without changing its shape.",
+        caption: "A cherry blossom tree beside a utility pole, glowing quietly at night. 2026 Spring",
         hotspots: [
           { x: 38, y: 55, title: "Return path", text: "I keep returning to places like this, and spring changes how near they feel." },
           { x: 66, y: 26, title: "Sky opening", text: "This part of the street always catches the season in a gentler light." }
         ]
       },
       {
-        src: "assets/images/spring6.jpeg",
+        src: "assets/images/spring5.jpeg",
         alt: "Springtime street photo with blossom",
-        caption: "A familiar place becomes almost ceremonial once blossom begins to fall.",
+        caption: "Seokchon Lake and the apartments beyond it, framed by cherry blossom trees in full bloom. 2026 Spring",
         hotspots: [
           { x: 25, y: 62, title: "Ground rhythm", text: "The petals make even the path feel delicate for a few short days." },
           { x: 59, y: 28, title: "Skyline softened", text: "Buildings stay the same, but they stop feeling hard-edged." }
@@ -84,7 +75,7 @@ const seasonData = {
       {
         src: "assets/images/summer1.jpeg",
         alt: "Summer neighborhood street under bright sunlight",
-        caption: "Summer makes the road feel taller, brighter, and denser with heat.",
+        caption: "Me strolling through Olympic Park, surrounded by deep green trees. 2025 Summer",
         hotspots: [
           { x: 27, y: 58, title: "Deep shade", text: "This patch of shadow feels like relief in the middle of a bright afternoon." },
           { x: 77, y: 26, title: "Sunline", text: "The white surfaces keep reflecting light long after it becomes too strong." }
@@ -93,7 +84,7 @@ const seasonData = {
       {
         src: "assets/images/summer2.jpeg",
         alt: "Green summer street with bright sky",
-        caption: "A familiar route becomes more crowded with leaves, sunlight, and motion.",
+        caption: "Sulgi sitting on a bench in the outdoor garden of Lotte World Tower, with sunflowers facing her. 2023 Summer",
         hotspots: [
           { x: 51, y: 70, title: "Breathing trees", text: "In summer the trees feel less decorative and more like shelter." },
           { x: 70, y: 40, title: "Heat shimmer", text: "The bright air itself feels like part of the landscape." }
@@ -102,7 +93,7 @@ const seasonData = {
       {
         src: "assets/images/summer3.jpeg",
         alt: "Summer street view with strong light and greenery",
-        caption: "Everything feels pushed closer to the surface by heat and brightness.",
+        caption: "Me riding a Seoul public bike along a road in Jamsil, with greenery all around. 2025 Summer",
         hotspots: [
           { x: 30, y: 45, title: "Green density", text: "By summer, the foliage starts to feel louder than the buildings." },
           { x: 68, y: 62, title: "Midday path", text: "The road asks to be crossed quickly when the sun is highest." }
@@ -111,10 +102,19 @@ const seasonData = {
       {
         src: "assets/images/summer4.jpeg",
         alt: "Summer memory from Jamsil near home",
-        caption: "The season turns the familiar into something almost overexposed with life.",
+        caption: "A summer view I captured in an apartment complex near my home. 2023 Summer",
         hotspots: [
           { x: 42, y: 54, title: "Warm pause", text: "This is where summer feels least still and most full of breath." },
           { x: 78, y: 33, title: "High light", text: "The sky looks largest in summer, but the air feels heaviest." }
+        ]
+      },
+      {
+        src: "assets/images/summer5.jpeg",
+        alt: "Summer photo at Lotte World with the castle and rides behind",
+        caption: "Me at Lotte World in a rented school uniform, with the castle and rides rising behind me. 2022 Summer",
+        hotspots: [
+          { x: 34, y: 58, title: "Summer memory", text: "The playful energy of the park makes this summer moment feel especially vivid." },
+          { x: 72, y: 28, title: "Castle backdrop", text: "The rides and castle turn the background into a bright seasonal stage." }
         ]
       }
     ]
@@ -134,7 +134,7 @@ const seasonData = {
       {
         src: "assets/images/fall1.jpeg",
         alt: "Autumn neighborhood street with warm tones",
-        caption: "The road starts holding color more quietly in autumn.",
+        caption: "Trees along the road turning color, bringing a stronger feeling of fall. 2025 Fall",
         hotspots: [
           { x: 34, y: 60, title: "Leaf edge", text: "The ground becomes the first place where the season gathers." },
           { x: 67, y: 30, title: "Late light", text: "The afternoon light starts to feel shorter even before the day does." }
@@ -143,7 +143,7 @@ const seasonData = {
       {
         src: "assets/images/fall2.jpeg",
         alt: "Fall photo from a familiar part of Jamsil",
-        caption: "Even movement seems more careful once the weather starts to turn.",
+        caption: "Sulgi taking a break with my mom at a bench table in the outdoor garden of Lotte World Tower. 2023 Fall",
         hotspots: [
           { x: 48, y: 54, title: "Cooler path", text: "I start noticing the space between trees and buildings again." },
           { x: 72, y: 39, title: "Change line", text: "This is where the street feels most clearly between one season and the next." }
@@ -152,7 +152,7 @@ const seasonData = {
       {
         src: "assets/images/fall3.jpeg",
         alt: "Autumn street scene with changing trees",
-        caption: "Autumn feels like the street speaking in a lower register.",
+        caption: "The flowers slowly fading as Sulgi pauses to sniff around the grassy field. 2025 Fall",
         hotspots: [
           { x: 29, y: 42, title: "Fading canopy", text: "The leaves stop forming a roof and become fragments instead." },
           { x: 63, y: 68, title: "Dusty gold", text: "The color here feels less bright than deep." }
@@ -161,7 +161,7 @@ const seasonData = {
       {
         src: "assets/images/fall4.jpeg",
         alt: "Another fall memory from the neighborhood",
-        caption: "The place turns inward without becoming empty.",
+        caption: "A photo of the sky with fewer clouds, with Lotte Tower peeking through the buildings, taken from the subway. 2022 Fall",
         hotspots: [
           { x: 40, y: 58, title: "Slower route", text: "Autumn always changes my walking pace on this road." },
           { x: 79, y: 31, title: "Evening warmth", text: "This corner seems to keep warm light longer than it should." }
@@ -170,7 +170,7 @@ const seasonData = {
       {
         src: "assets/images/fall5.jpeg",
         alt: "Fall image from a familiar place near home",
-        caption: "The neighborhood becomes more reflective than bright.",
+        caption: "Baby Sulgi playing with fallen leaves on the ground. 2022 Fall",
         hotspots: [
           { x: 24, y: 61, title: "Leaf memory", text: "It feels like the season is collecting itself along the curb." },
           { x: 61, y: 37, title: "Quiet façade", text: "Even the buildings look more contemplative in autumn light." }
@@ -193,7 +193,7 @@ const seasonData = {
       {
         src: "assets/images/winter1.jpeg",
         alt: "Winter neighborhood street scene",
-        caption: "Winter air feels cold and open, but the season is brightened by lights that gather after dark.",
+        caption: "Christmas lights brightening the night at the Christmas market near Lotte World Tower. 2023 Winter",
         hotspots: [
           { x: 35, y: 63, title: "Clear path", text: "Without lush foliage, the street opens into a more exposed geometry." },
           { x: 70, y: 28, title: "Cold sky", text: "Winter makes the sky feel both farther away and closer at the same time." }
@@ -202,7 +202,7 @@ const seasonData = {
       {
         src: "assets/images/winter2.jpeg",
         alt: "Winter image from a familiar road near home",
-        caption: "The familiar becomes fragile in the cold, but also more direct.",
+        caption: "Sulgi with her long winter fur in the outer garden at night, when we usually go for walks. 2024 Winter",
         hotspots: [
           { x: 52, y: 57, title: "Still center", text: "This is where winter feels most like a pause rather than a scene." },
           { x: 76, y: 36, title: "Pale light", text: "The light is softer, but also less forgiving." }
@@ -211,7 +211,7 @@ const seasonData = {
       {
         src: "assets/images/winter3.jpeg",
         alt: "Winter memory from the neighborhood street",
-        caption: "The street looks quieter, but every small sound carries farther.",
+        caption: "Sulgi searching for something to eat behind the fence, leaving footprints in the snow. 2025 Winter",
         hotspots: [
           { x: 31, y: 46, title: "Bare edge", text: "Without leaves, the outlines of the place become more visible and more lonely." },
           { x: 65, y: 68, title: "Echo point", text: "Winter makes distance feel sharper on this path." }
@@ -220,7 +220,7 @@ const seasonData = {
       {
         src: "assets/images/winter4.jpeg",
         alt: "Winter photo with soft cold atmosphere",
-        caption: "The Christmas market turns winter night into something warm, bright, and inviting.",
+        caption: "Me holding a warm cup of vin chaud, with crowds gathered behind me to enjoy the Christmas market and merry-go-round. 2025 Winter",
         hotspots: [
           { x: 42, y: 51, title: "Held breath", text: "This view always feels like it is waiting for the next thaw." },
           { x: 73, y: 26, title: "Silver edge", text: "Cold air and bright market lights make the whole scene feel festive instead of empty." }
@@ -229,7 +229,7 @@ const seasonData = {
       {
         src: "assets/images/winter5.jpeg",
         alt: "Final winter image from the street archive",
-        caption: "Christmas lights make winter feel radiant rather than only quiet.",
+        caption: "Sulgi walking through the snow in the outer garden after failing to find any food. 2025 Winter",
         hotspots: [
           { x: 26, y: 58, title: "Last quiet", text: "Even in the coldest season, light keeps the place from feeling distant." },
           { x: 67, y: 33, title: "Clear structure", text: "The Christmas tree and market brightness give winter a celebratory outline." }
@@ -251,11 +251,8 @@ const imageCounter = document.getElementById("image-counter");
 const seasonAudio = document.getElementById("season-audio");
 const introAudio = document.getElementById("intro-audio");
 const toggleAudioBtn = document.getElementById("toggle-audio");
-const prevImageBtn = document.getElementById("prev-image");
-const nextImageBtn = document.getElementById("next-image");
 const framePrevBtn = document.getElementById("frame-prev");
 const frameNextBtn = document.getElementById("frame-next");
-const scrollStoryBtn = document.getElementById("scroll-story");
 const storyIntro = document.getElementById("story");
 const seasonStory = document.getElementById("season-story");
 const backgroundFalling = document.getElementById("background-falling");
@@ -280,8 +277,11 @@ let sectionObserver;
 let revealObserver;
 let upperThemeTicking = false;
 let catAnimationInterval = null;
+let panelCatAnimationInterval = null;
 let catFrameIndex = 0;
+let panelCatFrameIndex = 0;
 let hasSelectedSeason = false;
+let suppressLightboxClick = false;
 const seasonImageIndices = Object.fromEntries(Object.keys(seasonData).map((season) => [season, 0]));
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -309,11 +309,7 @@ const catAnimations = {
 };
 
 function getCatAnimationKey() {
-  if (!hasSelectedSeason) {
-    return "default";
-  }
-
-  return catAnimations[currentSeason] ? currentSeason : "default";
+  return "default";
 }
 
 function renderCatFrame() {
@@ -355,6 +351,41 @@ function syncCatAnimation() {
   startCatAnimation();
 }
 
+function renderPanelCatFrames() {
+  document.querySelectorAll("[data-panel-cat]").forEach((image) => {
+    const season = image.dataset.panelCat;
+    const frames = catAnimations[season];
+
+    if (!frames) {
+      return;
+    }
+
+    image.src = frames[panelCatFrameIndex % frames.length];
+  });
+}
+
+function stopPanelCatAnimation() {
+  if (panelCatAnimationInterval !== null) {
+    window.clearInterval(panelCatAnimationInterval);
+    panelCatAnimationInterval = null;
+  }
+}
+
+function startPanelCatAnimation() {
+  stopPanelCatAnimation();
+  panelCatFrameIndex = 0;
+  renderPanelCatFrames();
+
+  if (prefersReducedMotion) {
+    return;
+  }
+
+  panelCatAnimationInterval = window.setInterval(() => {
+    panelCatFrameIndex += 1;
+    renderPanelCatFrames();
+  }, 420);
+}
+
 function renderSeasonPanels() {
   seasonStory.innerHTML = Object.entries(seasonData).map(([season, data]) => `
     <article class="season-panel reveal" data-season="${season}" tabindex="0">
@@ -378,7 +409,12 @@ function renderSeasonPanels() {
         <h3>${data.title}</h3>
         <p>${data.chapterText}</p>
         <p class="panel-quote">${data.chapterQuote}</p>
-        <button class="panel-open" data-season="${season}" type="button">Bring ${data.title} forward</button>
+        <div class="panel-action-row">
+          <button class="panel-open" data-season="${season}" type="button">Bring ${data.title} forward</button>
+          <div class="panel-cat-wrap" aria-hidden="true">
+            <img class="panel-season-cat" data-panel-cat="${season}" src="${catAnimations[season][0]}" alt="" />
+          </div>
+        </div>
       </div>
     </article>
   `).join("");
@@ -893,6 +929,65 @@ function setupUpperThemeSync() {
   requestSync();
 }
 
+function setupSwipeNavigation(element, options) {
+  if (!element) {
+    return;
+  }
+
+  let startX = 0;
+  let startY = 0;
+  let isTracking = false;
+
+  const resetSwipe = () => {
+    isTracking = false;
+    startX = 0;
+    startY = 0;
+  };
+
+  element.addEventListener("pointerdown", (event) => {
+    if (event.pointerType === "mouse") {
+      return;
+    }
+
+    isTracking = true;
+    startX = event.clientX;
+    startY = event.clientY;
+  });
+
+  element.addEventListener("pointerup", (event) => {
+    if (!isTracking) {
+      return;
+    }
+
+    const deltaX = event.clientX - startX;
+    const deltaY = event.clientY - startY;
+    resetSwipe();
+
+    const passedHorizontalThreshold = Math.abs(deltaX) > 44;
+    const stayedMostlyHorizontal = Math.abs(deltaY) < Math.max(36, Math.abs(deltaX) * 0.55);
+
+    if (!passedHorizontalThreshold || !stayedMostlyHorizontal) {
+      return;
+    }
+
+    if (options.preventClick) {
+      suppressLightboxClick = true;
+      window.setTimeout(() => {
+        suppressLightboxClick = false;
+      }, 280);
+    }
+
+    if (deltaX < 0) {
+      options.onNext();
+      return;
+    }
+
+    options.onPrev();
+  });
+
+  element.addEventListener("pointercancel", resetSwipe);
+}
+
 seasonButtons.forEach((button) => {
   button.addEventListener("click", () => {
     playIntroOnce();
@@ -929,15 +1024,6 @@ seasonStory.addEventListener("click", (event) => {
   });
 });
 
-scrollStoryBtn.addEventListener("click", () => {
-  document.getElementById("story").scrollIntoView({
-    behavior: prefersReducedMotion ? "auto" : "smooth",
-    block: "start"
-  });
-});
-
-prevImageBtn.addEventListener("click", showPrevImage);
-nextImageBtn.addEventListener("click", showNextImage);
 framePrevBtn.addEventListener("click", (event) => {
   event.stopPropagation();
   showPrevImage();
@@ -987,7 +1073,15 @@ seasonAudio.addEventListener("ended", () => {
   toggleAudioBtn.classList.add("off");
 });
 
-openLightboxBtn.addEventListener("click", openLightbox);
+openLightboxBtn.addEventListener("click", (event) => {
+  if (suppressLightboxClick) {
+    event.preventDefault();
+    suppressLightboxClick = false;
+    return;
+  }
+
+  openLightbox();
+});
 closeLightboxBtn.addEventListener("click", closeLightbox);
 
 lightbox.addEventListener("click", (event) => {
@@ -1013,5 +1107,16 @@ setupRevealObserver();
 setupSectionObserver();
 setupUpperThemeSync();
 setupPointerMotion();
+setupSwipeNavigation(openLightboxBtn, {
+  onPrev: showPrevImage,
+  onNext: showNextImage,
+  preventClick: true
+});
+setupSwipeNavigation(lightboxImage, {
+  onPrev: showPrevImage,
+  onNext: showNextImage,
+  preventClick: false
+});
 setSeason("spring");
 startCatAnimation();
+startPanelCatAnimation();
