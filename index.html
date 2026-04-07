@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=20260408-1" />
 </head>
 <body class="season-spring">
   <div class="page-sky" aria-hidden="true">
@@ -71,22 +71,18 @@
           Spring turns the street into a gentler place, full of light movement and quiet energy.
         </p>
 
-        <div class="spotlight-meta">
-          <div class="image-controls">
-            <div id="image-counter" class="image-counter">1 / 1</div>
-          </div>
-        </div>
       </div>
 
       <div class="spotlight-stage">
-        <div class="frame-nav">
-          <button id="frame-prev" class="frame-arrow" type="button" aria-label="Show previous photo">&lt;</button>
-          <button id="frame-next" class="frame-arrow" type="button" aria-label="Show next photo">&gt;</button>
-        </div>
         <button id="open-lightbox" class="image-frame" type="button" aria-label="Open immersive image view">
           <img id="season-image" src="" alt="Season image" />
           <div class="frame-wash" aria-hidden="true"></div>
         </button>
+        <div class="image-controls">
+          <button id="frame-prev" class="counter-arrow" type="button" aria-label="Show previous photo">&lt;</button>
+          <div id="image-counter" class="image-counter">1 / 1</div>
+          <button id="frame-next" class="counter-arrow" type="button" aria-label="Show next photo">&gt;</button>
+        </div>
 
         <div class="field-note-box">
           <p class="frame-caption-label">Field note</p>
@@ -178,6 +174,6 @@
   <audio id="season-audio" preload="auto"></audio>
   <audio id="intro-audio" preload="auto" src="assets/audio/intro.mp3"></audio>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=20260408-1"></script>
 </body>
 </html>

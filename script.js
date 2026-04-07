@@ -633,7 +633,8 @@ function createSummerBubble() {
   const element = document.createElement("div");
   const width = window.innerWidth;
   const height = window.innerHeight;
-  const size = 22 + Math.random() * 18;
+  const isMobileViewport = width <= 640;
+  const size = isMobileViewport ? 16 + Math.random() * 12 : 22 + Math.random() * 18;
   const direction = Math.random() > 0.5 ? 1 : -1;
   const startX = direction === 1 ? -size - Math.random() * 120 : width + Math.random() * 120;
   const startY = 40 + Math.random() * Math.max(height - 160, 120);
@@ -660,10 +661,10 @@ function createSummerBubble() {
     driftPhase: Math.random() * Math.PI * 2,
     driftSpeed: 0.0012 + Math.random() * 0.0015,
     wander: 0.0025 + Math.random() * 0.0032,
-    baseOpacity: 0.76 + Math.random() * 0.16,
+    baseOpacity: isMobileViewport ? 0.38 + Math.random() * 0.12 : 0.76 + Math.random() * 0.16,
     floatPhase: Math.random() * Math.PI * 2,
     floatSpeed: 0.012 + Math.random() * 0.012,
-    floatAmplitude: 3 + Math.random() * 7
+    floatAmplitude: isMobileViewport ? 2 + Math.random() * 4 : 3 + Math.random() * 7
   };
 
   renderSummerBubble(bubble);
@@ -757,8 +758,9 @@ function updateSummerBubbles() {
 
 function startSummerBubbleAnimation(count) {
   stopSummerBubbleAnimation();
+  const bubbleCount = window.innerWidth <= 640 ? Math.min(count, 16) : count;
 
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < bubbleCount; i++) {
     const bubble = createSummerBubble();
     summerBubbleState.push(bubble);
     backgroundFalling.appendChild(bubble.element);

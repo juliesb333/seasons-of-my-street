@@ -11,6 +11,7 @@
   --shadow: 0 28px 80px rgba(56, 36, 25, 0.14);
   --glow: rgba(255, 245, 237, 0.75);
   --image-shadow: 0 24px 60px rgba(44, 32, 26, 0.22);
+  --skyline-size: contain;
 }
 
 * {
@@ -30,7 +31,7 @@ body {
   line-height: 1.55;
   color: var(--text);
   background:
-    url("assets/images/buildings.png") center bottom / contain no-repeat,
+    url("assets/images/buildings.png") center bottom / var(--skyline-size) no-repeat,
     radial-gradient(circle at top, rgba(255, 255, 255, 0.6), transparent 36%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04)),
     var(--bg);
@@ -379,19 +380,18 @@ main {
   box-shadow: 0 12px 26px rgba(45, 29, 20, 0.16);
 }
 
-.spotlight-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-  align-items: center;
-  margin-top: 6px;
-}
-
 .image-controls,
 .audio-controls {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+}
+
+.image-controls {
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  margin-top: 14px;
 }
 
 .image-counter,
@@ -406,6 +406,26 @@ main {
 
 .image-counter {
   color: var(--muted);
+}
+
+.counter-arrow {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--text);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.counter-arrow:hover,
+.counter-arrow:focus-visible {
+  opacity: 0.62;
+  transform: translateY(-1px);
+  outline: none;
 }
 
 .audio-toggle {
@@ -571,44 +591,6 @@ main {
 
 .spotlight-stage {
   position: relative;
-}
-
-.frame-nav {
-  position: absolute;
-  top: 50%;
-  left: 16px;
-  right: 16px;
-  z-index: 3;
-  display: flex;
-  justify-content: space-between;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
-.frame-arrow {
-  width: 44px;
-  height: 44px;
-  border: 1px solid rgba(255, 255, 255, 0.42);
-  border-radius: 50%;
-  background: rgba(255, 252, 248, 0.72);
-  color: var(--text);
-  font-size: 1.05rem;
-  font-weight: 700;
-  line-height: 1;
-  cursor: pointer;
-  box-shadow: 0 16px 32px rgba(45, 29, 20, 0.12);
-  backdrop-filter: blur(16px);
-  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-  pointer-events: auto;
-}
-
-.frame-arrow:hover,
-.frame-arrow:focus-visible {
-  transform: translateY(-2px);
-  background: rgba(255, 252, 248, 0.9);
-  border-color: rgba(255, 255, 255, 0.72);
-  box-shadow: 0 20px 38px rgba(45, 29, 20, 0.16);
-  outline: none;
 }
 
 .image-frame {
@@ -1093,6 +1075,10 @@ footer {
 }
 
 @media (max-width: 820px) {
+  :root {
+    --skyline-size: 100% auto;
+  }
+
   .intro {
     padding-top: 40px;
   }
@@ -1146,6 +1132,14 @@ footer {
     width: min(1180px, calc(100vw - 26px));
   }
 
+  .intro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    padding-top: calc(40px + 52px);
+  }
+
   .intro h1 {
     font-size: 3.8rem;
   }
@@ -1156,11 +1150,6 @@ footer {
     margin-top: 90px;
   }
 
-  .spotlight-meta {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
   .season-buttons {
     top: max(12px, env(safe-area-inset-top));
     bottom: auto;
@@ -1169,15 +1158,15 @@ footer {
     width: auto;
     display: flex;
     transform: none;
-    padding: 8px 6px;
-    border-radius: 20px;
+    padding: 7px 5px;
+    border-radius: 18px;
   }
 
   .season-btn {
     min-width: 0;
-    padding: 8px 9px;
+    padding: 7px 8px;
     text-align: center;
-    font-size: 0.66rem;
+    font-size: 0.62rem;
     letter-spacing: 0.08em;
   }
 
@@ -1190,33 +1179,43 @@ footer {
     left: max(12px, env(safe-area-inset-left));
   }
 
-  .frame-nav {
-    left: 12px;
-    right: 12px;
-  }
-
   .audio-toggle {
-    min-width: 108px;
-    padding: 10px 13px 10px 11px;
-    gap: 10px;
+    min-width: 96px;
+    padding: 9px 11px 9px 10px;
+    gap: 8px;
   }
 
   .audio-text {
-    letter-spacing: 0.18em;
-  }
-
-  .intro {
-    padding-top: calc(40px + 52px);
+    letter-spacing: 0.14em;
   }
 
   .cat-stage {
-    top: 24px;
-    right: 8px;
+    position: relative;
+    order: 4;
+    top: auto;
+    right: auto;
     transform: none;
+    align-self: center;
+    margin-top: 18px;
+    margin-bottom: 6px;
   }
 
   .season-cat {
-    width: clamp(84px, 20vw, 122px);
+    width: clamp(132px, 42vw, 188px);
+  }
+
+  .cat-stage::before {
+    width: clamp(170px, 54vw, 250px);
+    height: clamp(120px, 34vw, 170px);
+    bottom: 6px;
+  }
+
+  .summer-bubble .falling-image {
+    filter:
+      brightness(1.08)
+      contrast(1.08)
+      drop-shadow(0 0 6px rgba(255, 255, 255, 0.4))
+      drop-shadow(0 0 12px rgba(175, 225, 255, 0.22));
   }
 }
 
