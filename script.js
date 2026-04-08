@@ -426,27 +426,27 @@ function startPanelCatAnimation() {
 function renderSeasonPanels() {
   seasonStory.innerHTML = Object.entries(seasonData).map(([season, data]) => `
     <article class="season-panel reveal" data-season="${season}" tabindex="0">
+      <div class="panel-heading">
+        <p class="season-index">${data.index}</p>
+        <p class="eyebrow">${data.kicker}</p>
+        <h3>${data.title}</h3>
+      </div>
       <div class="panel-stage">
         <div class="panel-visual">
           <div class="panel-card-stack" data-panel-stack="${season}"></div>
         </div>
       </div>
-      <div class="panel-copy">
-        <p class="season-index">${data.index}</p>
-        <p class="eyebrow">${data.kicker}</p>
-        <h3>${data.title}</h3>
-        <div class="panel-detail-grid">
-          ${data.detailImages.map((image) => `
-            <figure class="panel-detail-card">
-              <img src="${image.src}" alt="${image.alt}" />
-            </figure>
-          `).join("")}
-        </div>
-        <div class="panel-action-row">
-          <button class="panel-open" data-season="${season}" type="button">Bring ${data.title} forward</button>
-          <div class="panel-cat-wrap" aria-hidden="true">
-            <img class="panel-season-cat" data-panel-cat="${season}" src="${catAnimations[season][0]}" alt="" />
-          </div>
+      <div class="panel-detail-grid">
+        ${data.detailImages.map((image) => `
+          <figure class="panel-detail-card">
+            <img src="${image.src}" alt="${image.alt}" />
+          </figure>
+        `).join("")}
+      </div>
+      <div class="panel-action-row">
+        <button class="panel-open" data-season="${season}" type="button">Bring ${data.title} forward</button>
+        <div class="panel-cat-wrap" aria-hidden="true">
+          <img class="panel-season-cat" data-panel-cat="${season}" src="${catAnimations[season][0]}" alt="" />
         </div>
       </div>
     </article>

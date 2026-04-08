@@ -706,7 +706,12 @@ main {
 .season-panel {
   display: grid;
   grid-template-columns: minmax(260px, 0.84fr) minmax(360px, 1fr);
-  gap: 40px;
+  grid-template-areas:
+    "stage heading"
+    "stage detail"
+    "stage actions";
+  column-gap: 40px;
+  row-gap: 22px;
   align-items: center;
   min-height: 88svh;
   padding: 36px 6px;
@@ -724,21 +729,37 @@ main {
 
 .season-panel:nth-child(even) {
   grid-template-columns: minmax(360px, 1fr) minmax(260px, 0.84fr);
+  grid-template-areas:
+    "heading stage"
+    "detail stage"
+    "actions stage";
 }
 
-.season-panel:nth-child(even) .panel-stage {
-  order: 2;
+.panel-heading {
+  grid-area: heading;
+  display: grid;
+  gap: 10px;
+  align-content: end;
+  justify-items: center;
+  padding: 8px 14px 0;
+}
+
+.panel-heading .season-index,
+.panel-heading .eyebrow,
+.panel-heading h3 {
+  text-align: center;
 }
 
 .panel-stage {
+  grid-area: stage;
   display: grid;
   justify-items: center;
-  gap: 14px;
+  gap: 8px;
 }
 
 .panel-visual {
   width: min(100%, 700px);
-  aspect-ratio: 1.18 / 1;
+  aspect-ratio: 1.36 / 1;
   display: block;
   padding: 0;
   border: 0;
@@ -885,26 +906,14 @@ main {
     radial-gradient(circle at top right, rgba(255, 255, 255, 0.12), transparent 34%);
 }
 
-.panel-copy {
-  display: grid;
-  gap: 14px;
-  align-content: center;
-  justify-items: center;
-  min-height: 100%;
-  padding: 20px 14px;
-}
-
-.panel-copy .season-index,
-.panel-copy .eyebrow,
-.panel-copy h3 {
-  text-align: center;
-}
-
 .panel-detail-grid {
+  grid-area: detail;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 180px));
-  gap: 18px;
+  gap: 16px;
   align-items: start;
+  justify-content: center;
+  margin-top: -2px;
 }
 
 .panel-detail-card {
@@ -917,7 +926,7 @@ main {
 }
 
 .panel-detail-card:first-child {
-  transform: scale(1.08);
+  transform: scale(1.13);
   transform-origin: center;
 }
 
@@ -929,16 +938,19 @@ main {
 }
 
 .panel-action-row {
+  grid-area: actions;
   display: flex;
-  align-items: end;
+  align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 14px;
   flex-wrap: wrap;
 }
 
 .panel-cat-wrap {
-  width: clamp(112px, 13vw, 156px);
+  width: clamp(128px, 15vw, 176px);
   flex: 0 0 auto;
+  display: flex;
+  align-items: center;
 }
 
 .panel-season-cat {
@@ -949,12 +961,12 @@ main {
   filter: drop-shadow(0 12px 20px rgba(45, 29, 20, 0.12));
 }
 
-.panel-copy h3,
+.panel-heading h3,
 .reflection-section blockquote {
   font-family: "Cormorant Garamond", serif;
 }
 
-.panel-copy h3 {
+.panel-heading h3 {
   font-size: clamp(2.2rem, 4vw, 3.5rem);
 }
 
@@ -965,7 +977,7 @@ main {
 
 .panel-open {
   justify-self: center;
-  padding: 12px 18px;
+  padding: 13px 22px;
   background: rgba(255, 250, 246, 0.62);
   box-shadow: 0 14px 30px rgba(45, 29, 20, 0.08);
 }
@@ -1242,6 +1254,11 @@ footer {
   .season-panel,
   .season-panel:nth-child(even) {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "heading"
+      "stage"
+      "detail"
+      "actions";
   }
 
   .season-story {
@@ -1249,12 +1266,16 @@ footer {
   }
 
   .season-panel {
-    min-height: 82svh;
+    min-height: auto;
     padding: 24px 6px;
+    gap: 24px;
   }
 
-  .season-panel:nth-child(even) .panel-stage {
-    order: 0;
+  .panel-heading,
+  .panel-stage,
+  .panel-detail-grid,
+  .panel-action-row {
+    width: 100%;
   }
 
   .spotlight {
@@ -1342,48 +1363,39 @@ footer {
   .season-panel:nth-child(even) {
     display: grid;
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "heading"
+      "stage"
+      "detail"
+      "actions";
     justify-items: center;
-    gap: 22px;
+    gap: 20px;
   }
 
-  .season-panel:nth-child(even) .panel-stage {
-    order: 2;
-  }
-
-  .panel-copy {
-    order: 1;
+  .panel-heading {
     width: 100%;
     justify-items: center;
     align-content: start;
-    gap: 18px;
+    gap: 12px;
     padding: 0;
   }
 
-  .panel-copy .season-index,
-  .panel-copy .eyebrow,
-  .panel-copy h3 {
+  .panel-heading .season-index,
+  .panel-heading .eyebrow,
+  .panel-heading h3 {
     width: 100%;
-  }
-
-  .panel-stage {
-    order: 2;
-  }
-
-  .panel-detail-grid {
-    order: 3;
   }
 
   .panel-action-row {
-    order: 4;
     width: 100%;
     justify-content: center;
     align-items: center;
-    gap: 18px;
+    gap: 12px;
   }
 
   .panel-visual {
     width: min(100%, 390px);
-    aspect-ratio: 0.84 / 1;
+    aspect-ratio: 1.12 / 1;
   }
 
   .panel-image-controls {
@@ -1392,15 +1404,19 @@ footer {
 
   .panel-detail-grid {
     grid-template-columns: repeat(2, minmax(0, 148px));
-    gap: 14px;
+    gap: 12px;
   }
 
   .panel-detail-card:first-child {
-    transform: scale(1.05);
+    transform: scale(1.09);
   }
 
   .panel-card {
     width: min(100%, 210px);
+  }
+
+  .panel-cat-wrap {
+    width: clamp(120px, 32vw, 156px);
   }
 
   .panel-card-photo {
