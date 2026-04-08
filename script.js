@@ -3,14 +3,23 @@ const seasonData = {
     index: "01",
     title: "Spring",
     kicker: "Tender light, first bloom",
-    mood: "In spring, familiar corners of Jamsil begin to feel softer before I even fully notice why.",
-    description: "Places near my home feel bright, open, and newly awake once blossom and clearer light return.",
-    note: "Spring brings a gentler rhythm to these memories, making ordinary places feel newly intimate.",
+    mood: "In spring, familiar corners of Jamsil begin to feel softer and newly awake.",
+    description: "Blossom, light, and return make ordinary places feel closer. Through repeated walks, small changes become part of memory.",
     chapterText: "Blossom, pale light, and small walks with Sulgi make spring feel like the season of first noticing.",
     chapterQuote: "Spring arrives here as softness: lighter air, longer pauses, and places that feel briefly tender.",
     effect: "petals",
     fallingImage: "assets/images/blossom.png",
     audio: "assets/audio/spring.mp3",
+    detailImages: [
+      {
+        src: "assets/images/spring_s1.jpeg",
+        alt: "Zoomed spring detail photo 1"
+      },
+      {
+        src: "assets/images/spring_s2.JPG",
+        alt: "Zoomed spring detail photo 2"
+      }
+    ],
     images: [
       {
         src: "assets/images/spring1.jpeg",
@@ -64,13 +73,22 @@ const seasonData = {
     title: "Summer",
     kicker: "Heat, brightness, breath",
     mood: "Summer settles over Jamsil like heat held in concrete, trees, and late evening air.",
-    description: "In summer, places near home feel greener, louder, warmer, and full of movement.",
-    note: "Summer makes these memories feel active and crowded, as if the whole neighborhood is breathing more loudly.",
+    description: "Places near home grow greener, warmer, and more alive, filled with motion, brightness, and the long rhythm of summer days.",
     chapterText: "Summer stretches the city outward through heavy green shade, bright night color, and walks that feel full of energy.",
     chapterQuote: "Heat, light, and movement make summer feel expansive, restless, and vividly alive.",
     effect: "bubbles",
     fallingImage: "assets/images/bubble.png",
     audio: "assets/audio/Summer.mp3",
+    detailImages: [
+      {
+        src: "assets/images/summer_s1.jpeg",
+        alt: "Zoomed summer detail photo 1"
+      },
+      {
+        src: "assets/images/summer_s2.jpeg",
+        alt: "Zoomed summer detail photo 2"
+      }
+    ],
     images: [
       {
         src: "assets/images/summer1.jpeg",
@@ -122,14 +140,23 @@ const seasonData = {
   fall: {
     index: "03",
     title: "Fall",
-    kicker: "Amber quiet, slowing light",
+    kicker: "Amber Quiet, Growing Memory",
     mood: "Fall makes these places feel quieter first, and nostalgic only a moment later.",
-    description: "In fall, the parts of Jamsil I return to feel calmer, more reflective, and gently changed.",
-    note: "Autumn turns routine walks into slower, more inward memories.",
+    description: "In fall, familiar corners of Jamsil grow calmer, softer, and more reflective as the light lowers and the leaves begin to change.",
     chapterText: "As color deepens and light shortens, familiar places begin to feel thoughtful rather than bright.",
     chapterQuote: "Autumn softens noise, slows attention, and leaves more room for memory.",
     effect: "leaves",
     audio: "assets/audio/fall.mp3",
+    detailImages: [
+      {
+        src: "assets/images/fall_s1.jpeg",
+        alt: "Zoomed fall detail photo 1"
+      },
+      {
+        src: "assets/images/fall_s2.jpeg",
+        alt: "Zoomed fall detail photo 2"
+      }
+    ],
     images: [
       {
         src: "assets/images/fall1.jpeg",
@@ -182,13 +209,22 @@ const seasonData = {
     index: "04",
     title: "Winter",
     kicker: "Pale air, honest stillness",
-    mood: "Winter feels clear and cold at first, but then suddenly bright with Christmas lights, markets, and glowing night color.",
-    description: "In winter, neighborhoods near home feel quieter in the air but brighter in memory because of tree lights, decorations, and the Christmas market.",
-    note: "Winter holds both stillness and celebration, where pale streets open into warm light and festive brightness.",
+    mood: "Winter feels clear and cold at first, then suddenly bright with Christmas lights, markets, and warm light after dark.",
+    description: "In winter, familiar places near home feel quieter and more still, yet remain vivid in memory through the warmth and festive glow of lights, decorations, and the Christmas market.",
     chapterText: "What stands out most in winter is not only silence, but illumination: Christmas trees, market lights, and glowing decorations that make night feel full again.",
     chapterQuote: "Winter sharpens the air, then fills it with light.",
     effect: "snow",
     audio: "assets/audio/winter.mp3",
+    detailImages: [
+      {
+        src: "assets/images/winter_s1.jpeg",
+        alt: "Zoomed winter detail photo 1"
+      },
+      {
+        src: "assets/images/winter_s2.jpeg",
+        alt: "Zoomed winter detail photo 2"
+      }
+    ],
     images: [
       {
         src: "assets/images/winter1.jpeg",
@@ -265,6 +301,7 @@ const lightboxCaption = document.getElementById("lightbox-caption");
 const seasonCat = document.getElementById("season-cat");
 const seasonButtons = [...document.querySelectorAll(".season-btn")];
 const spotlight = document.getElementById("spotlight");
+const themeColorMeta = document.querySelector('meta[name="theme-color"]');
 
 let currentSeason = "spring";
 let currentAmbientSeason = "spring";
@@ -389,26 +426,22 @@ function startPanelCatAnimation() {
 function renderSeasonPanels() {
   seasonStory.innerHTML = Object.entries(seasonData).map(([season, data]) => `
     <article class="season-panel reveal" data-season="${season}" tabindex="0">
-      <div class="panel-visual">
-        <img
-          class="panel-image"
-          data-panel-image="${season}"
-          src="${data.images[seasonImageIndices[season]].src}"
-          alt="${data.images[seasonImageIndices[season]].alt}"
-        />
-        <div class="panel-veil" aria-hidden="true"></div>
-        <div class="panel-gallery-controls">
-          <button class="panel-gallery-btn" data-panel-nav="${season}" data-direction="-1" type="button" aria-label="Previous ${data.title} photo">←</button>
-          <span class="panel-gallery-count" data-panel-count="${season}">${seasonImageIndices[season] + 1} / ${data.images.length}</span>
-          <button class="panel-gallery-btn" data-panel-nav="${season}" data-direction="1" type="button" aria-label="Next ${data.title} photo">→</button>
+      <div class="panel-stage">
+        <div class="panel-visual">
+          <div class="panel-card-stack" data-panel-stack="${season}"></div>
         </div>
       </div>
       <div class="panel-copy">
         <p class="season-index">${data.index}</p>
         <p class="eyebrow">${data.kicker}</p>
         <h3>${data.title}</h3>
-        <p>${data.chapterText}</p>
-        <p class="panel-quote">${data.chapterQuote}</p>
+        <div class="panel-detail-grid">
+          ${data.detailImages.map((image) => `
+            <figure class="panel-detail-card">
+              <img src="${image.src}" alt="${image.alt}" />
+            </figure>
+          `).join("")}
+        </div>
         <div class="panel-action-row">
           <button class="panel-open" data-season="${season}" type="button">Bring ${data.title} forward</button>
           <div class="panel-cat-wrap" aria-hidden="true">
@@ -420,25 +453,64 @@ function renderSeasonPanels() {
   `).join("");
 }
 
+function renderPanelCardStack(season) {
+  const panelStack = document.querySelector(`[data-panel-stack="${season}"]`);
+  if (!panelStack) {
+    return;
+  }
+
+  const images = seasonData[season].images;
+  const currentIndex = seasonImageIndices[season];
+  const positionConfigs = [
+    { className: "panel-card-pos-back-left", offset: -2 },
+    { className: "panel-card-pos-left", offset: -1 },
+    { className: "panel-card-pos-center is-front", offset: 0 },
+    { className: "panel-card-pos-right", offset: 1 },
+    { className: "panel-card-pos-back-right", offset: 2 }
+  ];
+  const visiblePositions = positionConfigs.slice(0, Math.min(images.length, 5));
+  const cards = visiblePositions.map(({ className, offset }) => {
+    const imageIndex = (currentIndex + offset + images.length) % images.length;
+    const image = images[imageIndex];
+
+    return `
+      <button
+        class="panel-card ${className}"
+        data-panel-pick="${season}"
+        data-image-index="${imageIndex}"
+        type="button"
+        aria-label="Show ${seasonData[season].title} photo ${imageIndex + 1}"
+      >
+        <span class="panel-card-shell">
+          <span class="panel-card-photo">
+            <img class="panel-image" src="${image.src}" alt="${image.alt}" />
+            <span class="panel-veil" aria-hidden="true"></span>
+          </span>
+        </span>
+      </button>
+    `;
+  }).join("");
+
+  panelStack.innerHTML = cards;
+}
+
 function updatePanelImage(season) {
-  const imageIndex = seasonImageIndices[season];
-  const image = seasonData[season].images[imageIndex];
-  const panelImage = document.querySelector(`[data-panel-image="${season}"]`);
-  const panelCount = document.querySelector(`[data-panel-count="${season}"]`);
-
-  if (panelImage) {
-    panelImage.src = image.src;
-    panelImage.alt = image.alt;
-  }
-
-  if (panelCount) {
-    panelCount.textContent = `${imageIndex + 1} / ${seasonData[season].images.length}`;
-  }
+  renderPanelCardStack(season);
 }
 
 function setThemeClasses(season) {
   document.body.classList.remove("season-spring", "season-summer", "season-fall", "season-winter");
   document.body.classList.add(`season-${season}`);
+
+  const themeColor = getComputedStyle(document.body).getPropertyValue("--bg").trim();
+
+  if (themeColor) {
+    document.documentElement.style.backgroundColor = themeColor;
+
+    if (themeColorMeta) {
+      themeColorMeta.setAttribute("content", themeColor);
+    }
+  }
 }
 
 function getMostVisibleSeasonPanel() {
@@ -591,15 +663,21 @@ function showPrevImage() {
   updateImage();
 }
 
-function changePanelImage(season, direction) {
+function setPanelImageIndex(season, imageIndex) {
   const totalImages = seasonData[season].images.length;
-  seasonImageIndices[season] = (seasonImageIndices[season] + direction + totalImages) % totalImages;
-  updatePanelImage(season);
+  seasonImageIndices[season] = (imageIndex + totalImages) % totalImages;
 
   if (season === currentSeason) {
     currentImageIndex = seasonImageIndices[season];
     updateImage();
+    return;
   }
+
+  updatePanelImage(season);
+}
+
+function changePanelImage(season, direction) {
+  setPanelImageIndex(season, seasonImageIndices[season] + direction);
 }
 
 function playIntroOnce() {
@@ -1001,12 +1079,12 @@ seasonButtons.forEach((button) => {
 });
 
 seasonStory.addEventListener("click", (event) => {
-  const navButton = event.target.closest("[data-panel-nav]");
-  if (navButton) {
+  const cardButton = event.target.closest("[data-panel-pick]");
+  if (cardButton) {
     event.stopPropagation();
-    const season = navButton.dataset.panelNav;
-    const direction = Number(navButton.dataset.direction);
-    changePanelImage(season, direction);
+    const season = cardButton.dataset.panelPick;
+    const imageIndex = Number(cardButton.dataset.imageIndex);
+    setPanelImageIndex(season, imageIndex);
     return;
   }
 
@@ -1105,6 +1183,7 @@ window.addEventListener("resize", () => {
 });
 
 renderSeasonPanels();
+Object.keys(seasonData).forEach((season) => updatePanelImage(season));
 setupRevealObserver();
 setupSectionObserver();
 setupUpperThemeSync();
