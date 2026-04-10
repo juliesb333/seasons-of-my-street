@@ -167,8 +167,13 @@ body.season-winter {
   position: absolute;
   top: 50%;
   right: clamp(48px, 8vw, 180px);
+  width: clamp(156px, 18vw, 248px);
+  aspect-ratio: 17 / 10;
   transform: translateY(-38%);
   z-index: 4;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
   padding: 0;
   border: 0;
   background: none;
@@ -195,8 +200,9 @@ body.season-winter {
 
 .season-cat {
   display: block;
-  width: clamp(156px, 18vw, 248px);
-  height: auto;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   image-rendering: pixelated;
   filter: drop-shadow(0 14px 24px rgba(45, 28, 19, 0.18));
 }
@@ -958,15 +964,18 @@ main {
 
 .panel-cat-wrap {
   width: clamp(128px, 15vw, 176px);
+  aspect-ratio: 17 / 10;
   flex: 0 0 auto;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .panel-season-cat {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
   image-rendering: pixelated;
   filter: drop-shadow(0 12px 20px rgba(45, 29, 20, 0.12));
 }
@@ -1483,6 +1492,7 @@ footer {
     order: 4;
     top: auto;
     right: auto;
+    width: clamp(132px, 42vw, 188px);
     transform: none;
     align-self: center;
     margin-top: 18px;
@@ -1490,7 +1500,7 @@ footer {
   }
 
   .season-cat {
-    width: clamp(132px, 42vw, 188px);
+    width: 100%;
   }
 
   .cat-stage::before {
