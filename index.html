@@ -37,23 +37,31 @@
       <span class="audio-text">Sound</span>
     </button>
   </div>
-  <nav class="season-buttons" aria-label="Choose a season">
-    <button class="season-btn active" data-season="spring" type="button">Spring</button>
-    <button class="season-btn" data-season="summer" type="button">Summer</button>
-    <button class="season-btn" data-season="fall" type="button">Fall</button>
-    <button class="season-btn" data-season="winter" type="button">Winter</button>
-  </nav>
-
   <header class="intro reveal">
     <p class="eyebrow">Memory archive of place</p>
     <h1>Seasons of My Street</h1>
+    <p class="intro-lede">A year of Jamsil, held in weather, repetition, and memory.</p>
     <button id="season-cat-toggle" class="cat-stage" type="button" aria-label="Change cat season">
       <img id="season-cat" class="season-cat" src="assets/images/cat1.png" alt="" />
+      <span class="cat-hint">CLICK ME</span>
     </button>
+    <div class="intro-atmosphere" aria-hidden="true">
+      <span class="intro-orb orb-one"></span>
+      <span class="intro-orb orb-two"></span>
+      <span class="intro-orb orb-three"></span>
+      <span class="intro-preview preview-one"></span>
+      <span class="intro-preview preview-two"></span>
+      <span class="intro-preview preview-three"></span>
+    </div>
     <p class="intro-text">
       These photographs move across Jamsil in Songpa-gu, near my home. They are not all the same street,
       but each place holds a personal season, a memory, and often a moment shared with my dog Sulgi.
     </p>
+    <div class="intro-meta" aria-label="Archive guide">
+      <span>4 seasons</span>
+      <span>Jamsil, Songpa-gu</span>
+      <span>Photos + sound + field notes</span>
+    </div>
   </header>
 
   <main>
@@ -99,6 +107,11 @@
         Scroll through the year and watch the spotlight shift with it. Each chapter gathers a different
         corner of Jamsil near my home, shaped by weather, memory, and time spent there with Sulgi and me.
       </p>
+      <div class="story-meta" aria-label="Chapter overview">
+        <span>Spring to Winter</span>
+        <span>Neighborhood fragments</span>
+        <span>Personal archive</span>
+      </div>
     </section>
 
     <section id="season-story" class="season-story"></section>
@@ -156,7 +169,7 @@
 
       <footer>
         <p>Seasons of My Street</p>
-        <p class="footer-note">An interactive memory study of one familiar neighborhood road.</p>
+        <p class="footer-note">An interactive memory archive of familiar places in Jamsil.</p>
       </footer>
     </section>
   </main>

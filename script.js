@@ -315,9 +315,7 @@ let sectionObserver;
 let revealObserver;
 let upperThemeTicking = false;
 let catAnimationInterval = null;
-let panelCatAnimationInterval = null;
 let catFrameIndex = 0;
-let panelCatFrameIndex = 0;
 let hasSelectedSeason = false;
 let suppressLightboxClick = false;
 const seasonImageIndices = Object.fromEntries(Object.keys(seasonData).map((season) => [season, 0]));
@@ -360,13 +358,24 @@ function cycleCatVariant() {
   renderCatFrame();
 }
 
+function setCatVariant(variant) {
+  if (!catAnimations[variant]) {
+    return;
+  }
+
+  activeCatVariant = variant;
+  catFrameIndex = 0;
+  renderCatFrame();
+}
+
 function renderCatFrame() {
-  if (!seasonCat) {
+  if (!seasonCat || !seasonCatToggle) {
     return;
   }
 
   const frames = catAnimations[getCatAnimationKey()];
   seasonCat.src = frames[catFrameIndex % frames.length];
+  seasonCatToggle.dataset.catVariant = getCatAnimationKey();
 }
 
 function stopCatAnimation() {
@@ -399,41 +408,6 @@ function syncCatAnimation() {
   startCatAnimation();
 }
 
-function renderPanelCatFrames() {
-  document.querySelectorAll("[data-panel-cat]").forEach((image) => {
-    const season = image.dataset.panelCat;
-    const frames = catAnimations[season];
-
-    if (!frames) {
-      return;
-    }
-
-    image.src = frames[panelCatFrameIndex % frames.length];
-  });
-}
-
-function stopPanelCatAnimation() {
-  if (panelCatAnimationInterval !== null) {
-    window.clearInterval(panelCatAnimationInterval);
-    panelCatAnimationInterval = null;
-  }
-}
-
-function startPanelCatAnimation() {
-  stopPanelCatAnimation();
-  panelCatFrameIndex = 0;
-  renderPanelCatFrames();
-
-  if (prefersReducedMotion) {
-    return;
-  }
-
-  panelCatAnimationInterval = window.setInterval(() => {
-    panelCatFrameIndex += 1;
-    renderPanelCatFrames();
-  }, 420);
-}
-
 function renderSeasonPanels() {
   seasonStory.innerHTML = Object.entries(seasonData).map(([season, data]) => `
     <article class="season-panel reveal" data-season="${season}" tabindex="0">
@@ -441,23 +415,25 @@ function renderSeasonPanels() {
         <p class="season-index">${data.index}</p>
         <p class="eyebrow">${data.kicker}</p>
         <h3>${data.title}</h3>
+        <p class="panel-quote">${data.chapterQuote}</p>
       </div>
       <div class="panel-stage">
         <div class="panel-visual">
           <div class="panel-card-stack" data-panel-stack="${season}"></div>
         </div>
       </div>
-      <div class="panel-detail-grid">
-        ${data.detailImages.map((image) => `
-          <figure class="panel-detail-card">
-            <img src="${image.src}" alt="${image.alt}" />
-          </figure>
-        `).join("")}
-      </div>
-      <div class="panel-action-row">
-        <button class="panel-open" data-season="${season}" type="button">Bring ${data.title} forward</button>
-        <div class="panel-cat-wrap" aria-hidden="true">
-          <img class="panel-season-cat" data-panel-cat="${season}" src="${catAnimations[season][0]}" alt="" />
+      <div class="panel-side">
+        <p class="panel-memory-label">Memory Fragments</p>
+        <div class="panel-detail-grid">
+          ${data.detailImages.map((image) => `
+            <figure class="panel-detail-card">
+              <img src="${image.src}" alt="${image.alt}" />
+            </figure>
+          `).join("")}
+        </div>
+        <p class="panel-meta">${data.images.length} moments in this deck</p>
+        <div class="panel-action-row">
+          <button class="panel-open" data-season="${season}" type="button">Bring ${data.title} forward</button>
         </div>
       </div>
     </article>
@@ -990,15 +966,48 @@ function setupPointerMotion() {
     return;
   }
 
+  const fieldNoteBox = spotlight.querySelector(".field-note-box");
+  const frameWash = spotlight.querySelector(".frame-wash");
+  const spotlightCopy = spotlight.querySelector(".spotlight-copy");
+
   spotlight.addEventListener("pointermove", (event) => {
     const rect = spotlight.getBoundingClientRect();
     const offsetX = (event.clientX - rect.left) / rect.width - 0.5;
     const offsetY = (event.clientY - rect.top) / rect.height - 0.5;
-    openLightboxBtn.style.transform = `translate3d(${offsetX * 12}px, ${offsetY * 12}px, 0)`;
+
+    openLightboxBtn.style.transform = `
+      translate3d(${offsetX * 16}px, ${offsetY * 14}px, 0)
+      rotateX(${offsetY * -2.6}deg)
+      rotateY(${offsetX * 3.2}deg)
+    `;
+
+    if (fieldNoteBox) {
+      fieldNoteBox.style.transform = `translate3d(${offsetX * 8}px, ${offsetY * 10}px, 0)`;
+    }
+
+    if (frameWash) {
+      frameWash.style.transform = `translate3d(${offsetX * -10}px, ${offsetY * -8}px, 0)`;
+    }
+
+    if (spotlightCopy) {
+      spotlightCopy.style.transform = `translate3d(${offsetX * -6}px, ${offsetY * -4}px, 0)`;
+    }
   });
 
   spotlight.addEventListener("pointerleave", () => {
     openLightboxBtn.style.transform = "";
+
+    if (fieldNoteBox) {
+      fieldNoteBox.style.transform = "";
+    }
+
+    if (frameWash) {
+      frameWash.style.transform = "";
+    }
+
+    if (spotlightCopy) {
+      spotlightCopy.style.transform = "";
+    }
   });
 }
 
@@ -1112,6 +1121,7 @@ seasonStory.addEventListener("click", (event) => {
   }
   hasSelectedSeason = true;
   setSeason(targetSeason);
+  setCatVariant(targetSeason);
   syncCatAnimation();
   document.getElementById("spotlight").scrollIntoView({
     behavior: prefersReducedMotion ? "auto" : "smooth",
@@ -1219,4 +1229,3 @@ setupSwipeNavigation(lightboxImage, {
 });
 setSeason("spring");
 startCatAnimation();
-startPanelCatAnimation();
