@@ -169,7 +169,11 @@ body.season-winter {
   right: clamp(48px, 8vw, 180px);
   transform: translateY(-38%);
   z-index: 4;
-  pointer-events: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 .cat-stage::before {
@@ -195,6 +199,12 @@ body.season-winter {
   height: auto;
   image-rendering: pixelated;
   filter: drop-shadow(0 14px 24px rgba(45, 28, 19, 0.18));
+}
+
+.cat-stage:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 8px;
+  border-radius: 28px;
 }
 
 .theme-zone {

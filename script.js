@@ -78,7 +78,7 @@ const seasonData = {
     chapterQuote: "Heat, light, and movement make summer feel expansive, restless, and vividly alive.",
     effect: "bubbles",
     fallingImage: "assets/images/bubble.png",
-    audio: "assets/audio/Summer.mp3",
+    audio: "assets/audio/summer.mp3",
     detailImages: [
       {
         src: "assets/images/summer_s1.jpeg",
@@ -299,6 +299,7 @@ const lightboxImage = document.getElementById("lightbox-image");
 const lightboxSeason = document.getElementById("lightbox-season");
 const lightboxCaption = document.getElementById("lightbox-caption");
 const seasonCat = document.getElementById("season-cat");
+const seasonCatToggle = document.getElementById("season-cat-toggle");
 const seasonButtons = [...document.querySelectorAll(".season-btn")];
 const spotlight = document.getElementById("spotlight");
 const themeColorMeta = document.querySelector('meta[name="theme-color"]');
@@ -320,6 +321,8 @@ let panelCatFrameIndex = 0;
 let hasSelectedSeason = false;
 let suppressLightboxClick = false;
 const seasonImageIndices = Object.fromEntries(Object.keys(seasonData).map((season) => [season, 0]));
+const catCycleOrder = ["default", "spring", "summer", "fall", "winter"];
+let activeCatVariant = "default";
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const catAnimations = {
@@ -346,7 +349,15 @@ const catAnimations = {
 };
 
 function getCatAnimationKey() {
-  return "default";
+  return activeCatVariant;
+}
+
+function cycleCatVariant() {
+  const currentIndex = catCycleOrder.indexOf(activeCatVariant);
+  const nextIndex = (currentIndex + 1) % catCycleOrder.length;
+  activeCatVariant = catCycleOrder[nextIndex];
+  catFrameIndex = 0;
+  renderCatFrame();
 }
 
 function renderCatFrame() {
@@ -1093,10 +1104,14 @@ seasonStory.addEventListener("click", (event) => {
     return;
   }
 
+  const targetSeason = button.dataset.season;
+
   playIntroOnce();
-  stopAudio();
+  if (isAudioPlaying && currentAudioSeason && currentAudioSeason !== targetSeason) {
+    stopAudio();
+  }
   hasSelectedSeason = true;
-  setSeason(button.dataset.season);
+  setSeason(targetSeason);
   syncCatAnimation();
   document.getElementById("spotlight").scrollIntoView({
     behavior: prefersReducedMotion ? "auto" : "smooth",
@@ -1163,6 +1178,10 @@ openLightboxBtn.addEventListener("click", (event) => {
   openLightbox();
 });
 closeLightboxBtn.addEventListener("click", closeLightbox);
+
+seasonCatToggle?.addEventListener("click", () => {
+  cycleCatVariant();
+});
 
 lightbox.addEventListener("click", (event) => {
   if (event.target === lightbox) {
