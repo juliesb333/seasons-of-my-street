@@ -897,6 +897,7 @@ function buildAmbientItems(container, season, options = {}) {
         image.style.transform = `rotate(${Math.random() * 360}deg)`;
       } else if (season === "winter") {
         item.classList.add("winter-snowflake");
+        item.style.opacity = `${0.34 + Math.random() * 0.24}`;
       }
       item.appendChild(image);
     } else {
