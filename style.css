@@ -2422,10 +2422,11 @@ footer {
 .winter-snowflake .falling-image {
   image-rendering: pixelated;
   filter:
-    brightness(1.14)
-    contrast(1.04)
-    drop-shadow(0 0 9px rgba(255, 255, 255, 0.76))
-    drop-shadow(0 0 18px rgba(210, 236, 255, 0.46));
+    brightness(1.34)
+    contrast(1.14)
+    drop-shadow(0 0 1px rgba(162, 194, 220, 0.85))
+    drop-shadow(0 0 12px rgba(255, 255, 255, 0.88))
+    drop-shadow(0 0 26px rgba(210, 236, 255, 0.6));
 }
 
 .reveal {
@@ -2738,9 +2739,31 @@ footer {
   .intro {
     display: flex;
     flex-direction: column;
+    flex-wrap: nowrap;
     align-items: flex-start;
-    gap: 14px;
+    gap: 16px;
     padding-top: calc(22px + 68px + env(safe-area-inset-top));
+  }
+
+  .intro .eyebrow {
+    order: 1 !important;
+  }
+
+  .intro h1 {
+    order: 2 !important;
+  }
+
+  .intro-lede {
+    order: 3 !important;
+  }
+
+  .intro-text {
+    order: 4 !important;
+    max-width: 100%;
+  }
+
+  .intro-meta {
+    order: 5 !important;
   }
 
   .intro h1 {
@@ -2770,14 +2793,15 @@ footer {
   }
 
   .cat-stage {
+    order: 6 !important;
     position: relative;
     top: auto;
     right: auto;
     align-self: center;
     width: min(100%, 182px);
     transform: none;
-    margin-top: 6px;
-    margin-bottom: 10px;
+    margin-top: 8px;
+    margin-bottom: 0;
   }
 
   .cat-stage::before {
@@ -2786,6 +2810,9 @@ footer {
     aspect-ratio: 17 / 10;
     bottom: 0;
     border-radius: 24px;
+    opacity: 0.92;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.95) 18%, rgba(0, 0, 0, 0.95) 82%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.95) 18%, rgba(0, 0, 0, 0.95) 82%, transparent 100%);
   }
 
   .cat-hint {

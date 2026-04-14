@@ -869,7 +869,7 @@ function buildAmbientItems(container, season, options = {}) {
       duration: [7, 10],
       size: [20, 34]
     },
-    winter: { count: isLocalTheme ? 26 : 22, symbol: "", image: "assets/images/snowflake.png", duration: [10, 14], size: [14, 22] }
+    winter: { count: isLocalTheme ? 26 : 22, symbol: "", image: "assets/images/snowflake.png", duration: [10, 14], size: [22, 34] }
   }[season];
 
   if (!config) {
@@ -897,7 +897,7 @@ function buildAmbientItems(container, season, options = {}) {
         image.style.transform = `rotate(${Math.random() * 360}deg)`;
       } else if (season === "winter") {
         item.classList.add("winter-snowflake");
-        item.style.opacity = `${0.34 + Math.random() * 0.24}`;
+        item.style.opacity = `${0.62 + Math.random() * 0.18}`;
       }
       item.appendChild(image);
     } else {
