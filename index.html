@@ -3,244 +3,92 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#f4ddd9" />
+  <meta name="theme-color" content="#e8f4ff" />
   <title>Seasons of My Street</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=20260410-1" />
+  <link rel="stylesheet" href="style.css?v=20260416-1" />
 </head>
 <body class="season-spring">
-  <div class="page-sky" aria-hidden="true">
-    <div class="sky-glow glow-one"></div>
-    <div class="sky-glow glow-two"></div>
-    <div class="sky-glow glow-three"></div>
+  <div class="sky-atmosphere" aria-hidden="true">
+    <span class="glow glow-one"></span>
+    <span class="glow glow-two"></span>
+    <span class="glow glow-three"></span>
   </div>
-  <div class="page-grain" aria-hidden="true"></div>
-  <div id="background-falling" class="background-falling" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div id="particle-layer" class="particle-layer" aria-hidden="true"></div>
+
   <div class="sound-dock">
-    <button id="toggle-audio" class="audio-toggle off" aria-label="Toggle sound" type="button">
+    <button id="toggle-audio" class="audio-toggle off" type="button" aria-label="Toggle seasonal sound">
       <span class="audio-icon" aria-hidden="true">
-        <span class="music-note note-main">
-          <span class="note-stem"></span>
-          <span class="note-head"></span>
-          <span class="note-flag"></span>
-        </span>
-        <span class="music-note note-accent">
-          <span class="note-stem"></span>
-          <span class="note-head"></span>
-        </span>
-        <span class="sound-glow"></span>
+        <span class="note note-main"></span>
+        <span class="note note-small"></span>
       </span>
       <span class="audio-text">Sound</span>
     </button>
   </div>
-  <header class="intro reveal">
-    <p class="eyebrow">Memory archive of place</p>
-    <h1>Seasons of My Street</h1>
-    <p class="intro-lede">A year of Jamsil, held in weather, repetition, and memory.</p>
-    <button id="season-cat-toggle" class="cat-stage" type="button" aria-label="Change cat season">
-      <img id="season-cat" class="season-cat" src="assets/images/cat1.png" alt="" />
-      <span class="cat-hint">CLICK ME</span>
-    </button>
-    <div class="intro-atmosphere" aria-hidden="true">
-      <span class="intro-orb orb-one"></span>
-      <span class="intro-orb orb-two"></span>
-      <span class="intro-orb orb-three"></span>
-      <span class="intro-preview preview-one"></span>
-      <span class="intro-preview preview-two"></span>
-      <span class="intro-preview preview-three"></span>
-    </div>
-    <p class="intro-text">
-      These photographs move across Jamsil in Songpa-gu, near my home. They are not all the same street,
-      but each place holds a personal season, a memory, and often a moment shared with my dog Sulgi.
-    </p>
-    <div class="intro-meta" aria-label="Archive guide">
-      <span>4 seasons</span>
-      <span>Jamsil, Songpa-gu</span>
-      <span>Photos + sound + field notes</span>
-    </div>
-  </header>
 
-  <main>
-    <section class="spotlight reveal" id="spotlight">
-      <div class="spotlight-copy">
-        <p class="season-index" id="season-index">01</p>
-        <p class="spotlight-kicker" id="season-kicker">Tender light, first bloom</p>
-        <h2 id="season-title">Spring</h2>
-        <p class="season-mood" id="season-mood">
-          The road softens first in the air, and only then in memory.
-        </p>
-        <p class="season-description" id="season-description">
-          A familiar street near my home feels soft, bright, and newly awake in spring.
-        </p>
-        <p class="season-note" id="season-note">
-          Spring turns the street into a gentler place, full of light movement and quiet energy.
-        </p>
-
+  <main class="scene-shell">
+    <section class="living-scene" aria-labelledby="page-title">
+      <div class="scene-copy">
+        <p class="eyebrow">One year, one street</p>
+        <h1 id="page-title">Seasons of My Street</h1>
+        <p id="season-line" class="season-line">Spring begins softly: petals, pale light, and a street waking up.</p>
       </div>
 
-      <div class="spotlight-stage">
-        <button id="open-lightbox" class="image-frame" type="button" aria-label="Open immersive image view">
-          <img id="season-image" src="" alt="Season image" />
-          <div class="frame-wash" aria-hidden="true"></div>
+      <div class="season-readout" aria-live="polite">
+        <div>
+          <p id="season-index" class="season-index">01 / 04</p>
+          <p id="season-label" class="season-label">Spring</p>
+        </div>
+        <div class="season-progress" aria-hidden="true">
+          <span id="season-progress-bar"></span>
+        </div>
+        <button id="cycle-toggle" class="cycle-toggle" type="button" aria-label="Pause seasonal cycle" aria-pressed="false">
+          <span class="pause-icon" aria-hidden="true"></span>
         </button>
-        <div class="image-controls">
-          <button id="frame-prev" class="counter-arrow" type="button" aria-label="Show previous photo">
-            <svg class="counter-arrow-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M14.5 6.5 9 12l5.5 5.5" />
-            </svg>
-          </button>
-          <div id="image-counter" class="image-counter">1 / 1</div>
-          <button id="frame-next" class="counter-arrow" type="button" aria-label="Show next photo">
-            <svg class="counter-arrow-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M9.5 6.5 15 12l-5.5 5.5" />
-            </svg>
-          </button>
-        </div>
-
-        <div class="field-note-box">
-          <p class="frame-caption-label">Field note</p>
-          <p id="season-caption">A small spring memory from Jamsil.</p>
-        </div>
       </div>
-    </section>
 
-    <section class="story-intro reveal" id="story">
-      <p class="eyebrow">Seasonal chapters</p>
-      <h2>Jamsil, remembered through four seasons.</h2>
-      <p>
-        Scroll through the year and watch the spotlight shift with it. Each chapter gathers a different
-        corner of Jamsil near my home, shaped by weather, memory, and time spent there with Sulgi and me.
-      </p>
-      <div class="story-meta" aria-label="Chapter overview">
-        <span>Spring to Winter</span>
-        <span>Neighborhood fragments</span>
-        <span>Personal archive</span>
+      <div id="scene-stage" class="scene-stage" aria-label="Interactive seasonal street scene">
+        <div class="sun-moon" aria-hidden="true"></div>
+        <div class="cloud cloud-one" aria-hidden="true"></div>
+        <div class="cloud cloud-two" aria-hidden="true"></div>
+        <div class="cloud cloud-three" aria-hidden="true"></div>
+        <div class="cloud cloud-four" aria-hidden="true"></div>
+        <div class="skyline" aria-hidden="true"></div>
+        <div class="hill-layer" aria-hidden="true">
+          <span class="hill-bench hill-bench-one"></span>
+          <span class="hill-bench hill-bench-two"></span>
+          <span class="hill-bench hill-bench-three"></span>
+        </div>
+        <div class="street" aria-hidden="true"></div>
+        <div class="river-layer" aria-hidden="true">
+          <span class="river-shine river-shine-one"></span>
+          <span class="river-shine river-shine-two"></span>
+          <span class="river-shine river-shine-three"></span>
+        </div>
+        <div class="fence-layer" aria-hidden="true"></div>
+        <div class="street-lines" aria-hidden="true"></div>
+        <span class="lamp lamp-left" aria-hidden="true"></span>
+        <span class="lamp lamp-right" aria-hidden="true"></span>
+        <button id="cat-toggle" class="cat-stage" type="button" aria-label="Change the small walking cat">
+          <img id="season-cat" class="season-cat" src="assets/images/cat_spring1.png" alt="" />
+          <span class="cat-shadow"></span>
+        </button>
       </div>
-    </section>
 
-    <section id="season-story" class="season-story"></section>
-
-    <section class="theme-zone">
-      <section class="process-section reveal">
-        <p class="eyebrow">Making of the archive</p>
-        <h2>How the place becomes the piece</h2>
-        <div class="process-grid">
-          <article class="process-card">
-            <span class="process-step">01</span>
-            <h3>Collect familiar places</h3>
-            <p>
-              I photograph places around Jamsil and Songpa-gu that I return to often. Some are everyday walks,
-              some are brighter public moments, and each one holds a slightly different kind of memory.
-            </p>
-          </article>
-          <article class="process-card">
-            <span class="process-step">02</span>
-            <h3>Notice the smaller fragments</h3>
-            <p>
-              Alongside the original photos, I included zoomed-in fragments from each season: small details
-              that might have quietly passed by unnoticed, but still carry the feeling of the place.
-            </p>
-          </article>
-          <article class="process-card">
-            <span class="process-step">03</span>
-            <h3>Turn memory into atmosphere</h3>
-            <p>
-              Color, sound, motion, and sequencing turn the photographs into a seasonal memory map. The goal
-              is not to document one exact street, but to show how nearby places become personally meaningful.
-            </p>
-          </article>
-        </div>
-
-        <div class="making-videos-card">
-          <p class="eyebrow">Handmade pixel details</p>
-          <p class="making-videos-copy">
-            I also created pixel-style illustrations in Procreate to extend the archive’s visual language. The time-lapse videos included here show part of that making process, revealing how these small handmade details became part of the project’s memory world.
-          </p>
-          <div class="making-videos-grid">
-            <figure class="making-video">
-              <video autoplay muted loop playsinline controls preload="metadata">
-                <source src="assets/videos/blossom.mp4" type="video/mp4" />
-              </video>
-              <figcaption>Blossom illustration</figcaption>
-            </figure>
-            <figure class="making-video">
-              <video autoplay muted loop playsinline controls preload="metadata">
-                <source src="assets/videos/bubble.mp4" type="video/mp4" />
-              </video>
-              <figcaption>Bubble illustration</figcaption>
-            </figure>
-            <figure class="making-video">
-              <video autoplay muted loop playsinline controls preload="metadata">
-                <source src="assets/videos/leaves.mp4" type="video/mp4" />
-              </video>
-              <figcaption>Leaf illustration</figcaption>
-            </figure>
-            <figure class="making-video">
-              <video autoplay muted loop playsinline controls preload="metadata">
-                <source src="assets/videos/snowflake.mp4" type="video/mp4" />
-              </video>
-              <figcaption>Snowflake illustration</figcaption>
-            </figure>
-            <figure class="making-video">
-              <video autoplay muted loop playsinline controls preload="metadata">
-                <source src="assets/videos/cats.mp4" type="video/mp4" />
-              </video>
-              <figcaption>Cat illustration</figcaption>
-            </figure>
-            <figure class="making-video">
-              <video autoplay muted loop playsinline controls preload="metadata">
-                <source src="assets/videos/buildings.mp4" type="video/mp4" />
-              </video>
-              <figcaption>Skyline illustration</figcaption>
-            </figure>
-          </div>
-        </div>
-
-        <div class="music-source-card">
-          <p class="eyebrow">Seasonal sound sources</p>
-          <div class="music-source-grid">
-            <p><strong>Spring</strong> Temple of Time (MapleStory BGM)</p>
-            <p><strong>Summer</strong> Wonderful Moments In Narin (MapleStory BGM)</p>
-            <p><strong>Fall</strong> Alone 2 - iwamizu</p>
-            <p><strong>Winter</strong> Merry Christmas Mr. Lawrence - Ryuichi Sakamoto</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="reflection-section reveal">
-        <p class="eyebrow">Closing reflection</p>
-        <blockquote>
-          Places near home become intimate through repetition. In these photographs, Jamsil changes with the seasons,
-          but also through memory, small details, and the quiet companionship of walking the same paths again and again with Sulgi.
-        </blockquote>
-        <p class="reflection-credit">A seasonal memory archive shaped by place, weather, companionship, and return.</p>
-      </section>
-
-      <footer>
-        <p>Seasons of My Street</p>
-        <p class="footer-note">An interactive memory archive of familiar places in Jamsil.</p>
-      </footer>
+      <div class="scene-notes">
+        <p id="season-kicker">Tender light, first bloom</p>
+        <p id="season-note">The same skyline stays in place while the air, color, and tiny details keep changing.</p>
+      </div>
     </section>
   </main>
 
-  <div id="lightbox" class="lightbox" hidden>
-    <button id="close-lightbox" class="lightbox-close" type="button" aria-label="Close immersive image view">Close</button>
-    <div class="lightbox-inner">
-      <img id="lightbox-image" src="" alt="Expanded season image" />
-      <div class="lightbox-copy">
-        <p id="lightbox-season" class="lightbox-season">Spring</p>
-        <p id="lightbox-caption" class="lightbox-caption">A small spring memory from the street.</p>
-      </div>
-    </div>
-  </div>
-
   <audio id="season-audio" preload="auto"></audio>
-  <audio id="intro-audio" preload="auto" src="assets/audio/intro.mp3"></audio>
 
-  <script src="script.js?v=20260410-1"></script>
+  <script src="script.js?v=20260416-1"></script>
 </body>
 </html>
