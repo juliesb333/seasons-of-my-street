@@ -8,18 +8,28 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@500;600;700;800&family=Pixelify+Sans:wght@400..700&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Handjet:wght,ELSH@100..900,2&family=VT323&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=20260416-1" />
+  <link rel="stylesheet" href="style.css?v=20260422-22" />
 </head>
-<body class="season-spring">
+<body class="season-spring intro-playing">
+  <div id="intro-screen" class="intro-screen" role="dialog" aria-modal="true" aria-labelledby="intro-title">
+    <div class="intro-dialog">
+      <p id="intro-title" class="intro-title">SEASONS OF MY STREET</p>
+      <div id="intro-lines" class="intro-lines" aria-live="polite"></div>
+      <p id="intro-prompt" class="intro-prompt" aria-hidden="true">Press any key / Click to begin</p>
+    </div>
+  </div>
+
   <div class="sky-atmosphere" aria-hidden="true">
     <span class="glow glow-one"></span>
     <span class="glow glow-two"></span>
     <span class="glow glow-three"></span>
   </div>
   <div class="grain" aria-hidden="true"></div>
-  <div id="particle-layer" class="particle-layer" aria-hidden="true"></div>
 
   <div class="sound-dock">
     <button id="toggle-audio" class="audio-toggle off" type="button" aria-label="Toggle seasonal sound">
@@ -35,8 +45,9 @@
     <section class="living-scene" aria-labelledby="page-title">
       <div class="scene-copy">
         <p class="eyebrow">One year, one street</p>
-        <h1 id="page-title">Seasons of My Street</h1>
-        <p id="season-line" class="season-line">Spring begins softly: petals, pale light, and a street waking up.</p>
+        <h1 id="page-title">SEASONS OF MY STREET</h1>
+        <p class="scene-subtitle">A pixel soundtrack of Jamsil and the Han River</p>
+        <p id="season-line" class="season-line">Petals wake the river path.</p>
       </div>
 
       <div class="season-readout" aria-live="polite">
@@ -47,7 +58,7 @@
         <div class="season-progress" aria-hidden="true">
           <span id="season-progress-bar"></span>
         </div>
-        <button id="cycle-toggle" class="cycle-toggle" type="button" aria-label="Pause seasonal cycle" aria-pressed="false">
+        <button id="cycle-toggle" class="cycle-toggle" type="button" aria-label="Pause slow seasonal cycle" aria-pressed="false">
           <span class="pause-icon" aria-hidden="true"></span>
         </button>
       </div>
@@ -59,36 +70,45 @@
         <div class="cloud cloud-three" aria-hidden="true"></div>
         <div class="cloud cloud-four" aria-hidden="true"></div>
         <div class="skyline" aria-hidden="true"></div>
-        <div class="hill-layer" aria-hidden="true">
+        <div class="hill-layer" aria-hidden="true"></div>
+        <div class="hill-objects" aria-hidden="true">
+          <span class="hill-tree hill-tree-one"></span>
+          <span class="hill-tree hill-tree-middle"></span>
+          <span class="hill-tree hill-tree-two"></span>
           <span class="hill-bench hill-bench-one"></span>
           <span class="hill-bench hill-bench-two"></span>
           <span class="hill-bench hill-bench-three"></span>
+          <span class="lamp lamp-left"></span>
+          <span class="lamp lamp-right"></span>
         </div>
-        <div class="street" aria-hidden="true"></div>
+        <div id="street-layer" class="street" aria-hidden="true"></div>
+        <button id="cat-toggle" class="cat-stage" type="button" aria-label="Change the small walking cat">
+          <img id="season-cat" class="season-cat" src="assets/images/cat_spring1.png" alt="" draggable="false" />
+          <span class="cat-shadow"></span>
+        </button>
+        <div id="particle-layer" class="particle-layer" aria-hidden="true"></div>
         <div class="river-layer" aria-hidden="true">
           <span class="river-shine river-shine-one"></span>
           <span class="river-shine river-shine-two"></span>
           <span class="river-shine river-shine-three"></span>
         </div>
         <div class="fence-layer" aria-hidden="true"></div>
-        <div class="street-lines" aria-hidden="true"></div>
-        <span class="lamp lamp-left" aria-hidden="true"></span>
-        <span class="lamp lamp-right" aria-hidden="true"></span>
-        <button id="cat-toggle" class="cat-stage" type="button" aria-label="Change the small walking cat">
-          <img id="season-cat" class="season-cat" src="assets/images/cat_spring1.png" alt="" />
-          <span class="cat-shadow"></span>
-        </button>
       </div>
 
       <div class="scene-notes">
-        <p id="season-kicker">Tender light, first bloom</p>
-        <p id="season-note">The same skyline stays in place while the air, color, and tiny details keep changing.</p>
+        <div class="memory-counter" aria-live="polite">
+          <span>Moments gathered</span>
+          <strong id="memory-count">0</strong>
+        </div>
+        <p id="season-note">The same street keeps time with water, weather, and small footsteps.</p>
       </div>
     </section>
   </main>
 
   <audio id="season-audio" preload="auto"></audio>
+  <audio id="drop-audio" src="assets/audio/drop.mp3" preload="auto"></audio>
+  <audio id="type-audio" src="assets/audio/type.mp3" preload="auto"></audio>
 
-  <script src="script.js?v=20260416-1"></script>
+  <script src="script.js?v=20260422-22"></script>
 </body>
 </html>
