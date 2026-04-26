@@ -18,12 +18,30 @@ const CAT_DEFAULT_POSITION = {
   yPx: 132
 };
 const CAT_ROAD_INSET_X = 26;
+const CAT_ROAD_EDGE_CLEARANCE_RATIO = 0.16;
 const CAT_ROAD_TOP_INSET = 20;
 const CAT_ROAD_BOTTOM_INSET = 18;
 const CAT_ROAD_BOTTOM_LINE_CLEARANCE = 0.14;
 const COLLECTIBLE_CHECK_MS = 90;
+const COLLECTIBLE_ACTIVE_WINDOW_MS = 280;
 const COLLECTIBLE_CAT_INSET = 20;
 const COLLECTIBLE_PARTICLE_INSET = 4;
+const GIRL_APPEAR_DELAY_MS = 0;
+const GIRL_INTERACTION_DISTANCE = 128;
+const GIRL_TALK_FRAME_MS = 200;
+const GIRL_STAND_SPRITE = "assets/images/girl.png";
+const GIRL_SIT_IDLE_SPRITE = "assets/images/girl_sit.png";
+const GIRL_SEASONAL_SIT_SPRITES = {
+  spring: "assets/images/girl_sit.png",
+  summer: "assets/images/girl_sit_summer.png",
+  fall: "assets/images/girl_sit_fall.png",
+  winter: "assets/images/girl_sit_winter.png"
+};
+const GIRL_TALK_SPRITES = ["assets/images/girl_sit2.png", "assets/images/girl_sit3.png"];
+const CONTROLS_OVERLAY_AUTOHIDE_MS = 4200;
+const OBJECTIVE_SCREEN_DURATION_MS = 3200;
+const ENDING_MOMENTS_TARGET = 70;
+const ENDING_REVEAL_DELAY_MS = 900;
 const INTRO_TYPE_MS = 62;
 const INTRO_LINE_HOLD_MS = 1400;
 const INTRO_LINE_OUT_MS = 620;
@@ -36,7 +54,7 @@ const seasons = [
     line: "Petals wake the river path.",
     note: "The same street keeps time with water, weather, and small footsteps.",
     particleImages: ["assets/images/blossom.png"],
-    particleCount: 24
+    particleCount: 28
   },
   {
     key: "summer",
@@ -45,7 +63,7 @@ const seasons = [
     line: "Heat rests beside the river.",
     note: "Jamsil glows slowly, held between towers, shade, and late light.",
     particleImages: ["assets/images/bubble.png"],
-    particleCount: 20
+    particleCount: 24
   },
   {
     key: "fall",
@@ -54,7 +72,7 @@ const seasons = [
     line: "Leaves gather near the benches.",
     note: "The familiar walk turns amber, quieter with every passing window.",
     particleImages: ["assets/images/leaf1.png", "assets/images/leaf2.png", "assets/images/leaf3.png"],
-    particleCount: 22
+    particleCount: 26
   },
   {
     key: "winter",
@@ -63,7 +81,7 @@ const seasons = [
     line: "Snow hushes the road.",
     note: "Cold air clears the skyline, and the river keeps a pale rhythm.",
     particleImages: ["assets/images/snowflake.png"],
-    particleCount: 28
+    particleCount: 32
   }
 ];
 
@@ -78,9 +96,18 @@ const progressBar = document.getElementById("season-progress-bar");
 const seasonAudio = document.getElementById("season-audio");
 const dropAudio = document.getElementById("drop-audio");
 const typeAudio = document.getElementById("type-audio");
+const girlEvent = document.getElementById("girl-event");
+const girlSprite = document.getElementById("girl-sprite");
+const girlPrompt = document.getElementById("girl-prompt");
+const controlsOverlay = document.getElementById("controls-overlay");
+const objectiveScreen = document.getElementById("objective-screen");
+const girlDialogue = document.getElementById("girl-dialogue");
+const girlDialogueSpeaker = document.getElementById("girl-dialogue-speaker");
+const girlDialogueLine = document.getElementById("girl-dialogue-line");
 const toggleAudioBtn = document.getElementById("toggle-audio");
 const seasonCat = document.getElementById("season-cat");
 const catToggle = document.getElementById("cat-toggle");
+const sceneShell = document.querySelector(".scene-shell");
 const sceneStage = document.getElementById("scene-stage");
 const cycleToggle = document.getElementById("cycle-toggle");
 const streetLayer = document.getElementById("street-layer");
@@ -88,6 +115,7 @@ const memoryCount = document.getElementById("memory-count");
 const introScreen = document.getElementById("intro-screen");
 const introLines = document.getElementById("intro-lines");
 const introPrompt = document.getElementById("intro-prompt");
+const endingScreen = document.getElementById("ending-screen");
 const root = document.documentElement;
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -114,6 +142,24 @@ let lastCatJumpTime = 0;
 let gatheredMoments = 0;
 let collectibleCheckRequest = null;
 let lastCollectibleCheckTime = 0;
+let lastCatCollectibleActivityTime = 0;
+let girlVisible = false;
+let playerNearGirl = false;
+let dialogueActive = false;
+let dialogueStep = 0;
+let dialogueFinished = false;
+let girlAppearanceScheduled = false;
+let girlAppearanceTimer = null;
+let girlTalkingInterval = null;
+let girlTalkingFrameIndex = 0;
+let controlsShown = false;
+let controlsDismissed = false;
+let controlsHideTimeout = null;
+let objectiveScreenShown = false;
+let objectiveScreenDismissed = false;
+let objectiveScreenTimeout = null;
+let endingTriggered = false;
+let endingRevealTimeout = null;
 let isIntroActive = Boolean(introScreen);
 let isIntroStarted = false;
 let isIntroReady = false;
@@ -129,6 +175,12 @@ const introText = [
   "In petals, heat, leaves, and snow,",
   "it became part of how I remember home.",
   "This is Seasons of My Street."
+];
+
+const girlDialogueLines = [
+  { speaker: "Girl", text: "You came all the way here." },
+  { speaker: "Cat", text: "Mrrp." },
+  { speaker: "Girl", text: "This street feels different in every season, doesn't it?" }
 ];
 
 seasonCat.draggable = false;
@@ -242,8 +294,10 @@ function finishIntro() {
   introScreen.setAttribute("aria-hidden", "true");
   createParticles(getActiveSeason());
   setCatPosition(catPosition.xPercent, catPosition.yPx);
+  scheduleGirlAppearance();
   restartProgress();
   queueNextSeason();
+  showObjectiveScreen();
 
   window.setTimeout(() => {
     introScreen.remove();
@@ -254,6 +308,8 @@ async function startIntro() {
   if (!introScreen || !introLines || !introPrompt) {
     isIntroActive = false;
     body.classList.remove("intro-playing");
+    scheduleGirlAppearance();
+    showObjectiveScreen();
     return;
   }
 
@@ -271,9 +327,9 @@ async function startIntro() {
 
     await typeIntroLine(lineElement, line);
     await wait(prefersReducedMotion ? 0 : INTRO_LINE_HOLD_MS);
-    lineElement.classList.add("is-leaving");
     lineElement.classList.remove("is-visible");
-    await wait(prefersReducedMotion ? 0 : INTRO_LINE_OUT_MS);
+    lineElement.classList.remove("is-leaving", "is-typing");
+    lineElement.textContent = "";
   }
 
   if (!isIntroActive) {
@@ -316,6 +372,8 @@ function initializeIntro() {
   if (!introScreen || !introLines || !introPrompt) {
     isIntroActive = false;
     body.classList.remove("intro-playing");
+    scheduleGirlAppearance();
+    showControlsOverlay();
     return;
   }
 
@@ -326,8 +384,316 @@ function clearParticles() {
   particleLayer.innerHTML = "";
 }
 
+function markCatCollectibleActivity() {
+  lastCatCollectibleActivityTime = window.performance.now();
+}
+
 function updateMemoryCount() {
   memoryCount.textContent = String(gatheredMoments);
+
+  if (!endingTriggered && gatheredMoments >= ENDING_MOMENTS_TARGET) {
+    triggerEnding();
+  }
+}
+
+function setGirlPromptVisible(visible) {
+  if (!girlPrompt) {
+    return;
+  }
+
+  girlPrompt.hidden = !visible;
+  girlPrompt.classList.toggle("is-visible", visible);
+  girlPrompt.setAttribute("aria-hidden", String(!visible));
+}
+
+function updateTalkPrompt() {
+  setGirlPromptVisible(girlVisible && playerNearGirl && !dialogueActive && !dialogueFinished);
+}
+
+function setGirlDialogueVisible(visible) {
+  if (!girlDialogue) {
+    return;
+  }
+
+  girlDialogue.hidden = !visible;
+}
+
+function setControlsOverlayVisible(visible) {
+  if (!controlsOverlay) {
+    return;
+  }
+
+  controlsOverlay.hidden = !visible;
+  controlsOverlay.classList.toggle("is-visible", visible);
+  controlsOverlay.setAttribute("aria-hidden", String(!visible));
+}
+
+function setObjectiveScreenVisible(visible) {
+  if (!objectiveScreen) {
+    return;
+  }
+
+  objectiveScreen.hidden = !visible;
+  objectiveScreen.classList.toggle("is-visible", visible);
+  objectiveScreen.classList.toggle("is-fading", !visible);
+  objectiveScreen.setAttribute("aria-hidden", String(!visible));
+}
+
+function setEndingVisible(visible) {
+  if (!endingScreen) {
+    return;
+  }
+
+  endingScreen.hidden = !visible;
+  endingScreen.classList.toggle("is-visible", visible);
+  endingScreen.setAttribute("aria-hidden", String(!visible));
+}
+
+function dismissControlsOverlay() {
+  if (!controlsOverlay || controlsDismissed) {
+    return;
+  }
+
+  controlsDismissed = true;
+  window.clearTimeout(controlsHideTimeout);
+  setControlsOverlayVisible(false);
+}
+
+function dismissObjectiveScreen() {
+  if (!objectiveScreen || objectiveScreenDismissed) {
+    return;
+  }
+
+  objectiveScreenDismissed = true;
+  window.clearTimeout(objectiveScreenTimeout);
+  setObjectiveScreenVisible(false);
+
+  if (!controlsDismissed) {
+    showControlsOverlay();
+  }
+}
+
+function handoffObjectiveToControls() {
+  if (!objectiveScreen || objectiveScreen.hidden || objectiveScreenDismissed) {
+    return false;
+  }
+
+  dismissObjectiveScreen();
+  return true;
+}
+
+function showControlsOverlay() {
+  if (!controlsOverlay || controlsShown || controlsDismissed || isIntroActive || endingTriggered) {
+    return;
+  }
+
+  controlsShown = true;
+  setControlsOverlayVisible(true);
+  window.clearTimeout(controlsHideTimeout);
+  controlsHideTimeout = window.setTimeout(() => {
+    dismissControlsOverlay();
+  }, CONTROLS_OVERLAY_AUTOHIDE_MS);
+}
+
+function showObjectiveScreen() {
+  if (!objectiveScreen || objectiveScreenShown || objectiveScreenDismissed || isIntroActive || endingTriggered) {
+    return;
+  }
+
+  objectiveScreenShown = true;
+  setObjectiveScreenVisible(true);
+  window.clearTimeout(objectiveScreenTimeout);
+  objectiveScreenTimeout = window.setTimeout(() => {
+    dismissObjectiveScreen();
+  }, OBJECTIVE_SCREEN_DURATION_MS);
+}
+
+function stopCollectibleChecks() {
+  if (collectibleCheckRequest !== null) {
+    window.cancelAnimationFrame(collectibleCheckRequest);
+    collectibleCheckRequest = null;
+  }
+}
+
+function setGirlSprite(src) {
+  if (!girlSprite) {
+    return;
+  }
+
+  girlSprite.src = src;
+}
+
+function getSeasonalGirlSitSprite(seasonKey = getActiveSeason().key) {
+  return GIRL_SEASONAL_SIT_SPRITES[seasonKey] || GIRL_SIT_IDLE_SPRITE;
+}
+
+function updateGirlSeatedSprite() {
+  if (!girlVisible || !girlEvent || dialogueActive || !girlEvent.classList.contains("is-seated")) {
+    return;
+  }
+
+  setGirlSprite(getSeasonalGirlSitSprite());
+}
+
+function triggerEnding() {
+  if (endingTriggered) {
+    return;
+  }
+
+  endingTriggered = true;
+  gatheredMoments = ENDING_MOMENTS_TARGET;
+  memoryCount.textContent = String(gatheredMoments);
+  dismissObjectiveScreen();
+  dismissControlsOverlay();
+  clearCatMovementInput();
+  pressedCatKeys.clear();
+  isDraggingCat = false;
+  didDragCat = false;
+  catToggle.classList.remove("dragging");
+  window.clearTimeout(catJumpTimeout);
+  catToggle.classList.remove("jumping");
+  stopCollectibleChecks();
+  window.clearTimeout(seasonTimer);
+  setCyclePaused(true);
+  dialogueActive = false;
+  stopGirlTalking();
+  setGirlDialogueVisible(false);
+  setGirlPromptVisible(false);
+
+  if (sceneShell) {
+    sceneShell.classList.add("is-ending");
+  }
+
+  endingRevealTimeout = window.setTimeout(() => {
+    setEndingVisible(true);
+  }, prefersReducedMotion ? 0 : ENDING_REVEAL_DELAY_MS);
+}
+
+function stopGirlTalking() {
+  if (girlTalkingInterval !== null) {
+    window.clearInterval(girlTalkingInterval);
+    girlTalkingInterval = null;
+  }
+
+  girlTalkingFrameIndex = 0;
+  if (dialogueActive) {
+    setGirlSprite(GIRL_SIT_IDLE_SPRITE);
+    return;
+  }
+
+  updateGirlSeatedSprite();
+}
+
+function startGirlTalking() {
+  if (!dialogueActive) {
+    stopGirlTalking();
+    return;
+  }
+
+  stopGirlTalking();
+  setGirlSprite(GIRL_TALK_SPRITES[girlTalkingFrameIndex]);
+
+  girlTalkingInterval = window.setInterval(() => {
+    girlTalkingFrameIndex = (girlTalkingFrameIndex + 1) % GIRL_TALK_SPRITES.length;
+    setGirlSprite(GIRL_TALK_SPRITES[girlTalkingFrameIndex]);
+  }, GIRL_TALK_FRAME_MS);
+}
+
+function renderGirlDialogueStep() {
+  const line = girlDialogueLines[dialogueStep];
+  if (!line || !girlDialogueSpeaker || !girlDialogueLine) {
+    return;
+  }
+
+  girlDialogueSpeaker.textContent = line.speaker;
+  girlDialogueLine.textContent = line.text;
+
+  if (line.speaker === "Girl") {
+    startGirlTalking();
+  } else {
+    stopGirlTalking();
+  }
+}
+
+function startGirlDialogue() {
+  if (!girlVisible || dialogueFinished || !girlEvent) {
+    return;
+  }
+
+  dialogueActive = true;
+  dialogueStep = 0;
+  clearCatMovementInput();
+  isDraggingCat = false;
+  catToggle.classList.remove("dragging");
+  girlEvent.classList.add("is-seated");
+  stopGirlTalking();
+  updateTalkPrompt();
+  setGirlDialogueVisible(true);
+  renderGirlDialogueStep();
+}
+
+function advanceGirlDialogue() {
+  if (!dialogueActive) {
+    return;
+  }
+
+  dialogueStep += 1;
+  if (dialogueStep >= girlDialogueLines.length) {
+    dialogueActive = false;
+    dialogueFinished = true;
+    stopGirlTalking();
+    setGirlDialogueVisible(false);
+    updateTalkPrompt();
+    return;
+  }
+
+  renderGirlDialogueStep();
+}
+
+function updateGirlInteractionState() {
+  if (!girlVisible || !girlEvent) {
+    playerNearGirl = false;
+    updateTalkPrompt();
+    return;
+  }
+
+  const catRect = catToggle.getBoundingClientRect();
+  const girlRect = girlEvent.getBoundingClientRect();
+  const catCenterX = catRect.left + catRect.width / 2;
+  const catCenterY = catRect.top + catRect.height / 2;
+  const girlCenterX = girlRect.left + girlRect.width / 2;
+  const girlCenterY = girlRect.top + girlRect.height / 2;
+  const distance = Math.hypot(catCenterX - girlCenterX, catCenterY - girlCenterY);
+
+  playerNearGirl = distance <= GIRL_INTERACTION_DISTANCE;
+  updateTalkPrompt();
+}
+
+function showGirlEvent() {
+  if (!girlEvent || !girlSprite || girlVisible) {
+    return;
+  }
+
+  girlVisible = true;
+  girlEvent.hidden = false;
+  girlEvent.setAttribute("aria-hidden", "false");
+  girlEvent.classList.add("is-visible");
+  setGirlSprite(GIRL_STAND_SPRITE);
+  updateGirlInteractionState();
+}
+
+function scheduleGirlAppearance() {
+  if (!girlEvent || girlAppearanceScheduled || girlVisible) {
+    return;
+  }
+
+  girlAppearanceScheduled = true;
+  const elapsed = window.performance.now();
+  const remaining = Math.max(0, GIRL_APPEAR_DELAY_MS - elapsed);
+
+  girlAppearanceTimer = window.setTimeout(() => {
+    showGirlEvent();
+  }, remaining);
 }
 
 function getInsetRect(rect, inset) {
@@ -382,7 +748,7 @@ function playDropSound() {
 }
 
 function collectParticle(particle, particleRect) {
-  if (particle.dataset.collected === "true") {
+  if (endingTriggered || particle.dataset.collected === "true") {
     return;
   }
 
@@ -399,7 +765,11 @@ function collectParticle(particle, particleRect) {
 }
 
 function runCollectibleCheck() {
-  if (isIntroActive) {
+  if (isIntroActive || endingTriggered) {
+    return;
+  }
+
+  if (window.performance.now() - lastCatCollectibleActivityTime > COLLECTIBLE_ACTIVE_WINDOW_MS) {
     return;
   }
 
@@ -431,7 +801,7 @@ function checkCollectibleParticles(timestamp = 0) {
 }
 
 function startCollectibleChecks() {
-  if (collectibleCheckRequest !== null || prefersReducedMotion) {
+  if (collectibleCheckRequest !== null || prefersReducedMotion || endingTriggered) {
     return;
   }
 
@@ -442,7 +812,7 @@ function startCollectibleChecks() {
 function createParticles(season) {
   clearParticles();
 
-  if (prefersReducedMotion || isIntroActive) {
+  if (prefersReducedMotion || isIntroActive || endingTriggered) {
     return;
   }
 
@@ -542,6 +912,7 @@ function setSeason(nextIndex) {
   updateThemeColor();
   createParticles(season);
   syncCatFrame();
+  updateGirlSeatedSprite();
   restartProgress();
   syncAudioForSeason();
 }
@@ -549,7 +920,7 @@ function setSeason(nextIndex) {
 function queueNextSeason() {
   window.clearTimeout(seasonTimer);
 
-  if (prefersReducedMotion || isCyclePaused || isIntroActive) {
+  if (prefersReducedMotion || isCyclePaused || isIntroActive || endingTriggered) {
     return;
   }
 
@@ -577,7 +948,7 @@ function setCyclePaused(paused) {
 }
 
 function createSeasonBurst(event) {
-  if (prefersReducedMotion) {
+  if (prefersReducedMotion || endingTriggered) {
     return;
   }
 
@@ -651,9 +1022,11 @@ function getTranslateY(element) {
 function getCatMovementBounds() {
   const stageRect = sceneStage.getBoundingClientRect();
   const roadRect = streetLayer.getBoundingClientRect();
+  const catWidth = catToggle.getBoundingClientRect().width;
   const catShiftY = getTranslateY(catToggle);
-  const minXPercent = ((roadRect.left + CAT_ROAD_INSET_X - stageRect.left) / stageRect.width) * 100;
-  const maxXPercent = ((roadRect.right - CAT_ROAD_INSET_X - stageRect.left) / stageRect.width) * 100;
+  const roadEdgeInsetX = Math.max(CAT_ROAD_INSET_X, catWidth * CAT_ROAD_EDGE_CLEARANCE_RATIO);
+  const minXPercent = ((roadRect.left + roadEdgeInsetX - stageRect.left) / stageRect.width) * 100;
+  const maxXPercent = ((roadRect.right - roadEdgeInsetX - stageRect.left) / stageRect.width) * 100;
   const lowerLineClearance = Math.max(CAT_ROAD_BOTTOM_INSET, roadRect.height * CAT_ROAD_BOTTOM_LINE_CLEARANCE);
   const minYPx = stageRect.bottom + catShiftY - roadRect.bottom + lowerLineClearance;
   const maxYPx = stageRect.bottom + catShiftY - roadRect.top - CAT_ROAD_TOP_INSET;
@@ -686,6 +1059,7 @@ function setCatPosition(xPercent, yPx) {
   catPosition.yPx = clamp(yPx, bounds.minYPx, bounds.maxYPx);
   catToggle.style.setProperty("--cat-x", `${catPosition.xPercent}%`);
   catToggle.style.setProperty("--cat-y", `${catPosition.yPx}px`);
+  updateGirlInteractionState();
   runCollectibleCheck();
 }
 
@@ -740,12 +1114,17 @@ function stopCatKeyboardMovement() {
 }
 
 function jumpCat() {
+  if (endingTriggered) {
+    return;
+  }
+
   const now = window.performance.now();
   if (now - lastCatJumpTime < CAT_JUMP_COOLDOWN_MS) {
     return;
   }
 
   lastCatJumpTime = now;
+  markCatCollectibleActivity();
   window.clearTimeout(catJumpTimeout);
   catToggle.classList.remove("jumping");
   catToggle.offsetHeight;
@@ -757,6 +1136,11 @@ function jumpCat() {
 }
 
 function moveCatWithKeyboard(timestamp) {
+  if (endingTriggered) {
+    stopCatKeyboardMovement();
+    return;
+  }
+
   if (pressedCatKeys.size === 0) {
     stopCatKeyboardMovement();
     return;
@@ -779,6 +1163,7 @@ function moveCatWithKeyboard(timestamp) {
   const nextX = catPosition.xPercent + (normalizedX * distance * 100) / bounds.stageRect.width;
   const nextY = catPosition.yPx + normalizedY * distance;
 
+  markCatCollectibleActivity();
   updateCatFacing(directionX);
   setCatPosition(nextX, nextY);
 
@@ -787,7 +1172,7 @@ function moveCatWithKeyboard(timestamp) {
 }
 
 function startCatKeyboardMovement() {
-  if (catAnimationRequest !== null) {
+  if (catAnimationRequest !== null || endingTriggered) {
     return;
   }
 
@@ -848,7 +1233,7 @@ seasonCat.addEventListener("error", () => {
 });
 
 catToggle.addEventListener("pointerdown", (event) => {
-  if (isIntroActive || event.button !== 0) {
+  if (isIntroActive || dialogueActive || endingTriggered || event.button !== 0) {
     return;
   }
 
@@ -880,6 +1265,7 @@ catToggle.addEventListener("pointermove", (event) => {
 
   didDragCat = true;
   event.preventDefault();
+  markCatCollectibleActivity();
   moveCatToPoint(event.clientX, event.clientY);
 });
 
@@ -914,7 +1300,43 @@ window.addEventListener("keydown", (event) => {
     return;
   }
 
+  if (endingTriggered) {
+    if ((event.key === "r" || event.key === "R") && !event.metaKey && !event.ctrlKey && !event.altKey) {
+      event.preventDefault();
+      window.location.reload();
+    }
+    return;
+  }
+
+  if ((event.key === "z" || event.key === "Z") && !event.metaKey && !event.ctrlKey && !event.altKey) {
+    const objectiveHandedOff = handoffObjectiveToControls();
+    if (!objectiveHandedOff) {
+      dismissControlsOverlay();
+    }
+    event.preventDefault();
+    if (dialogueActive) {
+      advanceGirlDialogue();
+      return;
+    }
+
+    if (girlVisible && playerNearGirl && !dialogueFinished) {
+      startGirlDialogue();
+    }
+    return;
+  }
+
+  if (dialogueActive) {
+    if (event.code === "Space" || CAT_KEYS.has(event.key)) {
+      event.preventDefault();
+    }
+    return;
+  }
+
   if (event.code === "Space" && !event.metaKey && !event.ctrlKey && !event.altKey) {
+    const objectiveHandedOff = handoffObjectiveToControls();
+    if (!objectiveHandedOff) {
+      dismissControlsOverlay();
+    }
     event.preventDefault();
     lockViewportScroll();
     if (!event.repeat) {
@@ -927,6 +1349,10 @@ window.addEventListener("keydown", (event) => {
     return;
   }
 
+  const objectiveHandedOff = handoffObjectiveToControls();
+  if (!objectiveHandedOff) {
+    dismissControlsOverlay();
+  }
   event.preventDefault();
   lockViewportScroll();
   if (event.repeat && pressedCatKeys.has(event.key)) {
@@ -945,6 +1371,11 @@ window.addEventListener("keydown", (event) => {
 
 window.addEventListener("keyup", (event) => {
   if (isIntroActive) {
+    event.preventDefault();
+    return;
+  }
+
+  if (dialogueActive && (event.code === "Space" || CAT_KEYS.has(event.key))) {
     event.preventDefault();
     return;
   }
@@ -975,6 +1406,14 @@ cycleToggle.addEventListener("click", () => {
 });
 
 sceneStage.addEventListener("click", (event) => {
+  if (endingTriggered) {
+    return;
+  }
+
+  const objectiveHandedOff = handoffObjectiveToControls();
+  if (!objectiveHandedOff) {
+    dismissControlsOverlay();
+  }
   if (event.target.closest("button")) {
     return;
   }
@@ -982,13 +1421,28 @@ sceneStage.addEventListener("click", (event) => {
   createSeasonBurst(event);
 });
 
+if (controlsOverlay) {
+  controlsOverlay.addEventListener("pointerdown", () => {
+    dismissControlsOverlay();
+  });
+}
+
 window.addEventListener("resize", () => {
+  if (endingTriggered) {
+    return;
+  }
+
   createParticles(getActiveSeason());
   window.clearTimeout(catJumpTimeout);
   catToggle.classList.remove("jumping");
   setCatPosition(catPosition.xPercent, catPosition.yPx);
+  updateGirlInteractionState();
 });
 
+setGirlPromptVisible(false);
+setGirlDialogueVisible(false);
+setObjectiveScreenVisible(false);
+setEndingVisible(false);
 setSeason(0);
 catToggle.dataset.facing = catFacingDirection;
 syncCatPositionFromElement();

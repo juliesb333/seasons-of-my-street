@@ -12,10 +12,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Handjet:wght,ELSH@100..900,2&family=VT323&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="style.css?v=20260422-22" />
+  
+  <link rel="stylesheet" href="style.css?v=20260426-13" />
 </head>
 <body class="season-spring intro-playing">
+  <div id="objective-screen" class="objective-screen" aria-hidden="true" hidden>
+    <p class="objective-screen-line">Gather 70 moments to reveal the street&rsquo;s final memory.</p>
+  </div>
+
   <div id="intro-screen" class="intro-screen" role="dialog" aria-modal="true" aria-labelledby="intro-title">
     <div class="intro-dialog">
       <p id="intro-title" class="intro-title">SEASONS OF MY STREET</p>
@@ -81,6 +85,10 @@
           <span class="lamp lamp-left"></span>
           <span class="lamp lamp-right"></span>
         </div>
+        <div id="girl-event" class="girl-event" aria-hidden="true" hidden>
+          <img id="girl-sprite" class="girl-sprite" src="assets/images/girl.png" alt="" draggable="false" />
+        </div>
+        <div id="girl-prompt" class="girl-prompt" aria-hidden="true" hidden>Press Z to talk</div>
         <div id="street-layer" class="street" aria-hidden="true"></div>
         <button id="cat-toggle" class="cat-stage" type="button" aria-label="Change the small walking cat">
           <img id="season-cat" class="season-cat" src="assets/images/cat_spring1.png" alt="" draggable="false" />
@@ -95,12 +103,59 @@
         <div class="fence-layer" aria-hidden="true"></div>
       </div>
 
+      <div id="controls-overlay" class="controls-overlay" aria-hidden="true" hidden>
+        <p class="controls-row">
+          <span>Walk with</span>
+          <span class="controls-keys" aria-label="Up down left right arrow keys">
+            <span class="controls-key" aria-hidden="true">
+              <svg viewBox="0 0 16 16" class="controls-key-icon" focusable="false">
+                <path d="M8 2L13 7H10V14H6V7H3L8 2Z" />
+              </svg>
+            </span>
+            <span class="controls-key" aria-hidden="true">
+              <svg viewBox="0 0 16 16" class="controls-key-icon" focusable="false">
+                <path d="M8 14L3 9H6V2H10V9H13L8 14Z" />
+              </svg>
+            </span>
+            <span class="controls-key" aria-hidden="true">
+              <svg viewBox="0 0 16 16" class="controls-key-icon" focusable="false">
+                <path d="M2 8L7 3V6H14V10H7V13L2 8Z" />
+              </svg>
+            </span>
+            <span class="controls-key" aria-hidden="true">
+              <svg viewBox="0 0 16 16" class="controls-key-icon" focusable="false">
+                <path d="M14 8L9 13V10H2V6H9V3L14 8Z" />
+              </svg>
+            </span>
+          </span>
+        </p>
+        <p>Space to jump</p>
+        <p>Z to talk</p>
+      </div>
+
       <div class="scene-notes">
         <div class="memory-counter" aria-live="polite">
           <span>Moments gathered</span>
           <strong id="memory-count">0</strong>
         </div>
         <p id="season-note">The same street keeps time with water, weather, and small footsteps.</p>
+      </div>
+
+      <div id="girl-dialogue" class="girl-dialogue" aria-live="polite" hidden>
+        <p id="girl-dialogue-speaker" class="girl-dialogue-speaker">Girl</p>
+        <p id="girl-dialogue-line" class="girl-dialogue-line"></p>
+        <p class="girl-dialogue-hint">Press Z</p>
+      </div>
+    </section>
+
+    <section id="ending-screen" class="ending-screen" aria-live="polite" aria-hidden="true" hidden>
+      <div class="ending-memory">
+        <img id="ending-image" class="ending-image" src="assets/images/end.png" alt="A final memory of the street." draggable="false" />
+        <div class="ending-copy">
+          <p class="ending-title">70 moments gathered.</p>
+          <p class="ending-line">The street becomes whole.</p>
+          <p class="ending-hint">Press R to return</p>
+        </div>
       </div>
     </section>
   </main>
@@ -109,6 +164,6 @@
   <audio id="drop-audio" src="assets/audio/drop.mp3" preload="auto"></audio>
   <audio id="type-audio" src="assets/audio/type.mp3" preload="auto"></audio>
 
-  <script src="script.js?v=20260422-22"></script>
+  <script src="script.js?v=20260426-13"></script>
 </body>
 </html>

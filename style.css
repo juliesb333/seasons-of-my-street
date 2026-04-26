@@ -118,6 +118,23 @@
   --skyline-bottom: clamp(124px, 16vh, 154px);
   --hill-bottom: clamp(128px, 14vh, 134px);
   --river-height: clamp(58px, 8vh, 82px);
+  /* Girl and prompt positioning controls */
+  --girl-stand-width: clamp(98px, 9vw, 128px);
+  --girl-stand-x: 240px;
+  --girl-stand-y: 25px;
+  --girl-sit-width: clamp(98px, 9vw, 128px);
+  --girl-sit-x: 240px;
+  --girl-sit-y: 33px;
+  --girl-prompt-x: 138px;
+  --girl-prompt-y: -50px;
+  --girl-stand-width-mobile: var(--girl-stand-width);
+  --girl-stand-x-mobile: var(--girl-stand-x);
+  --girl-stand-y-mobile: var(--girl-stand-y);
+  --girl-sit-width-mobile: var(--girl-sit-width);
+  --girl-sit-x-mobile: var(--girl-sit-x);
+  --girl-sit-y-mobile: var(--girl-sit-y);
+  --girl-prompt-x-mobile: var(--girl-prompt-x);
+  --girl-prompt-y-mobile: var(--girl-prompt-y);
   --fence-height: clamp(46px, 5.4vh, 64px);
   --fence-bottom: calc(var(--river-height) + 4px);
   --street-bottom: var(--river-height);
@@ -300,6 +317,41 @@ body.intro-playing {
   pointer-events: none;
 }
 
+.objective-screen {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: clamp(24px, 6vw, 72px);
+  background: #ffffff;
+  color: #111111;
+  z-index: 990;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 720ms ease, visibility 720ms ease;
+}
+
+.objective-screen.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.objective-screen.is-fading {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.objective-screen-line {
+  width: min(700px, 100%);
+  margin: 0;
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(0.78rem, 2.2vw, 1.18rem);
+  line-height: 1.8;
+  text-align: center;
+  color: #111111;
+}
+
 .intro-dialog {
   display: grid;
   justify-items: center;
@@ -340,7 +392,6 @@ body.intro-playing {
   opacity: 0;
   transform: translateY(12px);
   text-shadow: 0 0 12px rgba(255, 255, 255, 0.08);
-  transition: opacity 520ms ease, transform 760ms ease;
   white-space: pre-wrap;
 }
 
@@ -351,7 +402,7 @@ body.intro-playing {
 
 .intro-line.is-leaving {
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(12px);
 }
 
 .intro-line.is-typing::after {
@@ -596,6 +647,14 @@ body::after {
   max-height: calc(100svh - clamp(58px, 10vh, 100px));
   margin-inline: auto;
   overflow: visible;
+  transition: opacity 900ms ease, filter 900ms ease, transform 900ms ease;
+}
+
+.scene-shell.is-ending .living-scene {
+  opacity: 0;
+  filter: blur(10px);
+  transform: scale(0.986);
+  pointer-events: none;
 }
 
 .scene-copy {
@@ -983,6 +1042,258 @@ body.season-winter .hill-layer::before {
   transform: translate(-50%, var(--scene-stack-shift));
   pointer-events: none;
   z-index: var(--z-hill-objects);
+}
+
+.girl-event {
+  position: absolute;
+  left: 50%;
+  bottom: var(--hill-bottom);
+  width: var(--girl-stand-width);
+  aspect-ratio: 3 / 4;
+  transform: translate(calc(-50% + var(--girl-stand-x)), calc(var(--scene-stack-shift) + var(--girl-stand-y)));
+  transform-origin: center bottom;
+  opacity: 0;
+  pointer-events: none;
+  z-index: calc(var(--z-hill-objects) + 1);
+}
+
+.girl-event.is-visible {
+  opacity: 1;
+  animation: girlAppear 720ms steps(5, end) both;
+}
+
+.girl-event.is-seated {
+  width: var(--girl-sit-width);
+  transform: translate(calc(-50% + var(--girl-sit-x)), calc(var(--scene-stack-shift) + var(--girl-sit-y)));
+  z-index: calc(var(--z-hill-objects) + 2);
+}
+
+.girl-sprite {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 10px 10px rgba(40, 30, 32, 0.14));
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.girl-prompt {
+  position: absolute;
+  left: 50%;
+  bottom: var(--hill-bottom);
+  transform: translate(calc(-50% + var(--girl-prompt-x)), calc(var(--scene-stack-shift) + var(--girl-prompt-y)));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 108px;
+  padding: 5px 8px;
+  border: 2px solid rgba(250, 245, 235, 0.92);
+  background: rgba(33, 27, 28, 0.9);
+  color: rgba(255, 249, 240, 0.96);
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.44rem;
+  line-height: 1.3;
+  text-align: center;
+  text-transform: uppercase;
+  box-shadow: 0 10px 22px rgba(22, 17, 18, 0.18);
+  pointer-events: none;
+  z-index: 20;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.girl-prompt.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.girl-dialogue {
+  position: absolute;
+  right: clamp(28px, 7vw, 92px);
+  left: auto;
+  bottom: calc(var(--hill-bottom) + var(--scene-stack-shift) + 98px);
+  width: min(340px, calc(100% - 48px));
+  padding: 12px 14px 10px;
+  border: 3px solid rgba(248, 243, 232, 0.94);
+  background: rgba(19, 16, 18, 0.92);
+  color: rgba(250, 247, 242, 0.96);
+  transform: none;
+  box-shadow: 0 16px 30px rgba(16, 14, 16, 0.24);
+  z-index: 24;
+}
+
+.girl-dialogue-speaker {
+  margin-bottom: 8px;
+  color: rgba(255, 215, 173, 0.98);
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.64rem;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.girl-dialogue-line {
+  min-height: 2.8em;
+  font-family: "Pixelify Sans", monospace;
+  font-size: 1rem;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+.girl-dialogue-hint {
+  margin-top: 10px;
+  text-align: right;
+  color: rgba(255, 240, 218, 0.78);
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.46rem;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.controls-overlay {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(18px, 4vh, 32px);
+  transform: translateX(-50%);
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  width: min(250px, 68vw);
+  padding: 10px 14px 11px;
+  border: 2px solid rgba(250, 245, 235, 0.78);
+  background: rgba(33, 27, 28, 0.8);
+  color: rgba(255, 249, 240, 0.96);
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.46rem;
+  line-height: 1.5;
+  text-align: center;
+  box-shadow: 0 14px 24px rgba(22, 17, 18, 0.14);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: auto;
+  z-index: 23;
+  transition: opacity 260ms ease, visibility 260ms ease;
+}
+
+.controls-overlay p {
+  margin: 0;
+}
+
+.controls-row {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.controls-keys {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.controls-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid rgba(250, 245, 235, 0.82);
+  background: rgba(255, 249, 240, 0.08);
+  color: inherit;
+  box-shadow: inset 0 -2px 0 rgba(255, 249, 240, 0.08);
+}
+
+.controls-key-icon {
+  width: 0.9rem;
+  height: 0.9rem;
+  display: block;
+  fill: currentColor;
+  shape-rendering: crispEdges;
+}
+
+.controls-overlay.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.ending-screen {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: clamp(28px, 6vh, 54px) clamp(20px, 5vw, 48px);
+  background:
+    linear-gradient(180deg, rgba(13, 11, 13, 0.18), rgba(13, 11, 13, 0.42)),
+    linear-gradient(180deg, rgba(255, 248, 238, 0.06), rgba(255, 248, 238, 0));
+  opacity: 0;
+  visibility: hidden;
+  z-index: 40;
+  transition: opacity 900ms ease, visibility 900ms ease;
+}
+
+.ending-screen.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.ending-memory {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  width: min(860px, 100%);
+}
+
+.ending-image {
+  display: block;
+  width: min(100%, 760px);
+  max-height: min(68svh, 760px);
+  object-fit: contain;
+  image-rendering: auto;
+  filter: drop-shadow(0 20px 32px rgba(18, 14, 16, 0.18));
+}
+
+.ending-copy {
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  text-align: center;
+  color: rgba(248, 243, 232, 0.96);
+  text-shadow: 0 2px 14px rgba(15, 12, 12, 0.2);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 900ms ease 220ms, transform 900ms ease 220ms;
+}
+
+.ending-screen.is-visible .ending-copy {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ending-title {
+  margin: 0;
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(0.56rem, 1.15vw, 0.8rem);
+  line-height: 1.7;
+  text-transform: uppercase;
+}
+
+.ending-line {
+  margin: 0;
+  font-family: "Silkscreen", sans-serif;
+  font-size: clamp(1.35rem, 2.7vw, 2.2rem);
+  line-height: 1.08;
+}
+
+.ending-hint {
+  margin: 10px 0 0;
+  color: rgba(248, 243, 232, 0.78);
+  font-family: "VT323", monospace;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .hill-tree {
@@ -1583,6 +1894,23 @@ body.season-winter .river-shine {
   }
 }
 
+@keyframes girlAppear {
+  0% {
+    opacity: 0;
+    transform: translate(
+      calc(-50% + var(--girl-stand-x)),
+      calc(var(--scene-stack-shift) + var(--girl-stand-y) + 18px)
+    ) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(
+      calc(-50% + var(--girl-stand-x)),
+      calc(var(--scene-stack-shift) + var(--girl-stand-y))
+    ) scale(1);
+  }
+}
+
 @keyframes catHop {
   0%,
   100% {
@@ -1836,6 +2164,15 @@ body.season-winter .river-shine {
     padding: 28px 22px 74px;
   }
 
+  .objective-screen {
+    padding: 28px 22px 56px;
+  }
+
+  .objective-screen-line {
+    font-size: clamp(0.56rem, 3.9vw, 0.82rem);
+    line-height: 1.9;
+  }
+
   .intro-dialog {
     transform: none;
   }
@@ -1864,7 +2201,7 @@ body.season-winter .river-shine {
 
   .living-scene {
     grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-rows: auto auto minmax(360px, 1fr) auto;
+    grid-template-rows: auto minmax(360px, 1fr) auto;
     column-gap: 12px;
     row-gap: 12px;
     height: calc(100svh - 30px);
@@ -1873,8 +2210,9 @@ body.season-winter .river-shine {
   }
 
   .scene-copy {
-    grid-column: 1 / -1;
-    max-width: 270px;
+    grid-column: 1;
+    grid-row: 1;
+    max-width: 222px;
     padding-top: 0;
   }
 
@@ -1925,7 +2263,8 @@ body.season-winter .river-shine {
   }
 
   .scene-stage {
-    grid-row: 3;
+    grid-column: 1 / -1;
+    grid-row: 2;
     min-height: 390px;
     margin-top: 6px;
     margin-bottom: 4px;
@@ -2030,25 +2369,117 @@ body.season-winter .river-shine {
     transform: translateX(-50%) scale(0.74);
   }
 
+  .girl-event {
+    width: var(--girl-stand-width-mobile, var(--girl-stand-width));
+    transform: translate(
+      calc(-50% + var(--girl-stand-x-mobile, var(--girl-stand-x))),
+      calc(var(--scene-stack-shift) + var(--girl-stand-y-mobile, var(--girl-stand-y)))
+    );
+  }
+
+  .girl-event.is-visible {
+    animation: none;
+    opacity: 1;
+  }
+
+  .girl-event.is-seated {
+    width: var(--girl-sit-width-mobile, var(--girl-sit-width));
+    transform: translate(
+      calc(-50% + var(--girl-sit-x-mobile, var(--girl-sit-x))),
+      calc(var(--scene-stack-shift) + var(--girl-sit-y-mobile, var(--girl-sit-y)))
+    );
+  }
+
+  .girl-prompt {
+    min-width: 94px;
+    padding: 4px 7px;
+    transform: translate(
+      calc(-50% + var(--girl-prompt-x-mobile, var(--girl-prompt-x))),
+      calc(var(--scene-stack-shift) + var(--girl-prompt-y-mobile, var(--girl-prompt-y)))
+    );
+    font-size: 0.36rem;
+  }
+
   .cat-stage {
     --cat-y: 126px;
     width: 104px;
   }
 
   .scene-notes {
-    grid-row: 3;
-    position: relative;
-    width: min(82vw, 320px);
-    margin-top: -185px;
-    margin-right: -10%;
-    margin-bottom: 0;
-    margin-left: auto;
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
+    align-self: start;
+    width: 170px;
+    margin: 0;
     padding: 0;
+    gap: 8px;
+  }
+
+  .memory-counter {
+    max-width: 170px;
+    justify-self: end;
   }
 
   .scene-notes p:last-child {
-    max-width: 30ch;
-    font-size: 1rem;
+    max-width: 18ch;
+    font-size: 0.94rem;
+    text-align: left;
+  }
+
+  .girl-dialogue {
+    right: 12px;
+    left: auto;
+    width: min(230px, calc(100% - 20px));
+    bottom: calc(var(--hill-bottom) + var(--scene-stack-shift) + 78px);
+    padding: 10px 10px 8px;
+  }
+
+  .controls-overlay {
+    width: min(210px, 66vw);
+    bottom: clamp(14px, 3vh, 22px);
+    padding: 8px 10px 9px;
+    font-size: 0.36rem;
+    gap: 5px;
+  }
+
+  .controls-row {
+    gap: 6px;
+  }
+
+  .controls-keys {
+    gap: 4px;
+  }
+
+  .controls-key {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .controls-key-icon {
+    width: 0.72rem;
+    height: 0.72rem;
+  }
+
+  .girl-dialogue-line {
+    min-height: 2.8em;
+    font-size: 0.92rem;
+  }
+
+  .ending-memory {
+    gap: 12px;
+  }
+
+  .ending-image {
+    max-height: min(56svh, 420px);
+  }
+
+  .ending-line {
+    font-size: clamp(1.16rem, 5vw, 1.56rem);
+  }
+
+  .ending-hint {
+    font-size: 0.9rem;
   }
 }
 
