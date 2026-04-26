@@ -1282,7 +1282,7 @@ body.season-winter .hill-layer::before {
 
 .ending-line {
   margin: 0;
-  font-family: "Silkscreen", sans-serif;
+  font-family: "Pixelify Sans", "Courier New", monospace;
   font-size: clamp(1.35rem, 2.7vw, 2.2rem);
   line-height: 1.08;
 }
